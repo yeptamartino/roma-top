@@ -3,11 +3,9 @@
   'name' => '',
   'email' => '',
   'phone' => '',
-  'noktp' => '',
   'address' => '',
-  'is_verified' => '',
   'role' => '',
-  'imagektp' => '',
+  'thumbnail' => '',
   'id' => null,
 ])
 
@@ -19,7 +17,7 @@
 
   <x-input
     type="file"
-    name="imagektp"
+    name="thumbnail"
     label="Gambar" 
   />
 
@@ -39,13 +37,6 @@
     name="phone"
     label="Phone"
     :value="$phone"
-  />
-
-  <x-input
-    name="no_ktp"
-    label="No KTP"
-    :value="$noktp"
-    type="number"
   />
 
   <x-input

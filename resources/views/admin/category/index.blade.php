@@ -14,6 +14,7 @@ Semua Kategori
   <table class="table">
     <thead>
       <tr>
+        <th>No.</th>
         <th>Nama Kategori</th>
         <th>Aksi</th>
       </tr>
@@ -22,6 +23,7 @@ Semua Kategori
       @if(count($categories) > 0)
       @foreach($categories as $category)
       <tr>
+        <td>{{ $loop->iteration }}</td>
         <td>{{ $category->name }}</td>
        <td>
         <a

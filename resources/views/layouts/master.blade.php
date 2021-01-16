@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{{ asset('adminlte/css/AdminLTE.min.css') }}">
     <link rel="stylesheet" href="{{ asset('adminlte/css/skins/_all-skins.min.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     @stack('styles')
      <!-- bootstrap wysihtml5 - text editor -->
     {{-- <link rel="stylesheet" href="{{ asset('adminlte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')}}"> --}}

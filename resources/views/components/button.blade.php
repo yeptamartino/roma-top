@@ -1,7 +1,7 @@
 @props([
   'type' => 'submit',
   'theme' => 'primary',
-  'size' => 'sm',
+  'size' => 'lg',
 ])
 
 <button type="{{ $type }}" class="btn btn-{{ $theme }} btn-{{ $size }} btn-icon icon-right">

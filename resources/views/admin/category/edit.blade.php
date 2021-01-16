@@ -1,11 +1,7 @@
 @extends('layouts.master')
 
-@section('admin-title')
-Create Product Category
-@endsection
-
 @section('subtitle')
-You can update product category here.
+UBAH KATEGORI
 @endsection
 
 @section('content')

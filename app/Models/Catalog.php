@@ -14,14 +14,19 @@ class Catalog extends Model
 	protected $table   = "catalogs";
 	protected $guarded = [];
 
-	public function product_category()
+	public function category()
 	{
-		return $this->belongsTo(ProductCategory::class);
+		return $this->belongsTo(Category::class);
 	}
+
+	public function stock()
+    {
+        return $this->hasMany(Stock::class);
+    }
 
 	public static $validation = [
 		'name'            => 'required|string|min:5',
-        'descriptions'    => 'required|string|min:5',
+        'description'    => 'required|string|min:5',
         'selling_price'   => 'required|string|min:5',
 		'capital_price'   => 'required|string|min:1',
 		'thumbnail'       => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',

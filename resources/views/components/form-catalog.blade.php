@@ -1,16 +1,13 @@
 @props([ 
   'action' => '',
   'name' => '',
-  'price' => '0',
-  'actual_price' => '0',
-  'productDetails' => '',
-  'howToUse' => '',
+  'description' => '',
   'thumbnail' =>'' ,
-  'tags' => '',
-  'weight' => '0',
+  'sellingPrice' => '0',
+  'capitalPrice' => '0',
   'id' => null,
-  'productCategory' => [],
-  'selectedProductCategoryId' => '',
+  'category' => [],
+  'selectedCategoryId' => '',
 ])
 
 <form action="{{ $action }}" method="POST" enctype="multipart/form-data">
@@ -23,28 +20,24 @@
     name="thumbnail"
     label="Product Thumbnail"    
   />
+
   <x-input
     name="name"
-    label="Product Name"
+    label="Nama Katalog"
     :value="$name"
   />
+
   <x-input
     type="number"
-    name="price"
-    label="Product Price"
-    :value="$price"
+    name="capital_price"
+    label="Harga Modal"
+    :value="$capitalPrice"
   />
   <x-input
     type="number"
-    name="actual_price"
-    label="Product Actual Price"
-    :value="$actual_price"
-  />
-  <x-input
-    type="number"
-    name="weight"
-    label="Product Weight (gram)"
-    :value="$weight"
+    name="selling_price"
+    label="Harga Penjualan"
+    :value="$sellingPrice"
   />
   <x-textarea
     name="description"
@@ -52,12 +45,11 @@
     :value="$description"
   />
 
-
   <div class="form-group">
-    <label for="ategory_id">Product Category*</label>
-    <select name=category_id" class="form-control">
-      @foreach($productCategory as $category)
-        @if($category->id === $selectedProductCategoryId)
+    <label for="category_id">Category*</label>
+    <select name="category_id" class="form-control">
+      @foreach($category as $category)
+        @if($category->id === $selectedCategoryId)
           <option value="{{$category->id}}" selected>{{$category->name}}</option>
         @else
           <option value="{{$category->id}}">{{$category->name}}</option>
@@ -68,11 +60,11 @@
 
   @if($id)
     <x-button>
-      Update Product
+      Ubah Katalog
     </x-button>
   @else
     <x-button>
-      Create Product
+      Tambahkan Katalog
     </x-button>
   @endif
 </form>

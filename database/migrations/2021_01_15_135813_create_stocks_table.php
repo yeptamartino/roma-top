@@ -15,7 +15,17 @@ class CreateStocksTable extends Migration
     {
         Schema::create('stocks', function (Blueprint $table) {
             $table->id();
+            $table->string('total');
+            $table->unsignedBigInteger('catalog_id')->nullable();
+            $table->foreign('catalog_id')
+                ->references('id')->on('catalogs')
+                ->onDelete('cascade');
+            $table->unsignedBigInteger('warehouse_id')->nullable();
+            $table->foreign('warehouse_id')
+                ->references('id')->on('warehouses')
+                ->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

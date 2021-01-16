@@ -29,8 +29,8 @@ class CatalogController extends Controller
 
   public function create()
   {
-    $catalog = Catalog::all();
-    return view('admin.catalog.create', compact('catalog'));
+    $category = Category::all();
+    return view('admin.catalog.create', compact('category'));
   }
 
   public function store(Request $request, ImageUploader $imageUploader)
@@ -47,7 +47,7 @@ class CatalogController extends Controller
 
     $catalog->save();
 
-    return redirect()->route('admin.catalogs');
+    return redirect()->route('admin.catalog');
   }
 
   public function edit($id)
@@ -73,13 +73,13 @@ class CatalogController extends Controller
 
     $catalog->save();
 
-    return redirect()->route('admin.catalogs');
+    return redirect()->route('admin.catalog');
   }
 
   public function delete($id)
   {
     $catalog = Catalog::findOrFail($id);
     $catalog->delete();
-    return redirect()->route('admin.catalogs');
+    return redirect()->route('admin.catalog');
   }
 }

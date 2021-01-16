@@ -12,17 +12,17 @@
 
   <x-input
     name="name"
-    label="Category Name"
+    label="Nama Kategori"
     :value="$name"
   />
 
   @if($id)
     <x-button>
-      Update Category
+    Ubah Kategori
     </x-button>
   @else
     <x-button>
-      Create Category
+    Tambahkan Kategori
     </x-button>
   @endif
 </form>
