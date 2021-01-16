@@ -2,7 +2,7 @@
 
 
 @section('subtitle')
-SEMUA KATALOG
+DAFTAR KATALOG
 @endsection
 
 @section('content')

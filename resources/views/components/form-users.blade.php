@@ -9,16 +9,15 @@
   'id' => null,
 ])
 
-<form action="{{ $action }}" method="POST" >
+<form action="{{ $action }}" method="POST" enctype="multipart/form-data">
   @if($id)
     @method('PUT')
   @endif
   @csrf
 
-  <x-input
-    type="file"
+  <x-input-files
     name="thumbnail"
-    label="Gambar" 
+    label="Foto"    
   />
 
   <x-input
@@ -35,7 +34,7 @@
 
   <x-input
     name="phone"
-    label="Phone"
+    label="Telepon"
     :value="$phone"
   />
 
@@ -53,11 +52,11 @@
 
   @if($id)
     <x-button>
-      Ubah
+      Ubah Admin
     </x-button>
   @else
     <x-button>
-      Tambah
+      Tambah Admin
     </x-button>
   @endif
 </form>

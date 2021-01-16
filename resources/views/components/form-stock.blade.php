@@ -53,7 +53,7 @@
     </x-button>
   @else
     <x-button>
-      Tambahkan Stok
+      Tambah Stok
     </x-button>
   @endif
 </form>

@@ -38,29 +38,7 @@ class UserSeeder extends Seeder
 
         $user->save();
 
-      $user = new User([
-        'name' => 'Yepta Martino',
-        'email' => 'yeptamartino@gmail.com',
-        'address' => 'Banyuwangi',
-        'phone' => '082324248727',
-        'role' => Constants::$USER_ROLE_CUSTOMER,
-        'password' => bcrypt('customer@@'),
-        'thumbnail' => 'ktp.jpg',
-      ]);        
-
-      $user->save();
-
-      $user = new User([
-        'name' => 'Galih Laras Prakoso',
-        'email' => 'galih@gmail.com',
-        'address' => 'Madiun',
-        'phone' => '082324248727',
-        'role' => Constants::$USER_ROLE_CUSTOMER,
-        'password' => bcrypt('customer@@'),
-        'thumbnail' => 'https://coconuts.co/wp-content/uploads/2019/02/Chinese-e-KTP.jpg',
-      ]);
-
-      $user->save();
+        
 
     }
 }

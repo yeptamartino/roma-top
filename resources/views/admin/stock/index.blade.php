@@ -2,7 +2,7 @@
 
 
 @section('subtitle')
-SEMUA STOK
+DAFTAR STOK
 @endsection
 
 @section('content')

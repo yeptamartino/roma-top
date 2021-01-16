@@ -6,7 +6,7 @@
     </div>
   </div>
   <!-- sidebar menu: : style can be found in sidebar.less -->
-  <ul class="sidebar-menu" data-widget="tree">
+  <ul class="sidebar-menu" data-widget="tree" style="margin-bottom: 100px">
     <li class="header">KONTEN APLIKASI</li>
    
     <li><a href="{{route('admin.dashboard')}}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
@@ -99,7 +99,7 @@
 
       <li>
         <a href="{{ route('logout') }}" onclick="event.preventDefault();
-           document.getElementById('logout-form').submit();"><i class="fa fa-sign-out" style="padding-bottom: 50px;"></i><span>Logout</span></a>
+           document.getElementById('logout-form').submit();"><i class="fa fa-sign-out"></i><span>Logout</span></a>
           <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
             @csrf
           </form>       

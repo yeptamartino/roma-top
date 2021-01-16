@@ -64,7 +64,7 @@
     </x-button>
   @else
     <x-button>
-      Tambahkan Katalog
+      Tambah Katalog
     </x-button>
   @endif
 </form>

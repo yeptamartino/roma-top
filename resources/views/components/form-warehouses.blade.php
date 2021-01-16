@@ -34,7 +34,7 @@
     </x-button>
   @else
     <x-button>
-      Create Gudang
+      Tambah Gudang
     </x-button>
   @endif
 </form>

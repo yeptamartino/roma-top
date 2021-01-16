@@ -2,7 +2,7 @@
 
 
 @section('subtitle')
-SEMUA GUDANG
+DAFTAR GUDANG
 @endsection
 
 @section('content')

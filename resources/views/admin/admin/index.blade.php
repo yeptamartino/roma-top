@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('subtitle')
-Daftar Admin ({{ $admins_count }})
+DAFTAR ADMIN
 @endsection
 
 @section('content')
@@ -64,10 +64,15 @@ Daftar Admin ({{ $admins_count }})
         <td>{{ $admin->name }}</td>
         <td>{{ $admin->email }}</td>
         <td> 
-          @if( $admin->thumbnail == '')
-          <a class="btn btn-primary btn-xs">Foto KTP belum ada.</a>
+          @if($admin->thumbnail)
+          <img src="{{ asset('images/'.$admin->thumbnail) }}" 
+          alt=""
+          style="max-width: 8em;">
           @else
-            <img src=" {{ $admin->thumbnail }}" width="100"/>
+          <img src="{{ asset('images/default-image.png')}}" 
+          alt="" 
+          class="img img-responsive" 
+          style="max-width: 8em;">
           @endif
         </td>
       

@@ -1,9 +1,5 @@
 @extends('layouts.master')
 
-@section('title')
-Admin
-@endsection
-
 @section('subtitle')
 Tambah Admin
 @endsection

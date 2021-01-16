@@ -20,7 +20,7 @@ Route::get('/', function () {
 });
 
 Route::group(['middleware' => 'auth'], function (){
-        Route::get('home', [App\Http\Controllers\Admin\AdminController::class,'dashboard'])->name('admin.dashboard');
+        Route::get('home', [App\Http\Controllers\Admin\DashboardController::class,'dashboard'])->name('admin.dashboard');
 
         Route::get('category', [App\Http\Controllers\Admin\CategoryController::class,'index'])->name('admin.category');
         Route::get('category/create', [App\Http\Controllers\Admin\CategoryController::class,'create'])->name('admin.category.create');
@@ -51,7 +51,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::put('warehouse.update/{id}', [App\Http\Controllers\Admin\WarehouseController::class,'update'])->name('admin.warehouse.update');
         Route::delete('warehouse.delete/{id}', [App\Http\Controllers\Admin\WarehouseController::class,'delete'])->name('admin.warehouse.delete');
 
-        Route::get('admin', [App\Http\Controllers\Admin\AdminController::class,'admin'])->name('admin.admin');
+        Route::get('admin', [App\Http\Controllers\Admin\AdminController::class,'index'])->name('admin.admin');
         Route::get('admin/create', [App\Http\Controllers\Admin\AdminController::class,'create'])->name('admin.admin.create');
         Route::post('admin.create', [App\Http\Controllers\Admin\AdminController::class,'store'])->name('admin.admin.store');
         Route::get('admin.edit/{id}', [App\Http\Controllers\Admin\AdminController::class,'edit'])->name('admin.admin.edit');

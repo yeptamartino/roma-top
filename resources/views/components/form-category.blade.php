@@ -22,7 +22,7 @@
     </x-button>
   @else
     <x-button>
-    Tambahkan Kategori
+    Tambah Kategori
     </x-button>
   @endif
 </form>

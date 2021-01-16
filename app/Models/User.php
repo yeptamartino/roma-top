@@ -26,6 +26,23 @@ class User extends Authenticatable
         'password',
     ];
 
+    public static function getValidation($idExcepted = null) {
+        if($idExcepted) {
+          return [
+            'name' => 'required|string|min:5',
+            'email' => 'email|unique:users,email,' . $idExcepted,
+            'address' => 'required|string|min:5',
+            'phone' => 'required|string|min:10|max:13|unique:users,phone,'. $idExcepted,
+          ];
+        }
+        return [
+          'name' => 'required|string|min:5',
+          'email' => 'email|unique:users,email',
+          'address' => 'required|string|min:5',
+          'phone' => 'required|string|min:10|max:13|unique:users,phone',
+        ];
+      }
+
     /**
      * The attributes that should be hidden for arrays.
      *

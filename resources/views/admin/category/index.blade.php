@@ -1,11 +1,8 @@
 @extends('layouts.master')
 
-@section('admin-title')
-Kategori
-@endsection
 
 @section('subtitle')
-Semua Kategori
+DAFTAR KATEGORI
 @endsection
 
 @section('content')

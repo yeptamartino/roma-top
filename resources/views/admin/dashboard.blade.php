@@ -32,13 +32,13 @@ Dashboard
       <div class="col-lg-3 col-xs-6">
         <div class="small-box bg-yellow">
           <div class="inner">
-            <h3>3000</h3>
+            <h3>{{$stock_count}}</h3>
             <p>Total Stok</p>
           </div>
           <div class="icon">
             <i class="fa fa-database"></i>
           </div>
-        <a href="" class="small-box-footer">Detail <i class="fa fa-arrow-circle-right"></i></a>
+        <a href="{{route('admin.stock')}}" class="small-box-footer">Detail <i class="fa fa-arrow-circle-right"></i></a>
         </div>
       </div>
       <div class="col-lg-3 col-xs-6">

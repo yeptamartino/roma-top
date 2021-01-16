@@ -20,20 +20,19 @@ class UserController extends Controller {
         })
         ->paginate(Constants::$DEFAULT_PAGINATION_COUNT);
       } else {
-        $users = User::where('role', Constants::$USER_ROLE_CUSTOMER)
+        $users = User::where('role', Constants::$USER_ROLE_ADMIN)
           ->orderBy('created_at', 'desc')
           ->paginate(Constants::$DEFAULT_PAGINATION_COUNT);
       }   
-      return view('admin.users.index', compact('users'));
+      return view('admin.admin.index', compact('users'));
     }
   
     public function create() {
       
-      return view('admin.users.create');
+      return view('admin.admin.create');
     }
   
     public function store(Request $request, ImageUploader $imageUploader) {
-      $request->validate(User::$validation);
       $user = new User([
         'name' => $request->input('name'),
         'email' => $request->input('email'),
@@ -44,21 +43,20 @@ class UserController extends Controller {
       $user->thumbnail = $imageUploader->saveImage($request, 'thumbnail');
       $user->save();
       Flash::success('Data user berhasil di tambahkan.');
-      return redirect()->route('admin.users');
+      return redirect()->route('admin.admin');
     }
 
     public function show($id) {
       $user = User::findOrFail($id);
-      return view('admin.users.detail', compact('user'));
+      return view('admin.admin.detail', compact('user'));
     }
   
     public function edit($id) {
       $user = User::findOrFail($id);
-      return view('admin.users.edit', compact('user'));
+      return view('admin.admin.edit', compact('user'));
     }
   
     public function update($id, Request $request, ImageUploader $imageUploader) {
-      $request->validate(User::$validation);
       $user = User::findOrFail($id);
       $user->name = $request->input('name');
       $user->email = $request->input('email');
@@ -70,13 +68,13 @@ class UserController extends Controller {
       }
       $user->save();
       Flash::success('Data user berhasil di ubah.');
-      return redirect()->route('admin.users');
+      return redirect()->route('admin.admin');
     }
   
     public function delete($id) {
       $user = User::findOrFail($id);
       $user->delete();
       Flash::error('Data user berhasil di hapus.');
-      return redirect()->route('admin.users');
+      return redirect()->route('admin.admin');
     }
 }
