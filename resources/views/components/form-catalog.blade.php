@@ -39,15 +39,9 @@
     label="Harga Penjualan"
     :value="$sellingPrice"
   />
-  <x-textarea
-    name="description"
-    label="Deskripsi"
-    :value="$description"
-  />
-
   <div class="form-group">
     <label for="category_id">Category*</label>
-    <select name="category_id" class="form-control">
+    <select name="category_id" class="form-control select2" style="width:100%">
       @foreach($category as $category)
         @if($category->id === $selectedCategoryId)
           <option value="{{$category->id}}" selected>{{$category->name}}</option>
@@ -57,6 +51,11 @@
       @endforeach
     </select>
   </div>
+  <x-textarea
+    name="description"
+    label="Deskripsi"
+    :value="$description"
+  />  
 
   @if($id)
     <x-button>

@@ -23,7 +23,7 @@
 
   <div class="form-group">
     <label for="catalog_id">Katalog*</label>
-    <select name="catalog_id" class="form-control">
+    <select name="catalog_id" class="form-control select2" style="width:100%">
       @foreach($catalog as $catalog)
         @if($catalog->id === $selectedCatalogId)
           <option value="{{$catalog->id}}" selected>{{$catalog->name}}</option>
@@ -36,7 +36,7 @@
 
   <div class="form-group">
     <label for="warehouse_id">Gudang*</label>
-    <select name="warehouse_id" class="form-control">
+    <select name="warehouse_id" class="form-control select2" style="width:100%">
       @foreach($warehouse as $warehouse)
         @if($warehouse->id === $selectedWarehouseId)
           <option value="{{$warehouse->id}}" selected>{{$warehouse->name}}</option>

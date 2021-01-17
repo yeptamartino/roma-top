@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{{ asset('adminlte/css/skins/_all-skins.min.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('adminlte/bower_components/select2/dist/css/select2.min.css')}}">
     @stack('styles')
      <!-- bootstrap wysihtml5 - text editor -->
     {{-- <link rel="stylesheet" href="{{ asset('adminlte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')}}"> --}}
@@ -48,21 +49,32 @@
   </div>
  <x-footer></x-footer>
 </div>
+
+
 <script src="{{ asset('adminlte/bower_components/jquery/dist/jquery.min.js')}}"></script>
 <script src="{{ asset('adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
 <script src="{{ asset('adminlte/bower_components/jquery-slimscroll/jquery.slimscroll.min.js')}}"></script>
 <script src="{{ asset('adminlte/bower_components/fastclick/lib/fastclick.js')}}"></script>
 <script src="{{ asset('adminlte/js/adminlte.min.js')}}"></script>
+<script src="{{ asset('adminlte//bower_components/select2/dist/js/select2.full.min.js')}}"></script>
 
 @stack('scripts')
+
 
 <!-- Bootstrap WYSIHTML5 -->
 {{-- <script src="{{ asset('adminlte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')}}"></script> --}}
 <script>
+  $(function () {
+    //Initialize Select2 Elements
+    $('.select2').select2()
+
+  })
+
   $(document).ready(function () {
     $('.sidebar-menu').tree()
   })
 </script>
+
 {{-- <script>
   $(function () {
     $('.textarea').wysihtml5()
