@@ -57,4 +57,18 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('admin.edit/{id}', [App\Http\Controllers\Admin\AdminController::class,'edit'])->name('admin.admin.edit');
         Route::put('admin.update/{id}', [App\Http\Controllers\Admin\AdminController::class,'update'])->name('admin.admin.update');
         Route::delete('admin.delete/{id}', [App\Http\Controllers\Admin\AdminController::class,'delete'])->name('admin.admin.delete');
+        
+        Route::get('customer', [App\Http\Controllers\Admin\CustomerController::class,'index'])->name('admin.customer');
+        Route::get('customer/create', [App\Http\Controllers\Admin\CustomerController::class,'create'])->name('admin.customer.create');
+        Route::post('customer.create', [App\Http\Controllers\Admin\CustomerController::class,'store'])->name('admin.customer.store');
+        Route::get('customer.edit/{id}', [App\Http\Controllers\Admin\CustomerController::class,'edit'])->name('admin.customer.edit');
+        Route::put('customer.update/{id}', [App\Http\Controllers\Admin\CustomerController::class,'update'])->name('admin.customer.update');
+        Route::delete('customer.delete/{id}', [App\Http\Controllers\Admin\CustomerController::class,'delete'])->name('admin.customer.delete');
+
+          Route::get('customer', [App\Http\Controllers\Admin\CustomerController::class,'index'])->name('admin.customer');
+        Route::get('customer/create', [App\Http\Controllers\Admin\CustomerController::class,'create'])->name('admin.customer.create');
+        Route::post('customer.create', [App\Http\Controllers\Admin\CustomerController::class,'store'])->name('admin.customer.store');
+        Route::get('customer.edit/{id}', [App\Http\Controllers\Admin\CustomerController::class,'edit'])->name('admin.customer.edit');
+        Route::put('customer.update/{id}', [App\Http\Controllers\Admin\CustomerController::class,'update'])->name('admin.customer.update');
+        Route::delete('customer.delete/{id}', [App\Http\Controllers\Admin\CustomerController::class,'delete'])->name('admin.customer.delete');
     });
