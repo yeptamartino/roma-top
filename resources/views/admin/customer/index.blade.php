@@ -16,11 +16,11 @@ DAFTAR CUSTOMER
         <th>Alamat</th>
         <th>Telepon</th>
         <th>Email</th>
-        <th>First Visit</th>
-        <th>Last Visit</th>
-        <th>Total Visit</th>
-        <th>Total Paid</th>
-        <th>Point</th>
+        <th>Kunjungan Pertama</th>
+        <th>Kunjuang Teralhir</th>
+        <th>Total Kunjuang</th>
+        <th>Total Bayaran</th>
+        <th>Poin</th>
         <th>Foto</th>
         <th>Aksi</th>
       </tr>

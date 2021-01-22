@@ -82,7 +82,7 @@
         </ul>
       </li>
       <li class="header">KONFIGURASI</li>
-
+        
       <li class="treeview">
         <a href="#">
           <i class="fa fa-user-plus"></i>
@@ -110,6 +110,8 @@
           <li><a href="{{route('admin.admin.create')}}"><i class="fa fa-circle-o"></i>Tambah Admin</a></li>
         </ul>
       </li>
+
+      <li><a href="{{route('admin.setting.edit')}}"><i class="fa fa-circle-o"></i>Setting</a></li> <span>Pengaturan</span></a></li>
 
       <li>
         <a href="{{ route('logout') }}" onclick="event.preventDefault();

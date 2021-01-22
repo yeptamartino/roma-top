@@ -54,32 +54,32 @@
   />
   <x-input
   name="first_visit"
-  label="First Visit"
+  label="Kunjunagn Pertama"
   :value="$firstVisit"
   type="date"
   />
   <x-input
   name="last_visit"
-  label="Last Visit"
+  label="Kunjungan Terakhir"
   :value="$lastVisit"
   type="date"
   />
   <x-input
   name="total_visit"
-  label="Total Visit"
+  label="Total Kunjungan"
   :value="$totalVisit"
   type="number"
   />
   <x-input
   name="total_paid"
-  label="Total Paid"
+  label="Total Bayaran"
   :value="$totalPaid"
   type="number"
   />
 
   <x-input
   name="point"
-  label="Point"
+  label="Poin"
   :value="$point"
   type="number"
   /> 
