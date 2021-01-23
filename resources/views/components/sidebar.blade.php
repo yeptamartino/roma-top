@@ -10,6 +10,7 @@
     <li class="header">KONTEN APLIKASI</li>
    
     <li><a href="{{route('admin.dashboard')}}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+    <li><a href="{{route('admin.sales')}}"><i class="fa fa-money"></i> <span>Penjualan</span></a></li>
 
     {{-- <li class="treeview">
       <a href="#">

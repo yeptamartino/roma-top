@@ -50,7 +50,6 @@
  <x-footer></x-footer>
 </div>
 
-
 <script src="{{ asset('adminlte/bower_components/jquery/dist/jquery.min.js')}}"></script>
 <script src="{{ asset('adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
 <script src="{{ asset('adminlte/bower_components/jquery-slimscroll/jquery.slimscroll.min.js')}}"></script>
