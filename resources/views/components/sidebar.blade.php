@@ -127,7 +127,7 @@
         </ul>
       </li>
 
-      <li><a href="{{route('admin.payment')}}"><i class="fa fa-circle-o"></i>Payment</a></li></a></li>
+      <li><a href="{{route('admin.payment')}}"><i class="fa fa-circle-o"></i>Metode Pembayaran</a></li></a></li>
       <li><a href="{{route('admin.setting.edit')}}"><i class="fa fa-circle-o"></i>Setting</a></li></a></li>
 
       <li>
