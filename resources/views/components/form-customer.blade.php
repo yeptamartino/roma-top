@@ -4,11 +4,6 @@
   'address' => '',
   'phone' => '',
   'email' => '',
-  'firstVisit' => '',
-  'lastVisit' => '',
-  'totalVisit' => '',
-  'totalPaid' => '',
-  'point' => '',
   'note' =>'' ,
   'thumbnail' =>'' ,
   'id' => null,
@@ -52,37 +47,6 @@
   label="Email"
   :value="$email"
   />
-  <x-input
-  name="first_visit"
-  label="Kunjunagn Pertama"
-  :value="$firstVisit"
-  type="date"
-  />
-  <x-input
-  name="last_visit"
-  label="Kunjungan Terakhir"
-  :value="$lastVisit"
-  type="date"
-  />
-  <x-input
-  name="total_visit"
-  label="Total Kunjungan"
-  :value="$totalVisit"
-  type="number"
-  />
-  <x-input
-  name="total_paid"
-  label="Total Bayaran"
-  :value="$totalPaid"
-  type="number"
-  />
-
-  <x-input
-  name="point"
-  label="Poin"
-  :value="$point"
-  type="number"
-  /> 
   
   <x-input
   name="note"

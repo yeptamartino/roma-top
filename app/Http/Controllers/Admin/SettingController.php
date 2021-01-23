@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Setting;
+use App\Helpers\ImageUploader;
 use Flash;
 
 class SettingController extends Controller
@@ -15,13 +16,16 @@ class SettingController extends Controller
     return view('admin.setting.edit', compact('setting'));
   }
 
-  public function update(Request $request)
+  public function update(Request $request, ImageUploader $imageUploader)
   {
   
     $setting = Setting::latest()->first();
 
-    $setting->name = $request->input('name');
-    $setting->is_active = $request->input('is_active');
+    if($request->file('thumbnail')) {
+      $setting->thumbnail    = $imageUploader->saveImage($request, 'thumbnail');
+    }
+
+    
     
     $setting->save();
     

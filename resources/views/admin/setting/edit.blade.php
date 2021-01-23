@@ -9,7 +9,6 @@ Edit Pengaturan
 <x-form-settings
 :action="route('admin.setting.update')"
 :id="$setting->id"
-:name="$setting->name"
-:isActive="$setting->is_active"
+:thumbnail="$setting->thumbnail"
 />
 @endsection

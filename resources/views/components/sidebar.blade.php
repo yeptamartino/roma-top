@@ -82,7 +82,22 @@
         </ul>
       </li>
       <li class="header">KONFIGURASI</li>
-        
+
+      <li class="treeview">
+        <a href="#">
+          <i class="fa fa-percent"></i>
+          <span>Diskon</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="{{route('admin.discount')}}"><i class="fa fa-circle-o"></i>Daftar Diskon</a></li>
+          <li><a href="{{route('admin.discount.create')}}"><i class="fa fa-circle-o"></i>Tambah Diskon</a></li>
+        </ul>
+      </li>
+
+
       <li class="treeview">
         <a href="#">
           <i class="fa fa-user-plus"></i>
@@ -92,8 +107,8 @@
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href="{{route('admin.customer')}}"><i class="fa fa-circle-o"></i>Daftar Customerd</a></li>
-          <li><a href="{{route('admin.customer.create')}}"><i class="fa fa-circle-o"></i>Tambah Customerd</a></li>
+          <li><a href="{{route('admin.customer')}}"><i class="fa fa-circle-o"></i>Daftar Customer</a></li>
+          <li><a href="{{route('admin.customer.create')}}"><i class="fa fa-circle-o"></i>Tambah Customer</a></li>
         </ul>
       </li>
 
@@ -111,7 +126,8 @@
         </ul>
       </li>
 
-      <li><a href="{{route('admin.setting.edit')}}"><i class="fa fa-circle-o"></i>Setting</a></li> <span>Pengaturan</span></a></li>
+      <li><a href="{{route('admin.payment')}}"><i class="fa fa-circle-o"></i>Payment</a></li></a></li>
+      <li><a href="{{route('admin.setting.edit')}}"><i class="fa fa-circle-o"></i>Setting</a></li></a></li>
 
       <li>
         <a href="{{ route('logout') }}" onclick="event.preventDefault();

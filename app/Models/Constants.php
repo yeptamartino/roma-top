@@ -8,5 +8,7 @@ class Constants {
 
     public static $USER_ROLE_SUPER_ADMIN = 'SUPER ADMIN';
     public static $USER_ROLE_ADMIN = 'ADMIN';
+    public static $PERCENTAGE = 'PERCENTAGE';
+    public static $AMOUNT = 'AMOUNT';
 
 }

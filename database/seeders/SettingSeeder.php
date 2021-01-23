@@ -14,8 +14,7 @@ class SettingSeeder extends Seeder
     public function run()
     {
         $settings = new Setting([
-            'name' => 'Transfer Bca',
-            'is_active' => 'TERKIRIM',
+            'thumbnail' => 'default.png',
         ]);
 
         $settings->save();

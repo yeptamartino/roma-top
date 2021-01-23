@@ -65,12 +65,19 @@ Route::group(['middleware' => 'auth'], function (){
         Route::put('customer.update/{id}', [App\Http\Controllers\Admin\CustomerController::class,'update'])->name('admin.customer.update');
         Route::delete('customer.delete/{id}', [App\Http\Controllers\Admin\CustomerController::class,'delete'])->name('admin.customer.delete');
 
-        Route::get('customer', [App\Http\Controllers\Admin\CustomerController::class,'index'])->name('admin.customer');
-        Route::get('customer/create', [App\Http\Controllers\Admin\CustomerController::class,'create'])->name('admin.customer.create');
-        Route::post('customer.create', [App\Http\Controllers\Admin\CustomerController::class,'store'])->name('admin.customer.store');
-        Route::get('customer.edit/{id}', [App\Http\Controllers\Admin\CustomerController::class,'edit'])->name('admin.customer.edit');
-        Route::put('customer.update/{id}', [App\Http\Controllers\Admin\CustomerController::class,'update'])->name('admin.customer.update');
-        Route::delete('customer.delete/{id}', [App\Http\Controllers\Admin\CustomerController::class,'delete'])->name('admin.customer.delete');
+        Route::get('payment', [App\Http\Controllers\Admin\PaymentMethodController::class,'index'])->name('admin.payment');
+        Route::get('payment/create', [App\Http\Controllers\Admin\PaymentMethodController::class,'create'])->name('admin.payment.create');
+        Route::post('payment.create', [App\Http\Controllers\Admin\PaymentMethodController::class,'store'])->name('admin.payment.store');
+        Route::get('payment.edit/{id}', [App\Http\Controllers\Admin\PaymentMethodController::class,'edit'])->name('admin.payment.edit');
+        Route::put('payment.update/{id}', [App\Http\Controllers\Admin\PaymentMethodController::class,'update'])->name('admin.payment.update');
+        Route::delete('payment.delete/{id}', [App\Http\Controllers\Admin\PaymentMethodController::class,'delete'])->name('admin.payment.delete');
+        
+        Route::get('discount', [App\Http\Controllers\Admin\DiscountController::class,'index'])->name('admin.discount');
+        Route::get('discount/create', [App\Http\Controllers\Admin\DiscountController::class,'create'])->name('admin.discount.create');
+        Route::post('discount.create', [App\Http\Controllers\Admin\DiscountController::class,'store'])->name('admin.discount.store');
+        Route::get('discount.edit/{id}', [App\Http\Controllers\Admin\DiscountController::class,'edit'])->name('admin.discount.edit');
+        Route::put('discount.update/{id}', [App\Http\Controllers\Admin\DiscountController::class,'update'])->name('admin.discount.update');
+        Route::delete('discount.delete/{id}', [App\Http\Controllers\Admin\DiscountController::class,'delete'])->name('admin.discount.delete');
 
         Route::get('setting', [App\Http\Controllers\Admin\SettingController::class,'edit'])->name('admin.setting.edit');
         Route::put('setting.update', [App\Http\Controllers\Admin\SettingController::class,'update'])->name('admin.setting.update');
