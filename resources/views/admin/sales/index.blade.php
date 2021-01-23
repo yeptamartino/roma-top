@@ -106,7 +106,9 @@ Penjualan
           <div class="col-md-12">
             <table class="table table-bordered">
               <tr>
-                <td>Subtotal</td>
+                <td>
+                  <b>Subtotal</b>
+                </td>
                 <td>@{{
                   formatRupiah(
                     carts.reduce((result, cartItem) => result + (cartItem.selling_price * cartItem.quantity), 0)
@@ -114,11 +116,17 @@ Penjualan
                 }}</td>
               </tr>
               <tr>
-                <td>Diskon</td>
+                <td>
+                  <b>
+                    Diskon
+                  </b>
+                </td>
                 <td>-Rp. 0,-</td>
               </tr>
               <tr>
-                <td style="width: 6em;">Ongkir</td>
+                <td style="width: 6em;">
+                  <b>Ongkir</b>
+                </td>
                 <td>
                   <input type="number" style="width: 6em;" class="form-control" v-model="ongkir">
                 </td>
