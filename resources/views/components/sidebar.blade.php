@@ -87,6 +87,20 @@
       <li class="treeview">
         <a href="#">
           <i class="fa fa-user-plus"></i>
+          <span>Customer</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="{{route('admin.customer')}}"><i class="fa fa-circle-o"></i>Daftar Customerd</a></li>
+          <li><a href="{{route('admin.customer.create')}}"><i class="fa fa-circle-o"></i>Tambah Customerd</a></li>
+        </ul>
+      </li>
+
+      <li class="treeview">
+        <a href="#">
+          <i class="fa fa-user-plus"></i>
           <span>Admin</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
@@ -97,6 +111,8 @@
           <li><a href="{{route('admin.admin.create')}}"><i class="fa fa-circle-o"></i>Tambah Admin</a></li>
         </ul>
       </li>
+
+      <li><a href="{{route('admin.setting.edit')}}"><i class="fa fa-circle-o"></i>Setting</a></li> <span>Pengaturan</span></a></li>
 
       <li>
         <a href="{{ route('logout') }}" onclick="event.preventDefault();
