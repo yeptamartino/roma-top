@@ -70,6 +70,36 @@ Penjualan
     </div>
   </div>
 
+  <div class="modal fade" id="modal-pick-payment-method">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span></button>
+          <h4 class="modal-title">Pilih Metode Pembayaran</h4>
+        </div>
+        <div class="modal-body table-responsive">
+          <table id="payments" class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Nama</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="payment in payment_methods">
+                <td>@{{ payment.name }}</td>
+                <td>
+                  <a href="#" v-on:click="selectPaymentMethod(payment)" data-dismiss="modal" class="btn btn-success">Pilih</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
     <div class="row">
       <div class="col-md-4">
         <div class="input-group">  
@@ -84,6 +114,14 @@ Penjualan
           <input placeholder="Diskon" class="form-control" :value="[[ selectedDiscount ? selectedDiscount.name : '' ]]" disabled>
           <span class="input-group-btn">
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-pick-discount">Pilih Diskon</button>
+          </span>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="input-group">  
+          <input placeholder="Metode Pembayaran" class="form-control" :value="[[ selectedPaymentMethod ? selectedPaymentMethod.name : '' ]]" disabled>
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-pick-payment-method">Pilih Metode Pembayaran</button>
           </span>
         </div>
       </div>
@@ -217,6 +255,22 @@ Penjualan
         </div>
         <div class="row">
           <div class="col-md-12">
+            <label>Total Bayar</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <table class="table table-bordered">
+              <tr>
+                <td>
+                  <input type="number" style="width: 8em;" class="form-control" v-model="totalPaid">
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
             <form action="">
               <x-button theme="success">Buat Transaksi</x-button>
             </form>
@@ -243,13 +297,16 @@ Penjualan
         categories: @json($categories),
         discounts: @json($discounts),
         customers: @json($customers),
+        payment_methods: @json($payment_methods),
 
         carts: [],
         subTotal: 0,
         selectedCategory: 'ALL',
         selectedCustomer: null,
         selectedDiscount: null,
+        selectedPaymentMethod: null,
         ongkir: 0,
+        totalPaid: 0,
         note: '',
       },
       mounted: function () {
@@ -289,6 +346,9 @@ Penjualan
         },
         selectDiscount: function(discount) {
           this.selectedDiscount = discount;
+        },
+        selectPaymentMethod: function(payment_method) {
+          this.selectedPaymentMethod = payment_method;
         },
 
         hitungSubTotal: function() {
