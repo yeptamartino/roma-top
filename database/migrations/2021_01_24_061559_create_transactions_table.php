@@ -15,16 +15,20 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->string('payment_method');
-            $table->integer('total_paid');
-            $table->integer('total_discount');
+            $table->string('payment_method')->nullable();
+            $table->integer('total_paid'); 
             $table->integer('total_ongkir');
-            // $table->unsignedBigInteger('voucher_id')->nullable();
-            // $table->foreign('voucher_id')
-            //     ->references('id')->on('vouchers')
-            //     ->onDelete('cascade');
-            $table->integer('note');
+            $table->unsignedBigInteger('discount_id')->nullable();
+            $table->foreign('discount_id')
+                ->references('id')->on('discounts')
+                ->onDelete('cascade');
+            $table->unsignedBigInteger('customer_id')->nullable();
+            $table->foreign('customer_id')
+                ->references('id')->on('customers')
+                ->onDelete('cascade');
+            $table->integer('note')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

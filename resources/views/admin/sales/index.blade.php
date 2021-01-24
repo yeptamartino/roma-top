@@ -284,12 +284,22 @@ Penjualan
         <div class="row">
           <div class="col-md-12">
             <form action="">
-              <x-button theme="success">Buat Transaksi</x-button>
+              <button type="button" v-on:click="buatTransaksi" class="btn btn-success">Buat Transaksi</button>
             </form>
           </div>
         </div>
       </div>
     </div>
+    <form id="sales-form" action="{{ route('admin.sales.create-transaction') }}" method="POST">
+      @csrf
+      <input name="payment_method" type="hidden" :value="[[ selectedPaymentMethod ? selectedPaymentMethod.name : '' ]]">
+      <input name="customer_id" type="hidden" :value="[[ selectedCustomer ? selectedCustomer.id : '' ]]">
+      <input name="discount_id" type="hidden" :value="[[ selectedDiscount ? selectedDiscount.id : '' ]]">
+      <input name="total_paid" type="hidden" :value="[[ totalPaid ]]">
+      <input name="total_ongkir" type="hidden" :value="[[ ongkir ]]">
+      <input name="note" type="hidden" :value="[[ note ]]">
+      <input name="carts" type="hidden" :value="[[ JSON.stringify(carts) ]]">
+    </form>
   </div>
 @endsection
 
@@ -392,6 +402,10 @@ Penjualan
             return 0;
           }
           return parseInt(this.totalPaid) - this.hitungTotalPenjualan();
+        },
+        buatTransaksi: function () {
+          const formSales = document.getElementById('sales-form');
+          formSales.submit();
         },
 
         formatRupiah: function formatRupiah(angka){

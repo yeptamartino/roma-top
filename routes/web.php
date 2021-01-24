@@ -83,10 +83,5 @@ Route::group(['middleware' => 'auth'], function (){
     Route::put('setting.update', [App\Http\Controllers\Admin\SettingController::class,'update'])->name('admin.setting.update');
 
     Route::get('sales', [App\Http\Controllers\Admin\SalesController::class, 'index'])->name('admin.sales');
-    Route::get('sales/pick/customer', [App\Http\Controllers\Admin\SalesController::class, 'pickCustomer'])->name('admin.sales.pick.customer');
-    Route::post('sales/pick/customer', [App\Http\Controllers\Admin\SalesController::class, 'pickCustomerAction'])->name('admin.sales.pick.customer.action');
-    Route::post('sales/add-to-cart', [App\Http\Controllers\Admin\SalesController::class, 'addToCart'])->name('admin.sales.add-to-cart');
-    Route::post('sales/remove-from-cart', [App\Http\Controllers\Admin\SalesController::class, 'removeFromCart'])->name('admin.sales.remove-from-cart');
-    Route::get('sales/checkout', [App\Http\Controllers\Admin\SalesController::class, 'checkout'])->name('admin.sales.checkout');
-    Route::post('sales/checkout', [App\Http\Controllers\Admin\SalesController::class, 'checkoutAction'])->name('admin.sales.checkout.action');
+    Route::post('sales/create-transaction', [App\Http\Controllers\Admin\SalesController::class, 'createTransaction'])->name('admin.sales.create-transaction');
 });
