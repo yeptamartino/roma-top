@@ -5,24 +5,87 @@ Penjualan
 
 @section('content')
   <div class="container" id="app">
+
+  <div class="modal fade" id="modal-pick-customer">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span></button>
+          <h4 class="modal-title">Pilih Pelanggan</h4>
+        </div>
+        <div class="modal-body table-responsive">
+          <table id="customers" class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Nama</th>
+                <th>No. HP</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="customer in customers">
+                <td>@{{ customer.name }}</td>
+                <td>@{{ customer.phone }}</td>
+                <td>
+                  <a href="#" v-on:click="selectCustomer(customer)" data-dismiss="modal" class="btn btn-success">Pilih</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modal-pick-discount">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span></button>
+          <h4 class="modal-title">Pilih Diskon</h4>
+        </div>
+        <div class="modal-body table-responsive">
+          <table id="discounts" class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Nama</th>
+                <th>Potongan</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="discount in discounts">
+                <td>@{{ discount.name }}</td>
+                <td>@{{ discount.type === 'AMOUNT' ? formatRupiah(discount.amount) : `${discount.amount}%` }}</td>
+                <td>
+                  <a href="#" v-on:click="selectDiscount(discount)" data-dismiss="modal" class="btn btn-success">Pilih</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
     <div class="row">
       <div class="col-md-4">
-        <x-input-group
-          placeholder="Pelanggan"
-          actionText="Pilih Pelanggan"
-          actionHref="/"
-          name="customer_id"
-          disabled="disabled"
-        />
+        <div class="input-group">  
+          <input placeholder="Pelanggan" class="form-control" :value="[[ selectedCustomer ? selectedCustomer.name : '' ]]" disabled>
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-pick-customer">Pilih Pelanggan</button>
+          </span>
+        </div>
       </div>
       <div class="col-md-4">
-        <x-input-group
-          placeholder="Voucher"
-          actionText="Pilih Voucher"
-          actionHref="/"
-          name="voucher_id"
-          disabled="disabled"
-        />
+        <div class="input-group">  
+          <input placeholder="Diskon" class="form-control" :value="[[ selectedDiscount ? selectedDiscount.name : '' ]]" disabled>
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-pick-discount">Pilih Diskon</button>
+          </span>
+        </div>
       </div>
     </div>
     <div class="row" style="margin-top: 1em;">
@@ -109,11 +172,7 @@ Penjualan
                 <td>
                   <b>Subtotal</b>
                 </td>
-                <td>@{{
-                  formatRupiah(
-                    carts.reduce((result, cartItem) => result + (cartItem.selling_price * cartItem.quantity), 0)
-                  )
-                }}</td>
+                <td>@{{ formatRupiah(hitungSubTotal()) }}</td>
               </tr>
               <tr>
                 <td>
@@ -121,14 +180,22 @@ Penjualan
                     Diskon
                   </b>
                 </td>
-                <td>-Rp. 0,-</td>
+                <td>-@{{ formatRupiah(hitungHargaDiskon()) }}</td>
               </tr>
               <tr>
                 <td style="width: 6em;">
                   <b>Ongkir</b>
                 </td>
                 <td>
-                  <input type="number" style="width: 6em;" class="form-control" v-model="ongkir">
+                  <input type="number" style="width: 8em;" class="form-control" v-model="ongkir">
+                </td>
+              </tr>
+              <tr>
+                <td style="width: 6em;">
+                  <b>Catatan</b>
+                </td>
+                <td>
+                  <textarea class="form-control" v-model="note"></textarea>
                 </td>
               </tr>
             </table>
@@ -143,7 +210,7 @@ Penjualan
           <div class="col-md-12">
             <table class="table table-bordered">
               <tr>
-                <td>Rp. 50.000</td>
+                <td>@{{ formatRupiah(hitungTotalPenjualan()) }}</td>
               </tr>
             </table>
           </div>
@@ -174,18 +241,21 @@ Penjualan
         message: 'Hello Vue!',
         catalogs: @json($catalogs),
         categories: @json($categories),
-        vouchers: @json($vouchers),
+        discounts: @json($discounts),
         customers: @json($customers),
 
         carts: [],
         subTotal: 0,
         selectedCategory: 'ALL',
-        selectedPelanggan: null,
-        selectedVoucher: null,
+        selectedCustomer: null,
+        selectedDiscount: null,
         ongkir: 0,
+        note: '',
       },
       mounted: function () {
         $('#products').DataTable();
+        $('#customers').DataTable();
+        $('#discounts').DataTable();
       },
       methods: {
         addToCart: function(catalog) {
@@ -214,6 +284,38 @@ Penjualan
             this.carts = this.carts.filter((cartItem) => cartItem.quantity > 0);
           }
         },
+        selectCustomer: function(customer) {
+          this.selectedCustomer = customer;
+        },
+        selectDiscount: function(discount) {
+          this.selectedDiscount = discount;
+        },
+
+        hitungSubTotal: function() {
+          return this.carts.reduce((result, cartItem) => result + (cartItem.selling_price * cartItem.quantity), 0);
+        },
+        hitungHargaDiskon: function() {
+          let result = 0;
+          let subTotal = this.hitungSubTotal();
+          if(this.selectedDiscount) {
+            if(this.selectedDiscount.type === 'PERCENTAGE') {
+              result = (subTotal / 100) * parseInt(this.selectedDiscount.amount);
+            } else {
+              result = parseInt(this.selectedDiscount.amount);
+            }
+          }
+          return result;
+        },
+
+        hitungTotalPenjualan: function() {
+          let result = this.hitungSubTotal();
+          result -= this.hitungHargaDiskon();
+          if(this.ongkir) {
+            result += parseInt(this.ongkir);
+          }
+          return result;
+        },
+
         formatRupiah: function formatRupiah(angka){
           var number_string = angka.toString().replace(/[^,\d]/g, '').toString(),
           split   		= number_string.split(','),

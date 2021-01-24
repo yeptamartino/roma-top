@@ -7,6 +7,7 @@ use App\Models\Setting;
 use App\Models\Catalog;
 use App\Models\Category;
 use App\Models\Customer;
+use App\Models\Discount;
 use Flash;
 
 class SalesController extends Controller
@@ -14,7 +15,7 @@ class SalesController extends Controller
   public function index() {
     $catalogs = Catalog::get();
     $categories = Category::get();
-    $vouchers = [];
+    $discounts = Discount::get();
     $customers = Customer::get();
 
     return view(
@@ -22,7 +23,7 @@ class SalesController extends Controller
       compact(
         'catalogs',
         'categories',
-        'vouchers',
+        'discounts',
         'customers',
       ),
     );

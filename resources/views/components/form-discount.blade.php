@@ -23,10 +23,10 @@
     :value="$description"
   />
   <div class="form-group">
-    <label> Type</label>
+    <label>Type</label>
     <select name="type" class="form-control form-control-sm">
-      <option value="Persen" @if($type === 'Persen') selected @endif>Persen</option>
-      <option value="Total" @if($type === 'Total') selected @endif>Total</option>
+      <option value="PERCENTAGE" @if($type === 'PERCENTAGE') selected @endif>POTONGAN PERSEN</option>
+      <option value="AMOUNT" @if($type === 'AMOUNT') selected @endif>POTONGAN HARGA</option>
     </select>
   </div>
 

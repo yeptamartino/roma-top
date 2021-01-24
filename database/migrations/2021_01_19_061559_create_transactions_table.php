@@ -17,6 +17,12 @@ class CreateTransactionsTable extends Migration
             $table->id();
             $table->string('payment_method');
             $table->integer('total_paid');
+            $table->integer('total_discount');
+            $table->integer('total_ongkir');
+            // $table->unsignedBigInteger('voucher_id')->nullable();
+            // $table->foreign('voucher_id')
+            //     ->references('id')->on('vouchers')
+            //     ->onDelete('cascade');
             $table->integer('note');
             $table->timestamps();
         });
