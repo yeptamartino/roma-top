@@ -82,7 +82,6 @@
           <li><a href="{{route('admin.warehouse.create')}}"><i class="fa fa-circle-o"></i>Tambah Gudang</a></li>
         </ul>
       </li>
-      <li class="header">KONFIGURASI</li>
 
       <li class="treeview">
         <a href="#">
@@ -112,6 +111,8 @@
           <li><a href="{{route('admin.customer.create')}}"><i class="fa fa-circle-o"></i>Tambah Customer</a></li>
         </ul>
       </li>
+
+      <li class="header">KONFIGURASI</li>      
 
       <li class="treeview">
         <a href="#">

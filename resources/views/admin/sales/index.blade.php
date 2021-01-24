@@ -254,16 +254,28 @@ Penjualan
           </div>
         </div>
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-md-6">
             <label>Total Bayar</label>
+          </div>
+          <div class="col-md-6">
+            <label>Kembalian</label>
           </div>
         </div>
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-md-6">
             <table class="table table-bordered">
               <tr>
                 <td>
                   <input type="number" style="width: 8em;" class="form-control" v-model="totalPaid">
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div class="col-md-6">
+            <table class="table table-bordered">
+              <tr>
+                <td>
+                  <input type="text" style="width: 8em;" class="form-control" :value="[[ formatRupiah(hitungKembalian()) ]]" disabled>
                 </td>
               </tr>
             </table>
@@ -313,6 +325,7 @@ Penjualan
         $('#products').DataTable();
         $('#customers').DataTable();
         $('#discounts').DataTable();
+        $('#payments').DataTable();
       },
       methods: {
         addToCart: function(catalog) {
@@ -366,7 +379,6 @@ Penjualan
           }
           return result;
         },
-
         hitungTotalPenjualan: function() {
           let result = this.hitungSubTotal();
           result -= this.hitungHargaDiskon();
@@ -374,6 +386,12 @@ Penjualan
             result += parseInt(this.ongkir);
           }
           return result;
+        },
+        hitungKembalian: function() {
+          if(!this.totalPaid) {
+            return 0;
+          }
+          return parseInt(this.totalPaid) - this.hitungTotalPenjualan();
         },
 
         formatRupiah: function formatRupiah(angka){
