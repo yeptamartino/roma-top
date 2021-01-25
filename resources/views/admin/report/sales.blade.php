@@ -3,23 +3,12 @@
 Laporan Penjualan
 @endsection
 @section('content')
-<form method="get" action="{{route('admin.sales')}}">
-  <div class="row">
-    <div class="col-md-3">
-        <div class="form-group">
-            <label>Dari Tanggal</label>
-            <input type="date" class="form-control" name="tgl_awal" value="{{ request()->get('tgl_awal') ?? $default_tgl_awal->format('Y-m-d') }}">
-        </div>
-    </div>
-
-    <div class="col-md-3">
-        <div class="form-group">
-            <label>Sampai Tanggal</label>
-            <input type="date" class="form-control" name="tgl_akhir" value="{{  request()->get('tgl_akhir') ?? $default_tgl_akhir->format('Y-m-d') }}">
-        </div>
-    </div>
-  </div>
-</form>
+<x-filters
+  :disableExports="true"
+  :disableSearch="true"
+  :dateStartDefaultValue="$default_tgl_awal->format('Y-m-d')"
+  :dateEndDefaultValue="$default_tgl_akhir->format('Y-m-d')"
+/>
 <div class="row">
   <div class="col-lg-3 col-xs-6">
     <div class="small-box bg-aqua">
