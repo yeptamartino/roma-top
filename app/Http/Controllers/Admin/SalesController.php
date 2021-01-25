@@ -12,12 +12,48 @@ use App\Models\PaymentMethod;
 use App\Models\Transaction;
 use App\Models\TransactionItem;
 use App\Models\Constants;
+use App\Exports\TransactionsExport;
+use App\Helpers\ExcelHelper;
+use Maatwebsite\Excel\Facades\Excel;
 use Flash;
 
 class SalesController extends Controller
 {
-  public function index() {
-    $transactions = Transaction::get();
+  public function index(Request $request, ExcelHelper $excelHelper) {
+    $keyword = $request->get('keyword');
+    $tgl_awal = $request->get('tgl_awal');
+    $tgl_akhir = $request->get('tgl_akhir');
+    $action = $request->get('action');
+    
+    $transactions = Transaction::orderBy('created_at', 'desc');
+
+    if ($tgl_awal &&  $tgl_akhir){
+      $transactions = $transactions->whereBetween('created_at', [$tgl_awal, $tgl_akhir]);
+    }
+    
+    if($keyword) {
+      $transactions =  $transactions->where(function ($query) use ($keyword){
+        $query->orWhere('id','LIKE',"%$keyword%");
+      });
+    }
+
+    if($action === 'Excel' || $action === 'Pdf') {
+      if(!$tgl_awal || !$tgl_akhir) {
+        return redirect()->back()->with('error', Constants::$MESSAGE_EXPORT_EXCEL_PDF_NO_DATES);
+      }
+      return Excel::download(
+        new TransactionsExport($transactions->get()),
+        $excelHelper->generateExcelFileName(
+          'transactions',
+          $keyword,
+          $tgl_awal,
+          $tgl_akhir,
+          $action === 'Excel' ? 'xlsx' : 'pdf'
+        )
+      );
+    }
+    
+    $transactions = $transactions->paginate(Constants::$DEFAULT_PAGINATION_COUNT);
 
     return view('admin.sales.index', compact('transactions'));
   }

@@ -7,9 +7,22 @@
   </div>
   <!-- sidebar menu: : style can be found in sidebar.less -->
   <ul class="sidebar-menu" data-widget="tree" style="margin-bottom: 100px">
-    <li class="header">KONTEN APLIKASI</li>
+    <li class="header">POINT OF SALE</li>
    
     <li><a href="{{route('admin.dashboard')}}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+
+    <li class="treeview">
+      <a href="#">
+        <i class="fa fa-bar-chart"></i>
+        <span>Laporan</span>
+        <span class="pull-right-container">
+          <i class="fa fa-angle-left pull-right"></i>
+        </span>
+      </a>
+      <ul class="treeview-menu">
+        <li><a href="{{route('admin.report.sales')}}"><i class="fa fa-circle-o"></i>Penjualan</a></li>        
+      </ul>
+    </li>
 
     <li class="treeview">
       <a href="#">

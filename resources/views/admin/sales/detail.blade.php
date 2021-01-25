@@ -54,6 +54,10 @@ Detail Transaksi #{{ $transaction->id }}
           <td><b>Kembalian</b></td>
           <td>@rupiah($transaction->change())</td>
         </tr>
+        <tr>
+          <td><b>Metode Pembayaran</b></td>
+          <td>{{ $transaction->payment_method }}</td>
+        </tr>
       </tbody>
     </table>    
   </div>

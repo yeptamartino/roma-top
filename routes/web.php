@@ -29,7 +29,6 @@ Route::group(['middleware' => 'auth'], function (){
     Route::put('category.update/{id}', [App\Http\Controllers\Admin\CategoryController::class,'update'])->name('admin.category.update');
     Route::delete('category.delete/{id}', [App\Http\Controllers\Admin\CategoryController::class,'delete'])->name('admin.category.delete');
 
-
     Route::get('catalog', [App\Http\Controllers\Admin\CatalogController::class,'index'])->name('admin.catalog');
     Route::get('catalog/create', [App\Http\Controllers\Admin\CatalogController::class,'create'])->name('admin.catalog.create');
     Route::post('catalog.create', [App\Http\Controllers\Admin\CatalogController::class,'store'])->name('admin.catalog.store');
@@ -86,4 +85,6 @@ Route::group(['middleware' => 'auth'], function (){
     Route::get('sales/create', [App\Http\Controllers\Admin\SalesController::class, 'create'])->name('admin.sales.create');
     Route::post('sales/create', [App\Http\Controllers\Admin\SalesController::class, 'createTransaction'])->name('admin.sales.create.action');
     Route::get('sales/{id}', [App\Http\Controllers\Admin\SalesController::class, 'detail'])->name('admin.sales.detail');
+
+    Route::get('report/sales', [App\Http\Controllers\Admin\ReportController::class, 'sales'])->name('admin.report.sales');
 });
