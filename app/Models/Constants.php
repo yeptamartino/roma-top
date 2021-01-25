@@ -25,4 +25,6 @@ class Constants {
     public static $MESSAGE_IMPORT_EXCEL_FAILED  = 'Gagal mengambil data dari file excel anda. Pastikan excel sesuai format dan data outlet no ktp semua ada di aplikasi.';
     public static $MESSAGE_IMPORT_EXCEL_SUCCEED  = 'Data dari excel berhasil di import.';
 
+    public static $CUSTOMER_POINT_RATE = 0.1;
+
 }

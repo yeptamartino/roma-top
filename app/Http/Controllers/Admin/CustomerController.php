@@ -39,12 +39,12 @@ class CustomerController extends Controller
       'name' => $request->input('name'),
       'phone' => $request->input('phone'),
       'email' => $request->input('email'),
-      'first_visit' => $request->input('first_visit'),
-      'last_visit' => $request->input('last_visit'),
-      'total_visit' => $request->input('total_visit'),
+      'first_visit' => null,
+      'last_visit' => null,
+      'total_visit' => 0,
       'address' => $request->input('address'),
-      'total_paid' => $request->input('total_paid'),
-      'point' => $request->input('point'),
+      'total_paid' => 0,
+      'point' => 0,
       'note' => $request->input('note'),
     ]);
     $customer->thumbnail = $imageUploader->saveImage($request, 'thumbnail');
@@ -68,11 +68,6 @@ class CustomerController extends Controller
     $customer->address = $request->input('address');
     $customer->phone = $request->input('phone');
     $customer->email = $request->input('email');
-    $customer->first_visit = $request->input('first_visit');
-    $customer->last_visit = $request->input('last_visit');
-    $customer->total_visit = $request->input('total_visit');
-    $customer->total_paid = $request->input('total_paid');
-    $customer->point = $request->input('point');
     $customer->note = $request->input('note');
 
     if($request->file('thumbnail')) {

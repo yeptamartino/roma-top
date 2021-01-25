@@ -17,6 +17,7 @@ use App\Models\Constants;
 use App\Exports\TransactionsExport;
 use App\Helpers\ExcelHelper;
 use Maatwebsite\Excel\Facades\Excel;
+use Carbon\Carbon;
 use Flash;
 
 class SalesController extends Controller
@@ -98,6 +99,7 @@ class SalesController extends Controller
       'status' => Constants::$TRANSACTION_STATUS_DELIVERED,
     ]);
 
+
     $transaction->save();
 
     $transaction_items = [];
@@ -129,6 +131,29 @@ class SalesController extends Controller
 
     $transaction->transaction_items()->saveMany($transaction_items);
     
+
+    if($data['customer_id']) {
+      $user = Customer::find($data['customer_id']);
+      if($user) {
+        if(!$user->first_visit) {
+          $user->first_visit = Carbon::now();
+        }
+        $user->last_visit = Carbon::now();
+        if(!$user->total_visit) {
+          $user->total_visit = 0;
+        }
+        $user->total_visit += 1;
+        if(!$user->total_paid) {
+          $user->total_paid = 0;
+        }
+        $user->total_paid += $transaction->total_price();
+        if(!$user->point) {
+          $user->point = 0;
+        }
+        $user->point += $transaction->total_price() * Constants::$CUSTOMER_POINT_RATE;
+        $user->save();
+      }
+    }
 
     return redirect()->back()->with('success', 'Transaksi berhasil dibuat, lihat di daftar transaksi.');
   }
