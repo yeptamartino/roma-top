@@ -10,7 +10,20 @@
     <li class="header">KONTEN APLIKASI</li>
    
     <li><a href="{{route('admin.dashboard')}}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
-    <li><a href="{{route('admin.sales')}}"><i class="fa fa-money"></i> <span>Penjualan</span></a></li>
+
+    <li class="treeview">
+      <a href="#">
+        <i class="fa fa-money"></i>
+        <span>Penjualan</span>
+        <span class="pull-right-container">
+          <i class="fa fa-angle-left pull-right"></i>
+        </span>
+      </a>
+      <ul class="treeview-menu">
+        <li><a href="{{route('admin.sales.create')}}"><i class="fa fa-circle-o"></i>Buat Transaksi</a></li>
+        <li><a href="{{route('admin.sales')}}"><i class="fa fa-circle-o"></i>Daftar Transaksi</a></li>
+      </ul>
+    </li>
 
     {{-- <li class="treeview">
       <a href="#">
@@ -54,20 +67,6 @@
         <li><a href="{{route('admin.catalog.create')}}"><i class="fa fa-circle-o"></i>Tambah Katalog</a></li>
       </ul>
     </li>
-
-    <li class="treeview">
-      <a href="#">
-        <i class="fa fa-database"></i>
-        <span>Stok</span>
-        <span class="pull-right-container">
-          <i class="fa fa-angle-left pull-right"></i>
-        </span>
-      </a>
-      <ul class="treeview-menu">
-        <li><a href="{{route('admin.stock')}}"><i class="fa fa-circle-o"></i>Daftar Stok</a></li>
-        <li><a href="{{route('admin.stock.create')}}"><i class="fa fa-circle-o"></i>Tambah Stok</a></li>
-      </ul>
-    </li>
      
       <li class="treeview">
         <a href="#">
@@ -80,6 +79,20 @@
         <ul class="treeview-menu">
           <li><a href="{{route('admin.warehouse')}}"><i class="fa fa-circle-o"></i>Daftar Gudang</a></li>
           <li><a href="{{route('admin.warehouse.create')}}"><i class="fa fa-circle-o"></i>Tambah Gudang</a></li>
+        </ul>
+      </li>
+
+      <li class="treeview">
+        <a href="#">
+          <i class="fa fa-database"></i>
+          <span>Stok</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="{{route('admin.stock')}}"><i class="fa fa-circle-o"></i>Daftar Stok</a></li>
+          <li><a href="{{route('admin.stock.create')}}"><i class="fa fa-circle-o"></i>Tambah Stok</a></li>
         </ul>
       </li>
 

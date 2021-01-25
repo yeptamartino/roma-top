@@ -11,4 +11,6 @@ class Constants {
     public static $PERCENTAGE = 'PERCENTAGE';
     public static $AMOUNT = 'AMOUNT';
 
+    public static $TRANSACTION_STATUS_DELIVERED = 'DELIVERED';
+
 }

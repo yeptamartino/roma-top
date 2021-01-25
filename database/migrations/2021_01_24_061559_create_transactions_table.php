@@ -16,6 +16,7 @@ class CreateTransactionsTable extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->string('payment_method')->nullable();
+            $table->string('status')->nullable();
             $table->integer('total_paid'); 
             $table->integer('total_ongkir');
             $table->unsignedBigInteger('discount_id')->nullable();
@@ -26,7 +27,7 @@ class CreateTransactionsTable extends Migration
             $table->foreign('customer_id')
                 ->references('id')->on('customers')
                 ->onDelete('cascade');
-            $table->integer('note')->nullable();
+            $table->string('note')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -18,6 +18,7 @@ class CreateTransactionItemsTable extends Migration
             $table->string('name');
             $table->integer('quantity');
             $table->integer('selling_price');
+            $table->integer('capital_price');
             $table->unsignedBigInteger('transaction_id')->nullable();
             $table->foreign('transaction_id')
                 ->references('id')->on('transactions')

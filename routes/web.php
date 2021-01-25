@@ -83,5 +83,7 @@ Route::group(['middleware' => 'auth'], function (){
     Route::put('setting.update', [App\Http\Controllers\Admin\SettingController::class,'update'])->name('admin.setting.update');
 
     Route::get('sales', [App\Http\Controllers\Admin\SalesController::class, 'index'])->name('admin.sales');
-    Route::post('sales/create-transaction', [App\Http\Controllers\Admin\SalesController::class, 'createTransaction'])->name('admin.sales.create-transaction');
+    Route::get('sales/create', [App\Http\Controllers\Admin\SalesController::class, 'create'])->name('admin.sales.create');
+    Route::post('sales/create', [App\Http\Controllers\Admin\SalesController::class, 'createTransaction'])->name('admin.sales.create.action');
+    Route::get('sales/{id}', [App\Http\Controllers\Admin\SalesController::class, 'detail'])->name('admin.sales.detail');
 });
