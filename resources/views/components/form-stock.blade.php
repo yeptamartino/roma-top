@@ -19,8 +19,7 @@
     label="Total"
     :value="$total"
   />
- 
-
+  @if(!$id)
   <div class="form-group">
     <label for="catalog_id">Katalog*</label>
     <select name="catalog_id" class="form-control select2" style="width:100%">
@@ -46,7 +45,7 @@
       @endforeach
     </select>
   </div>
-
+  @endif
   @if($id)
     <x-button>
       Ubah Stok
