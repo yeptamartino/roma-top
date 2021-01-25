@@ -19,7 +19,7 @@ class StockController extends Controller
 
       $q_search = "";
     } else {
-      $q_search = " AND name like '%" . $valsearch . "%'";
+      $q_search = " AND catalog_id like '%" . $valsearch . "%'";
     }
     $stocks = Stock::whereRaw('1 ' . $q_search)
       ->orderBy('created_at', 'desc')
