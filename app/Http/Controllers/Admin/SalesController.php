@@ -11,6 +11,8 @@ use App\Models\Discount;
 use App\Models\PaymentMethod;
 use App\Models\Transaction;
 use App\Models\TransactionItem;
+use App\Models\Stock;
+use App\Models\Warehouse;
 use App\Models\Constants;
 use App\Exports\TransactionsExport;
 use App\Helpers\ExcelHelper;
@@ -64,7 +66,8 @@ class SalesController extends Controller
   }
 
   public function create() {
-    $catalogs = Catalog::get();
+    $warehouses = Warehouse::get();
+    $catalogs = Catalog::with('stocks')->get();
     $categories = Category::get();
     $discounts = Discount::get();
     $customers = Customer::get();
@@ -73,6 +76,7 @@ class SalesController extends Controller
     return view(
       'admin.sales.create',
       compact(
+        'warehouses',
         'catalogs',
         'categories',
         'discounts',
@@ -101,16 +105,31 @@ class SalesController extends Controller
     $carts = json_decode($data['carts']);
 
     foreach($carts as $cart) {
+      $stock = Stock::where('catalog_id', $cart->id)->where('warehouse_id', $cart->warehouse->id)->first();
+
+      if(!$stock) {
+        return redirect()->back()->with('error', 'Stok untuk ' . $cart->name . ' tidak ditemukan di gudang ' . $cart->warehouse->name);
+      }
+
+      if($stock->total <= 0) {
+        return redirect()->back()->with('error', 'Stok untuk ' . $cart->name . ' di gudang ' . $cart->warehouse->name . ' telah habis.');
+      }
+
+      $stock->total -= $cart->quantity;
+      $stock->save();
+
       array_push($transaction_items, new TransactionItem([
         'name' => $cart->name,
         'quantity' => $cart->quantity,
         'capital_price' => $cart->capital_price,
         'selling_price' => $cart->selling_price,
+        'warehouse' => $cart->warehouse->name,
       ]));
     }
 
     $transaction->transaction_items()->saveMany($transaction_items);
+    
 
-    return redirect()->back();
+    return redirect()->back()->with('success', 'Transaksi berhasil dibuat, lihat di daftar transaksi.');
   }
 }

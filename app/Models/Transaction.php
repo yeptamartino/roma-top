@@ -13,7 +13,7 @@ class Transaction extends Model
     use SoftDeletes;
     protected $dates   = ['deleted_at'];
     protected $table   = "transactions";
-    protected $guarded = [];
+    protected $guarded = [];    
 
     public function transaction_items() {
       return $this->hasMany(TransactionItem::class);

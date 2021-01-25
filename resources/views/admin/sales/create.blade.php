@@ -5,7 +5,7 @@ Buat Transaksi Penjualan
 
 @section('content')
   <div class="container" id="app">
-
+  <x-alert />
   <div class="modal fade" id="modal-pick-customer">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -127,15 +127,15 @@ Buat Transaksi Penjualan
       </div>
     </div>
     <div class="row" style="margin-top: 1em;">
-      <div class="col-md-7">
+      <div class="col-md-6">
         <label>Pilih Produk</label>
       </div>
-      <div class="col-md-5">
+      <div class="col-md-6">
         <label>Produk Terpilih</label>
       </div>
     </div>
     <div class="row">
-      <div class="col-md-7">
+      <div class="col-md-6">
         <div class="row">
           <div class="col-md-12">
             <div class="form-group">
@@ -147,12 +147,23 @@ Buat Transaksi Penjualan
             </div>
           </div>
         </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>Gudang</label>
+              <select class="form-control" v-model="selectedWarehouse">
+                <option v-for="warehouse in warehouses" :value="warehouse.id">@{{ warehouse.name }}</option>
+              </select>
+            </div>
+          </div>
+        </div>
         <table id="products" class="table table-bordered">
           <thead>
             <tr>
               <th>Nama</th>
               <th>Hrg. Modal</th>
               <th>Hrg. Jual</th>
+              <th>Stok</th>
               <th>Aksi</th>
             </tr>
           </thead>
@@ -161,29 +172,32 @@ Buat Transaksi Penjualan
               <td>@{{ catalog.name }}</td>
               <td>@{{ formatRupiah(catalog.capital_price) }}</td>
               <td>@{{ formatRupiah(catalog.selling_price) }}</td>
+              <td>@{{ getStock(catalog.stocks).total }}</td>
               <td>
-                <a href="#" v-on:click="addToCart(catalog)" class="btn btn-success">Tambahkan</a>
+                <a href="#." v-on:click="addToCart(catalog)" class="btn btn-success" :disabled="!getStock(catalog.stocks).total > 0">Tambahkan</a>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
-      <div class="col-md-5">  
+      <div class="col-md-6">  
         <div class="row">
           <div class="col-md-12 table-responsive">
             <table class="table table-bordered">
               <tr>
                 <th>Nama</th>
-                <th>Jml.</th>
+                <th>Gudang</th>
+                <th>Jml.</th>                
                 <th>Hrg. Jual</th>
                 <th>Hrg. Total</th>
               </tr>
               <tr v-for="cartItem in carts">
                 <td>@{{ cartItem.name }}</td>
-                <td>
-                  <a href="#" v-on:click="removeFromCart(cartItem)" class="btn btn-danger">-</a>
+                <td>@{{ cartItem.warehouse.name }}</td>
+                <td style="width: 10em;">
+                  <a href="#." v-on:click="removeFromCart(cartItem)" class="btn btn-danger">-</a>
                   @{{ cartItem.quantity }}
-                  <a href="#" v-on:click="addToCart(cartItem)" class="btn btn-success">+</a>
+                  <a href="#." v-on:click="addToCart(cartItem)" class="btn btn-success">+</a>
                 </td>
                 <td style="width: 9em;">
                   <input type="number" class="form-control" v-model="cartItem.selling_price">
@@ -193,7 +207,7 @@ Buat Transaksi Penjualan
                 </td>
               </tr>
               <tr v-if="!carts.length">
-                <td colspan="4">Belum ada produk terpilih.</td>
+                <td colspan="5">Belum ada produk terpilih.</td>
               </tr>
             </table>
           </div>
@@ -311,25 +325,27 @@ Buat Transaksi Penjualan
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
   <script src="//cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
   <script>
+
     var app = new Vue({
       el: '#app',
       data: {
-        message: 'Hello Vue!',
-        catalogs: @json($catalogs),
-        categories: @json($categories),
-        discounts: @json($discounts),
-        customers: @json($customers),
-        payment_methods: @json($payment_methods),
-
         carts: [],
         subTotal: 0,
         selectedCategory: 'ALL',
         selectedCustomer: null,
         selectedDiscount: null,
-        selectedPaymentMethod: null,
+        selectedPaymentMethod: @json($payment_methods)[0] || {name: 'CASH'},
+        selectedWarehouse: @json($warehouses)[0].id,
         ongkir: 0,
         totalPaid: 0,
         note: '',
+
+        catalogs: @json($catalogs),
+        warehouses: @json($warehouses),
+        categories: @json($categories),
+        discounts: @json($discounts),
+        customers: @json($customers),
+        payment_methods: @json($payment_methods),        
       },
       mounted: function () {
         $('#products').DataTable();
@@ -339,22 +355,28 @@ Buat Transaksi Penjualan
       },
       methods: {
         addToCart: function(catalog) {
-          let isExists = false;
-          this.carts.map((cartItem) => {
-            if(cartItem.id === catalog.id) {
-              cartItem.quantity += 1;
-              isExists = true;
+          const stock = this.getStock(catalog.stocks);
+          if(stock.total > 0) {
+            let isExists = false;
+            this.carts.map((cartItem) => {
+              if(cartItem.id === catalog.id && cartItem.warehouse.id == this.selectedWarehouse) {
+                cartItem.quantity += 1;
+                isExists = true;
+              }
+              return cartItem;
+            });
+            if(!isExists) {
+              console.log({...this.selectedWarehouse});
+              this.carts.push({ ...catalog, quantity: 1, warehouse: {...this.getWarehouse()} });
             }
-            return cartItem;
-          });
-          if(!isExists) {
-            this.carts.push({ ...catalog, quantity: 1 });
+            stock.total -= 1;
           }
         },
         removeFromCart: function(catalog) {
+          const stock = this.getStock(catalog.stocks);
           let isRemoved = false;
           this.carts.map((cartItem) => {
-            if(cartItem.id === catalog.id) {
+            if(cartItem.id === catalog.id && cartItem.warehouse.id == this.selectedWarehouse) {
               cartItem.quantity -= 1;
               isRemoved = cartItem.quantity <= 0;
             }
@@ -363,6 +385,7 @@ Buat Transaksi Penjualan
           if(isRemoved) {
             this.carts = this.carts.filter((cartItem) => cartItem.quantity > 0);
           }
+          stock.total += 1;
         },
         selectCustomer: function(customer) {
           this.selectedCustomer = customer;
@@ -404,8 +427,37 @@ Buat Transaksi Penjualan
           return parseInt(this.totalPaid) - this.hitungTotalPenjualan();
         },
         buatTransaksi: function () {
+          if(this.carts.length === 0) {
+            alert('Belum ada produk terpilih.')
+            return
+          }
+          if(this.totalPaid <= 0 || this.totalPaid < this.hitungTotalPenjualan()) {
+            alert('Uang pembayaran tidak cukup.')
+            return
+          }
+          if(this.totalPaid <= 0 || this.totalPaid < this.hitungTotalPenjualan()) {
+            alert('Uang pembayaran tidak cukup.')
+            return
+          }
           const formSales = document.getElementById('sales-form');
           formSales.submit();
+        },
+        
+        getStock: function(stocks) {
+          for(var i = 0; i < stocks.length; i++) {
+            if(stocks[i].warehouse_id == this.selectedWarehouse) {
+              return stocks[i];
+            }
+          }
+          return {total: 0};
+        },
+        getWarehouse: function() {
+          for(var i = 0; i < this.warehouses.length; i++) {
+            if(this.warehouses[i].id == this.selectedWarehouse) {
+              return this.warehouses[i];
+            }
+          }
+          return null;
         },
 
         formatRupiah: function formatRupiah(angka){
