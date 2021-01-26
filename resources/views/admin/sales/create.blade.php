@@ -4,7 +4,7 @@ Buat Transaksi Penjualan
 @endsection
 
 @section('content')
-  <div class="container" id="app">
+  <div id="app">
   <x-alert />
   <div class="modal fade" id="modal-pick-customer">
     <div class="modal-dialog">
@@ -75,7 +75,8 @@ Buat Transaksi Penjualan
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span></button>
+            <span aria-hidden="true">×</span>
+          </button>
           <h4 class="modal-title">Pilih Metode Pembayaran</h4>
         </div>
         <div class="modal-body table-responsive">
