@@ -4,9 +4,8 @@
 <a href="{{ route('admin.admin') }}" class="btn btn-primary">
     <i class="fa fa-arrow-left" title="Kembali"></i>
 </a>
-
-
 @endsection
+
 
 @section('subtitle')
 Detail Admin

@@ -15,6 +15,7 @@ DAFTAR GUDANG
         <th>No.</th>
         <th>Nama</th>
         <th>Alamat</th>
+        <th>Foto</th>
         <th>Aksi</th>
       </tr>
     </thead>

@@ -34,7 +34,6 @@ class WarehouseController extends Controller
   public function store(Request $request, ImageUploader $imageUploader)
   {
     $request->validate(Warehouse::$validation);
-
     $warehouse = new Warehouse([
       'name'       => $request->input('name'),
       'address' => $request->input('address'),
@@ -54,6 +53,7 @@ class WarehouseController extends Controller
 
   public function update($id, Request $request, ImageUploader $imageUploader)
   {
+    $request->validate(Warehouse::$validation);
     $warehouse = Warehouse::findOrFail($id);
 
     $warehouse->name        = $request->input('name');

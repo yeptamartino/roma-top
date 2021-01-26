@@ -26,7 +26,7 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="image">
-          {{-- <img src="{{ asset('images/'.$setting->thumbnail) }}"> --}}
+          <img src="{{ asset('adminlte/img/roma_top_4.png')}}">
         </div>
       </div>
     <x-sidebar></x-sidebar>

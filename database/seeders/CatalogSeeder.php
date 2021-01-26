@@ -19,10 +19,10 @@ class CatalogSeeder extends Seeder
         
         $category = Category::all()->first();
         $catalog = new Catalog([
-            'name' => 'Bantal Doraemon',
+            'name' => 'Bantal Dacron',
             'capital_price' => '200000',
             'selling_price' => '250000',
-            'description' => 'Bantal Doraemon Warna Biru',
+            'description' => 'Bantal Dacron',
             'thumbnail' => 'default.png',
             'category_id' => $category->id,
         ]);
@@ -31,10 +31,10 @@ class CatalogSeeder extends Seeder
 
         $category = Category::all()->first();
         $catalog = new Catalog([
-            'name' => 'Bantal Hello Kitty',
+            'name' => 'Guling Dacron',
             'capital_price' => '200000',
             'selling_price' => '250000',
-            'description' => 'Bantal Hello Kitty Warna Pink',
+            'description' => 'Guling Dacron',
             'thumbnail' => 'default.png',
             'category_id' => $category->id,
         ]);
@@ -43,10 +43,46 @@ class CatalogSeeder extends Seeder
 
         $category = Category::all()->first();
         $catalog = new Catalog([
-            'name' => 'Banta Naruto',
+            'name' => 'Bantal Cinta Dacron',
             'capital_price' => '200000',
             'selling_price' => '250000',
-            'description' => 'Bantal Naruto Warna Biru',
+            'description' => 'Bantal Cinta Dacron',
+            'thumbnail' => 'default.png',
+            'category_id' => $category->id,
+        ]);
+
+        $catalog->save();
+
+        $category = Category::all()->first();
+        $catalog = new Catalog([
+            'name' => 'Bantal Sofa Dacron',
+            'capital_price' => '200000',
+            'selling_price' => '250000',
+            'description' => 'Bantal Sofa Dacron',
+            'thumbnail' => 'default.png',
+            'category_id' => $category->id,
+        ]);
+
+        $catalog->save();
+        
+        $category = Category::all()->first();
+        $catalog = new Catalog([
+            'name' => 'Bantal Lantai Dacron',
+            'capital_price' => '200000',
+            'selling_price' => '250000',
+            'description' => 'Bantal Lantai Dacron',
+            'thumbnail' => 'default.png',
+            'category_id' => $category->id,
+        ]);
+
+        $catalog->save();
+        
+        $category = Category::all()->first();
+        $catalog = new Catalog([
+            'name' => 'Bantal Lantai Dacron',
+            'capital_price' => '200000',
+            'selling_price' => '250000',
+            'description' => 'Bantal Lantai Dacron',
             'thumbnail' => 'default.png',
             'category_id' => $category->id,
         ]);

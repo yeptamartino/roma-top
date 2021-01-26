@@ -5,9 +5,6 @@ EDIT STOK
 @endsection
 
 @section('content')
-  @if($errors->any())
-    {{ implode('', $errors->all('<div>:message</div>')) }}
-  @endif
   <x-alert />
   <x-form-stock
     :action="route('admin.stock.update', ['id' => $stock->id])"

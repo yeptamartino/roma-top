@@ -31,12 +31,12 @@
 <body class="hold-transition login-page">
     <div class="login-box">
       <div class="login-logo">
-            <img src="{{ asset('adminlte/img/roma_top.png')}}" width="200">
+            <img src="{{ asset('adminlte/img/roma_top_4.png')}}" width="360">
     
       </div>
       <!-- /.login-logo -->
       <div class="login-box-body">
-        <p class="login-box-msg">Sign in to start your session</p>
+        <p class="login-box-msg">Silahkan Login</p>
     
         <form method="POST" action="{{ route('login') }}">
             @csrf
@@ -64,20 +64,19 @@
             <div class="col-xs-8">
               <div class="checkbox icheck">
                 <label>
-                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
+                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}> Ingat Saya
                 </label>
               </div>
             </div>
             <!-- /.col -->
             <div class="col-xs-4">
-              <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+              <button type="submit" class="btn btn-primary btn-block btn-flat">Login</button>
             </div>
             <!-- /.col -->
           </div>
         </form>
     @if (Route::has('password.request'))
-    <a class="btn btn-link" href="{{ route('password.request') }}">I forgot my password</a><br>
-    <a href="register.html" class="text-center">Register a new membership</a>
+    <a href="{{ route('password.request') }}" class="text-center" >Lupa password</a><br>
     @endif
     
       </div>

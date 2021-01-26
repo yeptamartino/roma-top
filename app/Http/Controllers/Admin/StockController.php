@@ -37,7 +37,6 @@ class StockController extends Controller
   public function store(Request $request)
   {
     $request->validate(Stock::$validation);
-
     $stock = Stock::where('catalog_id', $request->input('catalog_id'))
       ->where('warehouse_id', $request->input('warehouse_id'))->first();
 
@@ -66,6 +65,7 @@ class StockController extends Controller
 
   public function update($id, Request $request)
   {
+    $request->validate(Stock::$validation);
     $stock = Stock::findOrFail($id);
     
     $stock->total  = $request->input('total');

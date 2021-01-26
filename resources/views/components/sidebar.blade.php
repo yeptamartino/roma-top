@@ -105,7 +105,7 @@
 
       <li class="treeview">
         <a href="#">
-          <i class="fa fa-user-plus"></i>
+          <i class="fa fa-users"></i>
           <span>Customer</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
@@ -147,7 +147,7 @@
         </ul>
       </li>
 
-      <li><a href="{{route('admin.setting.edit')}}"><i class="fa fa-circle-o"></i>Setting</a></li></a></li>
+      <li><a href="{{route('admin.setting.edit')}}"><i class="fa fa-wrench"></i>Pengaturan</a></li></a></li>
 
       <li>
         <a href="{{ route('logout') }}" onclick="event.preventDefault();
