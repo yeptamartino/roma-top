@@ -6,6 +6,7 @@ DAFTAR GUDANG
 @endsection
 
 @section('content')
+@include('flash::message')
 <x-search-input :action="route('admin.warehouse')"/>
 <div class="table-responsive">
   <table class="table">

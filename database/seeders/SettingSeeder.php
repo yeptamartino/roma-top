@@ -15,6 +15,7 @@ class SettingSeeder extends Seeder
     {
         $settings = new Setting([
             'thumbnail' => 'default.png',
+            'point_ratio' => 100,
         ]);
 
         $settings->save();

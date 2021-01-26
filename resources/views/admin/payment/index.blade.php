@@ -1,11 +1,10 @@
 @extends('layouts.master')
-
-
 @section('subtitle')
 DAFTAR PEMBAYARAN
 @endsection
 
 @section('content')
+@include('flash::message')
 <x-search-input :action="route('admin.payment')"/>
 <div class="table-responsive">
   <table class="table">
@@ -24,6 +23,13 @@ DAFTAR PEMBAYARAN
         <td>{{ $loop->iteration }}</td>
         <td>{{ $payment->name }}</td>
         <td>{{ $payment->is_active }}</td>
+        <td> 
+          @if( $payment->is_active == 0)
+          <a class="btn btn-danger btn-xs">Non AKTIF</a>
+          @else
+          <a class="btn btn-success btn-xs">AKTIF</a>
+          @endif
+        </td>
        <td>
         <a
         href="{{ route('admin.payment.edit', ['id' => $payment->id]) }}"

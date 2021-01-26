@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
-
+use Flash;
 class CategoryController extends Controller
 {
 
@@ -36,7 +36,7 @@ class CategoryController extends Controller
     $category = new Category([
       'name' => $request->input('name')
     ]);
-
+    Flash::success('Data kategori berhasil di tambahkan.');
     $category->save();
 
     return redirect()->route('admin.category');
@@ -53,6 +53,8 @@ class CategoryController extends Controller
     $category = Category::findOrFail($id);
 
     $category->name = $request->input('name');
+
+    Flash::success('Data kategori berhasil di ubah.');
     $category->save();
 
     return redirect()->route('admin.category');
@@ -62,6 +64,7 @@ class CategoryController extends Controller
   {
     $category = Category::findOrFail($id);
     $category->delete();
+    Flash::error('Data kategori berhasil di hapus.');
     return redirect()->route('admin.category');
   }
 }

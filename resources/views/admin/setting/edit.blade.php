@@ -10,5 +10,6 @@ Edit Pengaturan
 :action="route('admin.setting.update')"
 :id="$setting->id"
 :thumbnail="$setting->thumbnail"
+:pointRatio="$setting->point_ratio"
 />
 @endsection

@@ -1,11 +1,10 @@
 @extends('layouts.master')
-
-
 @section('subtitle')
 DAFTAR DISKON
 @endsection
 
 @section('content')
+@include('flash::message')
 <x-search-input :action="route('admin.discount')"/>
 <div class="table-responsive">
   <table class="table">

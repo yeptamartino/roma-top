@@ -17,7 +17,7 @@
               <p class="user-image"> 
               
               </p>
-            <span class="hidden-xs">Hai, {{ Auth::user()->name }}</span>
+            {{-- <span class="hidden-xs">Hai, {{ Auth::user()->name }}</span> --}}
             </a>
             
           </li>

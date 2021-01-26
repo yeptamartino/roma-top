@@ -50,6 +50,7 @@ class CustomerController extends Controller
     $customer->thumbnail = $imageUploader->saveImage($request, 'thumbnail');
 
     $customer->save();
+    Flash::success('Data customer berhasil di tambahkan.');
 
     return redirect()->route('admin.customer');
   }
@@ -80,7 +81,7 @@ class CustomerController extends Controller
       }
   
     $customer->save();
-
+    Flash::success('Data customer berhasil di ubah.');
     return redirect()->route('admin.customer');
   }
 

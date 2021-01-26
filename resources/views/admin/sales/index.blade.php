@@ -4,8 +4,8 @@ Penjualan
 @endsection
 
 @section('content')
+@include('flash::message')
   <div class="container" id="app">
-
   <div class="modal fade" id="modal-pick-customer">
     <div class="modal-dialog">
       <div class="modal-content">

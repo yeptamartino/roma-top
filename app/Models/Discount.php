@@ -14,7 +14,7 @@ class Discount extends Model
     public static $validation = [
 		'name'         => 'required|string|min:5',
         'description'  => 'required|string|min:5',
-        'type'   => 'required|string|min:1',
-		'amount'   => 'required|string|min:1',
+        'type'         => 'required|string|min:1',
+		'amount'       => 'required|string|min:1',
 	];
 }

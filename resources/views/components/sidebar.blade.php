@@ -1,30 +1,9 @@
-<section class="sidebar">
-  <!-- Sidebar user panel -->
-  <div class="user-panel">
-    <div class="image">
-      <img src="{{ asset('adminlte/img/roma_top.png')}}" width="600">
-    </div>
-  </div>
-  <!-- sidebar menu: : style can be found in sidebar.less -->
+<!-- sidebar menu: : style can be found in sidebar.less -->
   <ul class="sidebar-menu" data-widget="tree" style="margin-bottom: 100px">
     <li class="header">KONTEN APLIKASI</li>
    
     <li><a href="{{route('admin.dashboard')}}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
     <li><a href="{{route('admin.sales')}}"><i class="fa fa-money"></i> <span>Penjualan</span></a></li>
-
-    {{-- <li class="treeview">
-      <a href="#">
-        <i class="fa fa-asterisk"></i>
-        <span>Frenchise</span>
-        <span class="pull-right-container">
-          <i class="fa fa-angle-left pull-right"></i>
-        </span>
-      </a>
-      <ul class="treeview-menu">
-        <li><a href="{{route('admin.frenchises')}}"><i class="fa fa-circle-o"></i>Daftar Frenchise</a></li>
-        <li><a href="{{route('admin.frenchises.create')}}"><i class="fa fa-circle-o"></i>Tambah Frenchise</a></li>
-      </ul>
-    </li> --}}
 
    
     <li class="treeview">
@@ -139,4 +118,3 @@
           </form>       
       </li>    
   </ul>
-</section>

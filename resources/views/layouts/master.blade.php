@@ -22,7 +22,16 @@
 <div class="wrapper">
   <x-navbar></x-navbar>
   <aside class="main-sidebar">
+    <section class="sidebar">
+      <!-- Sidebar user panel -->
+      <div class="user-panel">
+        <div class="image">
+          {{-- <img src="{{ asset('images/'.$setting->thumbnail) }}"> --}}
+        </div>
+      </div>
     <x-sidebar></x-sidebar>
+
+  </section>
   </aside>
   <div class="content-wrapper">
     <section class="content-header">

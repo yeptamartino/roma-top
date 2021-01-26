@@ -20,9 +20,9 @@ class Warehouse extends Model
     }
 
     public static $validation = [
-        'name'           => 'required|string|min:5',
-        'address'     => 'required|string|min:5',
-        'thumbnail'       => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        'name'      => 'required|string|min:5',
+        'address'   => 'required|string|min:5',
+        'thumbnail' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 
     ];
 }

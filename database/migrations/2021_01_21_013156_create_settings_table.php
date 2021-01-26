@@ -16,6 +16,7 @@ class CreateSettingsTable extends Migration
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
             $table->string('thumbnail');
+            $table->integer('point_ratio');
             $table->timestamps();
             $table->softDeletes();
         });

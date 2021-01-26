@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Stock;
 use App\Models\Warehouse;
 use App\Models\Catalog;
-
+use Flash;
 class StockController extends Controller
 {
 
@@ -44,7 +44,7 @@ class StockController extends Controller
     ]);
 
     $stock->save();
-
+    Flash::success('Data stok berhasil di tambahkan.');
     return redirect()->route('admin.stock');
   }
 
@@ -65,7 +65,7 @@ class StockController extends Controller
     $stock->total  = $request->input('total');
 
     $stock->save();
-
+    Flash::success('Data stok berhasil di ubah.');
     return redirect()->route('admin.stock');
   }
 
@@ -73,6 +73,7 @@ class StockController extends Controller
   {
     $stock = Stock::findOrFail($id);
     $stock->delete();
+    Flash::error('Data stok berhasil di hapus.');
     return redirect()->route('admin.stock');
   }
 }

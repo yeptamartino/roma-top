@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Catalog;
 use App\Models\Category;
 use App\Helpers\ImageUploader;
-
+use Flash;
 class CatalogController extends Controller
 {
 
@@ -41,10 +41,10 @@ class CatalogController extends Controller
       'name'        => $request->input('name'),
       'description' => $request->input('description'),
       'selling_price' => $request->input('selling_price'),
-      'capital_price'       => $request->input('capital_price'),
+      'capital_price' => $request->input('capital_price'),
     ]);
     $catalog->thumbnail = $imageUploader->saveImage($request, 'thumbnail');
-
+    Flash::success('Data katalog berhasil di tambahkan.');
     $catalog->save();
 
     return redirect()->route('admin.catalog');
@@ -59,6 +59,7 @@ class CatalogController extends Controller
 
   public function update($id, Request $request, ImageUploader $imageUploader)
   {
+    $request->validate(Catalog::$validation);
     $catalog = Catalog::findOrFail($id);
 
     $catalog->category_id = $request->input('category_id');
@@ -70,7 +71,7 @@ class CatalogController extends Controller
     if($request->file('thumbnail')) {
       $catalog->thumbnail    = $imageUploader->saveImage($request, 'thumbnail');
     }
-
+    Flash::success('Data katalog berhasil di ubah.');
     $catalog->save();
 
     return redirect()->route('admin.catalog');
@@ -80,6 +81,7 @@ class CatalogController extends Controller
   {
     $catalog = Catalog::findOrFail($id);
     $catalog->delete();
+    Flash::error('Data katalog berhasil di hapus.');
     return redirect()->route('admin.catalog');
   }
 }

@@ -1,11 +1,9 @@
 @extends('layouts.master')
-
-
 @section('subtitle')
 DAFTAR CUSTOMER
 @endsection
-
 @section('content')
+@include('flash::message')
 <x-search-input :action="route('admin.customer')"/>
 <div class="table-responsive">
   <table class="table">

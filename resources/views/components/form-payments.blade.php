@@ -1,7 +1,6 @@
 @props([ 
   'action' => '',
   'name' => '',
-  'isActive' => '',
   'id' => null,
 ])
 
@@ -15,12 +14,6 @@
     name="name"
     label="Nama"
     :value="$name"
-  />
-
-  <x-input
-    name="is_active"
-    label="Status"
-    :value="$isActive"
   />
 
   @if($id)

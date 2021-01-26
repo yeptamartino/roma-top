@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\PaymentMethod;
-
+use Flash;
 class PaymentMethodController extends Controller
 {
 
@@ -34,11 +34,11 @@ class PaymentMethodController extends Controller
 
     $payment = new PaymentMethod([
       'name' => $request->input('name'),
-      'is_active' => $request->input('is_active')
+      'is_active' => 0,
     ]);
 
     $payment->save();
-
+    Flash::success('Metode pembayaran berhasil di tambahkan.');
     return redirect()->route('admin.payment');
   }
 
@@ -55,6 +55,7 @@ class PaymentMethodController extends Controller
     $payment->name = $request->input('name');
     $payment->is_active = $request->input('is_active');
     $payment->save();
+    Flash::success('Metode pembayaran berhasil di ubah.');
 
     return redirect()->route('admin.payment');
   }
@@ -63,6 +64,7 @@ class PaymentMethodController extends Controller
   {
     $payment = PaymentMethod::findOrFail($id);
     $payment->delete();
+    Flash::error('Metode pembayaran berhasil di hapus.');
     return redirect()->route('admin.payment');
   }
 }

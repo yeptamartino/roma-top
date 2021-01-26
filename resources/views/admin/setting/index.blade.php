@@ -6,6 +6,7 @@ DAFTAR PENGATURAN
 @endsection
 
 @section('content')
+@include('flash::message')
 <x-search-input :action="route('admin.setting')"/>
 <div class="table-responsive">
   <table class="table">

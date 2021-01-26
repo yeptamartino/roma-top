@@ -6,6 +6,7 @@ DAFTAR STOK
 @endsection
 
 @section('content')
+@include('flash::message')
 <x-search-input :action="route('admin.stock')"/>
 <div class="table-responsive">
   <table class="table">

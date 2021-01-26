@@ -42,7 +42,7 @@ class DiscountController extends Controller
     ]);
 
     $discount->save();
-
+    Flash::success('Data diskon berhasil di tambahkan.');
     return redirect()->route('admin.discount');
   }
 
@@ -62,7 +62,7 @@ class DiscountController extends Controller
     $discount->amount        = $request->input('amount');
   
     $discount->save();
-
+    Flash::success('Data diskon berhasil di ubah.');
     return redirect()->route('admin.discount');
   }
 

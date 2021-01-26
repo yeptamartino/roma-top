@@ -42,7 +42,7 @@ class WarehouseController extends Controller
     $warehouse->thumbnail = $imageUploader->saveImage($request, 'thumbnail');
 
     $warehouse->save();
-
+    Flash::success('Data gudang berhasil di tambahkan.');
     return redirect()->route('admin.warehouse');
   }
 
@@ -64,6 +64,7 @@ class WarehouseController extends Controller
       }
   
     $warehouse->save();
+    Flash::success('Data gudang berhasil di ubah.');
 
     return redirect()->route('admin.warehouse');
   }

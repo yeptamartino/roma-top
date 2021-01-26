@@ -46,6 +46,7 @@ class SalesController extends Controller
     ]);
 
     $transaction->save();
+    Flash::success('Transaksi berhasil.');
 
     $transaction_items = [];
 
