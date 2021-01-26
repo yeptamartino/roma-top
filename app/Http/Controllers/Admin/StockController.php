@@ -37,6 +37,14 @@ class StockController extends Controller
   public function store(Request $request)
   {
     $request->validate(Stock::$validation);
+
+    $stock = Stock::where('catalog_id', $request->input('catalog_id'))
+      ->where('warehouse_id', $request->input('warehouse_id'))->first();
+
+    if($stock) {
+      return redirect()->back()->with('error', 'Satu produk hanya boleh memiliki satu instance stok di setiap warehouse.');
+    }
+
     $stock = new Stock([
       'catalog_id' => $request->input('catalog_id'),
       'warehouse_id'=> $request->input('warehouse_id'),
@@ -59,9 +67,7 @@ class StockController extends Controller
   public function update($id, Request $request)
   {
     $stock = Stock::findOrFail($id);
-
-    $stock->catalog_id   = $request->input('catalog_id');
-    $stock->warehouse_id = $request->input('warehouse_id');
+    
     $stock->total  = $request->input('total');
 
     $stock->save();

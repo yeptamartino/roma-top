@@ -14,10 +14,10 @@ DAFTAR CUSTOMER
         <th>Alamat</th>
         <th>Telepon</th>
         <th>Email</th>
-        <th>Kunjungan Pertama</th>
-        <th>Kunjuang Teralhir</th>
-        <th>Total Kunjuang</th>
-        <th>Total Bayaran</th>
+        <th>Kunj. Pertama</th>
+        <th>Kunj. Teralhir</th>
+        <th>Total Kunj.</th>
+        <th>Total Byr.</th>
         <th>Poin</th>
         <th>Foto</th>
         <th>Aksi</th>

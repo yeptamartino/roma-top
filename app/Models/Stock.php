@@ -12,7 +12,7 @@ class Stock extends Model
 	use SoftDeletes;
 	protected $dates   = ['deleted_at'];
 	protected $table   = "stocks";
-	protected $guarded = [];
+  protected $guarded = [];
 
 	public function catalog()
 	{
@@ -22,7 +22,8 @@ class Stock extends Model
     public function warehouse()
 	{
 		return $this->belongsTo(Warehouse::class);
-	}
+  }
+
 
 	public static $validation = [
 		'total' => 'required|string|min:1',

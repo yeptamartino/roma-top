@@ -5,37 +5,37 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Constants;
-use App\Models\Catalog;
-use App\Models\Category;
-use App\Models\User;
-use App\Models\Setting;
+use App\Models\Transaction;
+use App\Models\Customer;
+use Carbon\Carbon;
 use Flash;
 class DashboardController extends Controller
 {
     public function dashboard(){
-        
-        $user_count = User::orderBy('created_at', 'desc')
-        ->where('role', Constants::$USER_ROLE_ADMIN)
-        ->count();
-        
-        $users = User::orderBy('created_at', 'desc')
-        ->where('role', Constants::$USER_ROLE_ADMIN)
-        ->limit(10)->get();
+      $start_of_this_month = Carbon::now()->startOfMonth();
+      $end_of_this_month = Carbon::now()->endOfMonth();
 
-        $setting = Setting::all();
-        $catalog_count  = Catalog::count();
-        $category_count = Category::count();
-        $stock_count    = Category::count();
+      $transactions_this_month = Transaction::whereBetween('created_at', [$start_of_this_month, $end_of_this_month])->get();
 
-        return view(
-          'admin.dashboard',
-           compact(
-            'users',
-            'user_count',
-            'category_count',
-            'catalog_count',
-            'stock_count',
-          ));
+      $sales_this_month = 0;
+      $transactions_count_this_month = 0;
+      $sold_items_count = 0;
+      $total_customer = Customer::count();
+
+      foreach($transactions_this_month as $transaction) {
+        $sales_this_month += $transaction->total_price();
+        $transactions_count_this_month += 1;
+        $sold_items_count += $transaction->transaction_items->sum('quantity');
+      }
+
+      return view(
+        'admin.dashboard',
+          compact(
+          'sales_this_month',
+          'transactions_count_this_month',
+          'sold_items_count',
+          'total_customer',
+        ));
     }
    
 }

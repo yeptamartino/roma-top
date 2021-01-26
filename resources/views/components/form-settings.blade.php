@@ -11,10 +11,6 @@
   @endif
   @csrf
 
-
-
-  <a href="{{route('admin.payment.create')}}" class="btn btn-primary btn-sm">Metode Pembayaran</a>
-
   <x-input-files
     name="thumbnail"
     label="Logo"    

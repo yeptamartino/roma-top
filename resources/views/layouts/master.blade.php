@@ -64,7 +64,7 @@
 <script src="{{ asset('adminlte/bower_components/jquery-slimscroll/jquery.slimscroll.min.js')}}"></script>
 <script src="{{ asset('adminlte/bower_components/fastclick/lib/fastclick.js')}}"></script>
 <script src="{{ asset('adminlte/js/adminlte.min.js')}}"></script>
-<script src="{{ asset('adminlte//bower_components/select2/dist/js/select2.full.min.js')}}"></script>
+<script src="{{ asset('adminlte/bower_components/select2/dist/js/select2.full.min.js')}}"></script>
 
 @stack('scripts')
 
