@@ -70,6 +70,10 @@ DAFTAR KATALOG
   @endif
 </tbody>
 </table>
-{{ $catalogs->links() }}
+</div>
+<div class="row">
+  <div class="col-md-12">
+    {{ $catalogs->appends(request()->except('page'))->links('pagination.bootstrap3') }}
+  </div>
 </div>
 @endsection

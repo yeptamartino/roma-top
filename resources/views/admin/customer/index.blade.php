@@ -75,6 +75,10 @@ DAFTAR CUSTOMER
   @endif
 </tbody>
 </table>
-{{ $customers->links() }}
+</div>
+<div class="row">
+  <div class="col-md-12">
+    {{ $customers->appends(request()->except('page'))->links('pagination.bootstrap3') }}
+  </div>
 </div>
 @endsection
