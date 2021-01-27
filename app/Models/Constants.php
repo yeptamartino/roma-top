@@ -12,6 +12,9 @@ class Constants {
     public static $AMOUNT = 'AMOUNT';
 
     public static $TRANSACTION_STATUS_DELIVERED = 'DELIVERED';
+    
+    public static $PAYMENT_METHOD_AKTIF = 'AKTIF';
+    public static $PAYMENT_METHOD_NON_AKTIF = 'NON AKTIF';
 
 
     public static $MESSAGE_SUCCESSFULLY_DISPLAYED = 'Data Berhasil Ditampilkan !!';

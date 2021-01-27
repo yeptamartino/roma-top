@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Stock;
 use App\Models\Warehouse;
+use App\Models\Constants;
 use App\Models\Catalog;
 use Flash;
 class StockController extends Controller
@@ -13,17 +14,16 @@ class StockController extends Controller
 
   public function index(Request $request)
   {
-    $valsearch = preg_replace('/[^A-Za-z0-9 ]/', '', $request->input('search'));
-
-    if ($valsearch == "" || $valsearch == "0") {
-
-      $q_search = "";
-    } else {
-      $q_search = " AND catalog_id like '%" . $valsearch . "%'";
-    }
-    $stocks = Stock::whereRaw('1 ' . $q_search)
-      ->orderBy('created_at', 'desc')
-      ->paginate(10);
+    $search = $request->get('search');
+    $stocks = Stock::select('warehouses.*', 'stocks.*')->join('warehouses', 'warehouses.id', '=', 'stocks.warehouse_id')
+      ->orderBy('stocks.created_at','desc');
+      if($search) {
+        $stocks =  $stocks->where(function ($query) use ($search){
+          $query->orWhere('name','LIKE',"%$search%");
+          $query->orWhere('warehouses.name','LIKE',"%$search%");
+        });
+      }
+    $stocks = $stocks->paginate(Constants::$DEFAULT_PAGINATION_COUNT);
     return view('admin.stock.index', compact('stocks'));
   }
 

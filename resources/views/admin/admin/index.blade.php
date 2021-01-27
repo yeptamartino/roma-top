@@ -6,36 +6,7 @@ DAFTAR ADMIN
 
 @section('content')
 @include('flash::message')
-<form method="get" action="{{route('admin.admin')}}">
-  <div class="row">
-    <div class="col-md-2">
-        <div class="form-group">
-            <label>Dari Tanggal</label>
-            <input type="date" class="form-control" name="tgl_awal" value="{{ request()->get('tgl_awal') ?? date("y-m-d") }}">
-        </div>
-    </div>
-    
-    <div class="col-md-2">
-        <div class="form-group">
-            <label>Sampai Tanggal</label>
-            <input type="date" class="form-control" name="tgl_akhir" value="{{  request()->get('tgl_akhir') ?? date("y-m-d") }}">
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="form-group">
-            <label>Pencarian</label>
-        <input type="text" class="form-control" name="keyword" value="{{  request()->get('keyword') ?? '' }}" placeholder="Berdasarkan: Nama, Email">
-        </div>
-    </div>
-  
-    <div class="col-md-2" style="margin-top: 25px;">
-        <div class="form-group">
-            <input type="submit" value="Cari" class="btn btn-info" title="Pencarian">
-            <a href="{{route('admin.admin')}}" class="btn btn-danger "> <i class="fa fa-refresh" title="Refresh"></i></a>
-        </div>
-    </div>
-  </div>
-</form>
+<x-search-input :action="route('admin.admin')" />
 @if(Session::has('error'))
   <div class="row">
     <div class="col-md-12">

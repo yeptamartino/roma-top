@@ -71,6 +71,9 @@ Route::group(['middleware' => 'auth'], function (){
     Route::put('payment.update/{id}', [App\Http\Controllers\Admin\PaymentMethodController::class,'update'])->name('admin.payment.update');
     Route::delete('payment.delete/{id}', [App\Http\Controllers\Admin\PaymentMethodController::class,'delete'])->name('admin.payment.delete');
     
+    Route::put('payment/aktif/{id}', [App\Http\Controllers\Admin\PaymentMethodController::class,'aktif'])->name('admin.payment.aktif');
+    Route::put('payment/non-aktif/{id}', [App\Http\Controllers\Admin\PaymentMethodController::class,'nonAktif'])->name('admin.payment.non.aktif');
+
     Route::get('discount', [App\Http\Controllers\Admin\DiscountController::class,'index'])->name('admin.discount');
     Route::get('discount/create', [App\Http\Controllers\Admin\DiscountController::class,'create'])->name('admin.discount.create');
     Route::post('discount.create', [App\Http\Controllers\Admin\DiscountController::class,'store'])->name('admin.discount.store');

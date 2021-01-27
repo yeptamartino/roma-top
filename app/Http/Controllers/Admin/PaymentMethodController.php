@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\PaymentMethod;
+use App\Models\Constants;
+use App\Models\Constans;
 use Flash;
 class PaymentMethodController extends Controller
 {
@@ -31,7 +33,7 @@ class PaymentMethodController extends Controller
 
   public function store(Request $request)
   {
-
+    $request->validate(PaymentMethod::$validation);
     $payment = new PaymentMethod([
       'name' => $request->input('name'),
       'is_active' => 0,
@@ -50,12 +52,30 @@ class PaymentMethodController extends Controller
 
   public function update($id, Request $request)
   {
+    $request->validate(PaymentMethod::$validation);
     $payment = PaymentMethod::findOrFail($id);
-
     $payment->name = $request->input('name');
     $payment->is_active = $request->input('is_active');
     $payment->save();
     Flash::success('Metode pembayaran berhasil di ubah.');
+
+    return redirect()->route('admin.payment');
+  }
+
+  public function aktif($id) {
+    $payment = PaymentMethod::findOrFail($id);
+
+    $payment->is_active = 1;
+    $payment->save();      
+
+    return redirect()->route('admin.payment');
+  }
+
+  public function nonAktif($id) {
+    $payment = PaymentMethod::findOrFail($id);
+
+    $payment->is_active = 0;
+    $payment->save();      
 
     return redirect()->route('admin.payment');
   }

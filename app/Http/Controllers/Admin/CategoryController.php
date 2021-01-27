@@ -5,22 +5,21 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Constants;
 use Flash;
 class CategoryController extends Controller
 {
 
   public function index(Request $request)
   {
-    $valsearch = preg_replace('/[^A-Za-z0-9 ]/', '', $request->input('search'));
-
-    if ($valsearch == "" || $valsearch == "0") {
-      $q_search = "";
-    } else {
-      $q_search = " AND name like '%" . $valsearch . "%'";
+    $search = $request->get('search');
+    $categories = Category::orderBy('created_at', 'desc');
+    if($search) {
+      $categories =  $categories->where(function ($query) use ($search){
+        $query->orWhere('name','LIKE',"%$search%");
+      });
     }
-    $categories = Category::whereRaw('1 ' . $q_search)
-      ->orderBy('name', 'asc')
-      ->paginate(10);
+    $categories = $categories->paginate(Constants::$DEFAULT_PAGINATION_COUNT);
     return view('admin.category.index', compact('categories'));
   }
 
@@ -32,7 +31,6 @@ class CategoryController extends Controller
   public function store(Request $request)
   {
     $request->validate(Category::$validation);
-
     $category = new Category([
       'name' => $request->input('name')
     ]);
@@ -49,7 +47,8 @@ class CategoryController extends Controller
   }
 
   public function update($id, Request $request)
-  {
+  { 
+    $request->validate(Category::$validation);
     $category = Category::findOrFail($id);
 
     $category->name = $request->input('name');

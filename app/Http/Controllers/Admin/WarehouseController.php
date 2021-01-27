@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Warehouse;
+use App\Models\Constants;
 use App\Helpers\ImageUploader;
 use Flash;
 class WarehouseController extends Controller
@@ -12,17 +13,15 @@ class WarehouseController extends Controller
 
   public function index(Request $request)
   {
-    $valsearch = preg_replace('/[^A-Za-z0-9 ]/', '', $request->input('search'));
-
-    if ($valsearch == "" || $valsearch == "0") {
-
-      $q_search = "";
-    } else {
-      $q_search = " AND name like '%" . $valsearch . "%'";
+    $search = $request->get('search');
+    $warehouses = Warehouse::orderBy('created_at', 'desc');
+    if($search) {
+      $warehouses =  $warehouses->where(function ($query) use ($search){
+        $query->orWhere('name','LIKE',"%$search%");
+        $query->orWhere('address','LIKE',"%$search%");
+      });
     }
-    $warehouses = Warehouse::whereRaw('1 ' . $q_search)
-      ->orderBy('name', 'asc')
-      ->paginate(10);
+    $warehouses = $warehouses->paginate(Constants::$DEFAULT_PAGINATION_COUNT);
     return view('admin.warehouse.index', compact('warehouses'));
   }
 

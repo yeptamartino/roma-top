@@ -14,33 +14,18 @@ class AdminController extends Controller
 
   public function index(Request $request)
   {
-    $keyword = $request->get('keyword');
-      $tgl_awal = $request->get('tgl_awal');
-      $tgl_akhir = $request->get('tgl_akhir');
-      $type = $request->get('type');
-      $action = $request->get('action');
+    $search = $request->get('search');
+    $admins = Admin::orderBy('created_at', 'desc');
+    if($search) {
+      $admins =  $admins->where(function ($query) use ($search){
+        $query->orWhere('name','LIKE',"%$search%");
+        $query->orWhere('email','LIKE',"%$search%");
+        $query->orWhere('phone','LIKE',"%$search%");
+      });
+    }
+    $admins = $admins->paginate(Constants::$DEFAULT_PAGINATION_COUNT);
       
-      $queryBuilder = Admin::where('role', Constants::$USER_ROLE_ADMIN);
-      if($type){
-        $queryBuilder->where('is_verified', $type);
-      }
-      if ($tgl_awal &&  $tgl_akhir){
-        $queryBuilder->whereBetween('created_at', [$tgl_awal, $tgl_akhir]);
-      }
-      if($keyword) {
-        $queryBuilder->where(function ($query) use ($keyword) {
-          $query->orWhere('name','LIKE',"%$keyword%");
-          $query->orWhere('email','LIKE',"%$keyword%");
-        }); 
-      }
-    
-      $queryBuilder->orderBy('updated_at','desc');
-
-      $admins_count = $queryBuilder->count();
-      $admins = $queryBuilder->orderBy('created_at','desc')
-        ->paginate(Constants::$DEFAULT_PAGINATION_COUNT);
-      
-      return view('admin.admin.index', compact('admins','admins_count'));
+      return view('admin.admin.index', compact('admins'));
   }
 
   public function create()

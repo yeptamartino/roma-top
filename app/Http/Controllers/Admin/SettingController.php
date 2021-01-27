@@ -18,9 +18,8 @@ class SettingController extends Controller
 
   public function update(Request $request, ImageUploader $imageUploader)
   {
-  
+    $request->validate(Setting::$validation);
     $setting = Setting::latest()->first();
-
     $setting->point_ratio = $request->input('point_ratio');
 
     if($request->file('thumbnail')) {

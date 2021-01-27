@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Customer;
+use App\Models\Constants;
 use App\Helpers\ImageUploader;
 use Flash;
 class CustomerController extends Controller
@@ -12,17 +13,17 @@ class CustomerController extends Controller
 
   public function index(Request $request)
   {
-    $valsearch = preg_replace('/[^A-Za-z0-9 ]/', '', $request->input('search'));
-
-    if ($valsearch == "" || $valsearch == "0") {
-
-      $q_search = "";
-    } else {
-      $q_search = " AND name like '%" . $valsearch . "%'";
+    $search = $request->get('search');
+    $customers = Customer::orderBy('created_at', 'desc');
+    if($search) {
+      $customers =  $customers->where(function ($query) use ($search){
+        $query->orWhere('name','LIKE',"%$search%");
+        $query->orWhere('phone','LIKE',"%$search%");
+        $query->orWhere('email','LIKE',"%$search%");
+      });
     }
-    $customers = Customer::whereRaw('1 ' . $q_search)
-      ->orderBy('name', 'asc')
-      ->paginate(10);
+
+    $customers = $customers->paginate(Constants::$DEFAULT_PAGINATION_COUNT);
     return view('admin.customer.index', compact('customers'));
   }
 
@@ -33,8 +34,7 @@ class CustomerController extends Controller
 
   public function store(Request $request, ImageUploader $imageUploader)
   {
-    
-   
+    $request->validate(Customer::$validation);
     $customer = new Customer([
       'name' => $request->input('name'),
       'phone' => $request->input('phone'),
@@ -63,6 +63,7 @@ class CustomerController extends Controller
 
   public function update($id, Request $request, ImageUploader $imageUploader)
   {
+    $request->validate(Customer::$validationUpdate);
     $customer = Customer::findOrFail($id);
 
     $customer->name = $request->input('name');

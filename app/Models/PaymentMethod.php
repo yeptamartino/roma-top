@@ -13,4 +13,8 @@ class PaymentMethod extends Model
     protected $dates   = ['deleted_at'];
     protected $table   = "payment_methods";
     protected $guarded = [];
+
+    public static $validation = [
+		'name' => 'required|string|min:3',
+	];
 }

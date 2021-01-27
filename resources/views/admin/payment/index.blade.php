@@ -22,12 +22,11 @@ DAFTAR PEMBAYARAN
       <tr>
         <td>{{ $loop->iteration }}</td>
         <td>{{ $payment->name }}</td>
-        <td>{{ $payment->is_active }}</td>
-        <td> 
-          @if( $payment->is_active == 0)
-          <a class="btn btn-danger btn-xs">Non AKTIF</a>
+        <td>
+          @if($payment->is_active == 1)
+            <a class="btn btn-xs btn-success">Aktif</a>
           @else
-          <a class="btn btn-success btn-xs">AKTIF</a>
+            <a class="btn btn-xs btn-danger"> Non Aktif</a>
           @endif
         </td>
        <td>
