@@ -1,6 +1,7 @@
 @props([
   'disableExports' => false,
   'disableSearch' => false,
+  'disableDates' => false,
   'searchPlaceholder' => '',
   'dateStartDefaultValue' => '',
   'dateEndDefaultValue' => '',
@@ -8,6 +9,7 @@
 
 <form method="get" action="">
 <div class="row">
+  @if(!$disableDates)
   <div class="col-md-3">
       <div class="form-group">
           <label>Dari Tanggal</label>
@@ -21,6 +23,7 @@
           <input type="date" class="form-control" name="tgl_akhir" value="{{  request()->get('tgl_akhir') ?? $dateEndDefaultValue }}">
       </div>
   </div>
+  @endif
   @if(!$disableSearch)
   <div class="col-md-3">
       <div class="form-group">

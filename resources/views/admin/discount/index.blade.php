@@ -53,6 +53,10 @@ DAFTAR DISKON
   @endif
 </tbody>
 </table>
-{{ $discounts->links() }}
+</div>
+<div class="row">
+  <div class="col-md-12">
+    {{ $discounts->appends(request()->except('page'))->links('pagination.bootstrap3') }}
+  </div>
 </div>
 @endsection

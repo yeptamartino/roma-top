@@ -11,7 +11,20 @@ use Carbon\Carbon;
 use Flash;
 class DashboardController extends Controller
 {
-    public function dashboard(){
+    public function dashboard(Request $request){
+      $keyword = $request->get('keyword');
+      
+      $transactions = Transaction::select('transactions.*', 'customers.name')
+      ->join('customers', 'customers.id', '=', 'transactions.customer_id')->orderBy('created_at', 'desc');
+     
+      if($keyword) {
+        $transactions =  $transactions->where(function ($query) use ($keyword){
+          $query->orWhere('customers.name','LIKE',"%$keyword%");
+        });
+      }
+
+      $transactions = $transactions->paginate(Constants::$DEFAULT_PAGINATION_COUNT);
+
       $start_of_this_month = Carbon::now()->startOfMonth();
       $end_of_this_month = Carbon::now()->endOfMonth();
 
@@ -35,6 +48,7 @@ class DashboardController extends Controller
           'transactions_count_this_month',
           'sold_items_count',
           'total_customer',
+          'transactions',
         ));
     }
    
