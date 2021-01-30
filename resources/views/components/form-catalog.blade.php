@@ -50,7 +50,9 @@
     <label for="category_id">Kategori*</label>
     <select v-model="selectedCategoryId" v-on:change="onSelectedCategoryChanged" name="category_id" class="form-control" required>
       <option disabled value="">--- PILIH KATEGORI ---</option>
-      <option v-for="category in categories" :value="[[ category.id ]]">@{{category.name}}</option>
+      @foreach($category as $c)
+        <option value="{{ $c->id }}">{{$c->name}}</option>
+      @endforeach
     </select>
   </div>
   <x-textarea
@@ -116,6 +118,8 @@
     var composites = @json($composites);
     var catalogs = @json($catalogs);
     var categories = @json($category);
+    var selectedCategoryId = '{{{ $selectedCategoryId }}}';
+
     var ID = function () {
       return '_' + Math.random().toString(36).substr(2, 9);
     };
@@ -132,7 +136,7 @@
       catalogs,
       categories,
       registeredListeners: [],
-      selectedCategoryId: 0,
+      selectedCategoryId: selectedCategoryId,
     },
     mounted: function() {
       this.selectAllComposites();
@@ -144,6 +148,9 @@
         }
         console.log(data);
       });
+      if(selectedCategoryId) {
+        $('#selectCategory').val(selectedCategoryId);
+      }
     },
     methods: {
       onSelectedCategoryChanged: function (e) {

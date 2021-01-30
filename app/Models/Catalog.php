@@ -26,7 +26,7 @@ class Catalog extends Model
 
   public function composite_catalogs()
   {
-    return $this->belongsToMany(Catalog::class, 'composites', 'catalog_id', 'composite_id');
+    return $this->belongsToMany(Catalog::class, 'composites', 'catalog_id', 'composite_id')->with('stocks');
   }
 
   public function composites() {

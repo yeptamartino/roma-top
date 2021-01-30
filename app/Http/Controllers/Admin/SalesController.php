@@ -67,12 +67,12 @@ class SalesController extends Controller
   }
 
   public function create() {
-    $warehouses = Warehouse::get();
-    $catalogs = Catalog::with('stocks')->get();
-    $categories = Category::get();
-    $discounts = Discount::get();
-    $customers = Customer::get();
-    $payment_methods = PaymentMethod::get();
+    $warehouses = Warehouse::orderBy('name')->get();
+    $catalogs = Catalog::with(['stocks', 'composite_catalogs'])->orderBy('name')->get();
+    $categories = Category::where('name', '!=', Constants::$DEFAULT_COMPOSITE_CATEGORY)->get();
+    $discounts = Discount::orderBy('name')->get();
+    $customers = Customer::orderBy('name')->get();
+    $payment_methods = PaymentMethod::orderBy('name')->get();
 
     return view(
       'admin.sales.create',
