@@ -197,7 +197,7 @@ Buat Transaksi Penjualan
                 <td>@{{ cartItem.warehouse.name }}</td>
                 <td style="width: 10em;">
                   <a href="#." v-on:click="removeFromCart(cartItem)" class="btn btn-danger">-</a>
-                  @{{ cartItem.quantity }}
+                    <input v-model="cartItem.quantity" style="width: 3em; text-align: center;" v-on:click="customAddToCart(cartItem)" readonly/>
                   <a href="#." v-on:click="addToCart(cartItem)" class="btn btn-success">+</a>
                 </td>
                 <td style="width: 9em;">
@@ -355,6 +355,35 @@ Buat Transaksi Penjualan
         $('#payments').DataTable();
       },
       methods: {
+        customAddToCart: function(catalog) {
+          const totalItem = parseInt(prompt('Masukan Jumlah Item :'));
+          const stock = this.getStock(catalog);
+          if(totalItem <= 0) {
+            this.carts.map((cartItem) => {
+              if(cartItem.id === catalog.id && cartItem.warehouse.id == this.selectedWarehouse) {
+                stock.total += cartItem.quantity;
+                cartItem.quantity = 0;
+              }
+              return cartItem;
+            });
+            this.carts = this.carts.filter((cartItem) => cartItem.quantity > 0);
+          } else if(stock.total >= totalItem) {
+            let isExists = false;
+            this.carts.map((cartItem) => {
+              if(cartItem.id === catalog.id && cartItem.warehouse.id == this.selectedWarehouse) {
+                cartItem.quantity = totalItem;
+                isExists = true;
+              }
+              return cartItem;
+            });
+            if(!isExists) {
+              this.carts.push({ ...catalog, quantity: 1, warehouse: {...this.getWarehouse()} });
+            }
+            stock.total -= totalItem;
+          } else if(stock.total < totalItem) {
+            alert('Stok tidak cukup!');
+          }          
+        },
         addToCart: function(catalog) {
           const stock = this.getStock(catalog);
           if(stock.total > 0) {
