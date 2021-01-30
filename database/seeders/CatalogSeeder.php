@@ -17,7 +17,7 @@ class CatalogSeeder extends Seeder
         
         
         
-        $category = Category::all()->first();
+        $category = Category::all()->last();
         $catalog = new Catalog([
             'name' => 'Bantal Dacron',
             'capital_price' => '200000',
@@ -29,7 +29,6 @@ class CatalogSeeder extends Seeder
 
         $catalog->save();
 
-        $category = Category::all()->first();
         $catalog = new Catalog([
             'name' => 'Guling Dacron',
             'capital_price' => '200000',
@@ -41,7 +40,6 @@ class CatalogSeeder extends Seeder
 
         $catalog->save();
 
-        $category = Category::all()->first();
         $catalog = new Catalog([
             'name' => 'Bantal Cinta Dacron',
             'capital_price' => '200000',
@@ -53,7 +51,6 @@ class CatalogSeeder extends Seeder
 
         $catalog->save();
 
-        $category = Category::all()->first();
         $catalog = new Catalog([
             'name' => 'Bantal Sofa Dacron',
             'capital_price' => '200000',
@@ -65,7 +62,6 @@ class CatalogSeeder extends Seeder
 
         $catalog->save();
         
-        $category = Category::all()->first();
         $catalog = new Catalog([
             'name' => 'Bantal Lantai Dacron',
             'capital_price' => '200000',
@@ -77,7 +73,6 @@ class CatalogSeeder extends Seeder
 
         $catalog->save();
         
-        $category = Category::all()->first();
         $catalog = new Catalog([
             'name' => 'Bantal Lantai Dacron',
             'capital_price' => '200000',

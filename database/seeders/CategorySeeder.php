@@ -14,31 +14,36 @@ class CategorySeeder extends Seeder
     public function run()
     {
         $category = new Category([
-            'name' => 'Bantal',
+            'name' => 'KOMPOSISI',
+        ]);        
+
+        $category->save();
+        $category = new Category([
+            'name' => 'BANTAL',
         ]);        
 
         $category->save();
 
         $category = new Category([
-            'name' => 'Guling',
+            'name' => 'GULING',
         ]);        
 
         $category->save();
 
         $category = new Category([
-            'name' => 'Kasur',
+            'name' => 'KASUR',
         ]);        
 
         $category->save();
 
         $category = new Category([
-            'name' => 'Sprei ',
+            'name' => 'SPREI ',
         ]);        
 
         $category->save();
 
         $category = new Category([
-            'name' => 'Spring Bed',
+            'name' => 'SPRING BED',
         ]);        
 
         $category->save();

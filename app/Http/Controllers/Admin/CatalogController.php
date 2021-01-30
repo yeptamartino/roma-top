@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\Catalog;
 use App\Models\Category;
 use App\Models\Constants;
@@ -31,7 +32,11 @@ class CatalogController extends Controller
   public function create()
   {
     $category = Category::all();
-    $catalogs = Catalog::all();
+    $catalogs = Catalog::select('catalogs.*', DB::raw('categories.name as categoryname'))
+    ->join('categories', 'categories.id', '=', 'catalogs.category_id')
+      ->where('categories.name', '=' , Constants::$DEFAULT_COMPOSITE_CATEGORY)
+      ->orderBy('catalogs.name')->get();
+
     return view('admin.catalog.create', compact('category', 'catalogs'));
   }
 
@@ -76,7 +81,10 @@ class CatalogController extends Controller
   {
     $catalog = Catalog::findOrFail($id);
     $category = Category::all();
-    $catalogs = Catalog::all();
+    $catalogs = Catalog::select('catalogs.*', DB::raw('categories.name as categoryname'))
+    ->join('categories', 'categories.id', '=', 'catalogs.category_id')
+      ->where('categories.name', '=' , Constants::$DEFAULT_COMPOSITE_CATEGORY)
+      ->orderBy('catalogs.name')->get();
     return view('admin.catalog.edit', compact('catalog', 'category', 'catalogs'));
   }
 

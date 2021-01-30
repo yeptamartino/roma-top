@@ -47,15 +47,10 @@
     :value="$sellingPrice"
   />
   <div class="form-group">
-    <label for="category_id">Category*</label>
-    <select name="category_id" class="form-control select2" style="width:100%">
-      @foreach($category as $category)
-        @if($category->id === $selectedCategoryId)
-          <option value="{{$category->id}}" selected>{{$category->name}}</option>
-        @else
-          <option value="{{$category->id}}">{{$category->name}}</option>
-        @endif
-      @endforeach
+    <label for="category_id">Kategori*</label>
+    <select v-model="selectedCategoryId" v-on:change="onSelectedCategoryChanged" name="category_id" class="form-control" required>
+      <option disabled value="">--- PILIH KATEGORI ---</option>
+      <option v-for="category in categories" :value="[[ category.id ]]">@{{category.name}}</option>
     </select>
   </div>
   <x-textarea
@@ -64,7 +59,7 @@
     :value="$description"
   />  
 
-  <div class="checkbox">
+  <div class="checkbox" v-show="isCompositeAllowed()">
     <label>
       <input name="compositeEnabled" v-model="compositeEnabled" type="checkbox"> Komposisi
     </label>
@@ -120,6 +115,7 @@
   <script>
     var composites = @json($composites);
     var catalogs = @json($catalogs);
+    var categories = @json($category);
     var ID = function () {
       return '_' + Math.random().toString(36).substr(2, 9);
     };
@@ -134,12 +130,32 @@
       compositeEnabled: composites.length > 0,
       composites: composites.length > 0 ? [...composites] : [...composites, {...emptyComposite, id: ID()}],
       catalogs,
+      categories,
       registeredListeners: [],
+      selectedCategoryId: 0,
     },
     mounted: function() {
       this.selectAllComposites();
+      const ini = this;
+      $('#selectCategory').on('select2:select', function (e) {
+        var data = e.params.data;
+        if(data.text === 'KOMPOSISI') {
+          ini.compositeEnabled = false;
+        }
+        console.log(data);
+      });
     },
     methods: {
+      onSelectedCategoryChanged: function (e) {
+        const ini = this;
+        this.categories.forEach((category) => {
+          if(e.target.value == category.id) {
+            if(category.name === 'KOMPOSISI') {
+              ini.compositeEnabled = false;
+            }
+          }
+        })
+      },
       addComposite: function () {
         const newComposite = {...emptyComposite, id: ID()};
         this.composites.push(newComposite);
@@ -178,7 +194,18 @@
         if(this.composites.length > 1) {
           this.composites = this.composites.filter((c) => c.id != composite.id);
         }
-      }
+      },
+      isCompositeAllowed: function() {
+        let allowed = true;
+        this.categories.forEach((category) => {
+          if(this.selectedCategoryId == category.id) {
+            if(category.name === 'KOMPOSISI') {
+              allowed = false;
+            }
+          }
+        })
+        return allowed;
+      } 
     }
     });
   </script>

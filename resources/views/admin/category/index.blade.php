@@ -24,20 +24,22 @@ DAFTAR KATEGORI
         <td>{{ $loop->iteration }}</td>
         <td>{{ $category->name }}</td>
        <td>
+       @if($category->name !== 'KOMPOSISI')
         <a
-        href="{{ route('admin.category.edit', ['id' => $category->id]) }}"
-        class="btn btn-warning"
-        >
-        <i class="fa fa-edit"></i>
-      </a>
-      <form action="{{ route('admin.category.delete', ['id' => $category->id]) }}" method="POST" style="display: inline-block;">
-        @method('delete')
-        @csrf
-        <button type="submit" class="btn btn-danger" value="Delete" onclick="return confirm('Delete Data?')">
-          <i class="fa fa-trash" title="Delete"></i>
-        </button>
-      </form>
-    </td>
+            href="{{ route('admin.category.edit', ['id' => $category->id]) }}"
+            class="btn btn-warning"
+            >
+            <i class="fa fa-edit"></i>
+          </a>
+          <form action="{{ route('admin.category.delete', ['id' => $category->id]) }}" method="POST" style="display: inline-block;">
+            @method('delete')
+            @csrf
+            <button type="submit" class="btn btn-danger" value="Delete" onclick="return confirm('Delete Data?')">
+              <i class="fa fa-trash" title="Delete"></i>
+            </button>
+          </form>
+       @endif
+      </td>
   </tr>
   @endforeach
   @else
