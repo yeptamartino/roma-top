@@ -8,5 +8,6 @@ TAMBAH KATALOG
   <x-form-catalog
     :action="route('admin.catalog.store')"
     :category="$category"
+    :catalogs="$catalogs"
   />
 @endsection

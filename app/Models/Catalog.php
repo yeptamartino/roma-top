@@ -20,15 +20,24 @@ class Catalog extends Model
 	}
 
 	public function stocks()
-    {
-        return $this->hasMany(Stock::class);
-    }
+  {
+      return $this->hasMany(Stock::class);
+  }
+
+  public function composite_catalogs()
+  {
+    return $this->belongsToMany(Catalog::class, 'composites', 'catalog_id', 'composite_id');
+  }
+
+  public function composites() {
+    return $this->hasMany(Composite::class);
+  }
 
 	public static $validation = [
 		'name'            => 'required|string|min:5',
 		'description'     => 'required|string|min:5',
-		'selling_price'   => 'required|string|min:5',
-		'capital_price'   => 'required|string|min:1',
+		'selling_price'   => 'required|integer|min:1',
+		'capital_price'   => 'required|integer|min:1',
 		'thumbnail'       => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
   ];
 }
