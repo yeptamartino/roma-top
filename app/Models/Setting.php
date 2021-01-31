@@ -11,7 +11,7 @@ class Setting extends Model
     protected $table   = "settings";
     protected $guarded = [];
     public static $validation = [
-        'point_ratio'  => 'required|number|min:1',
+        'point_ratio'  => 'required|string|min:1',
         'thumbnail'   => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 	];
 

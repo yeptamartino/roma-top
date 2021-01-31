@@ -5,7 +5,7 @@ DAFTAR DISKON
 
 @section('content')
 @include('flash::message')
-<x-search-input :action="route('admin.discount')"/>
+<x-filters searchPlaceholder="Pencarian..." :disableExports="true" :disableDates="true" :action="route('admin.discount')"/>
 <div class="table-responsive">
   <table class="table">
     <thead>

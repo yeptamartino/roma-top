@@ -6,7 +6,7 @@ DAFTAR ADMIN
 
 @section('content')
 @include('flash::message')
-<x-search-input :action="route('admin.admin')" />
+<x-filters searchPlaceholder="Pencarian..." :disableExports="true" :disableDates="true" :action="route('admin.admin')"/>
 @if(Session::has('error'))
   <div class="row">
     <div class="col-md-12">

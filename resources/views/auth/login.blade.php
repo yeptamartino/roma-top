@@ -75,10 +75,6 @@
             <!-- /.col -->
           </div>
         </form>
-    @if (Route::has('password.request'))
-    <a href="{{ route('password.request') }}" class="text-center" >Lupa password</a><br>
-    @endif
-    
       </div>
       <!-- /.login-box-body -->
     </div>

@@ -23,7 +23,7 @@
   @if($thumbnail)
     <img class="img img-responsive" src="{{ asset('images/'.$thumbnail) }}" style="max-width: 28em;" />
   @endif
-    <p style="color:blue">*Rekomendasi ukuran gambar 900 x 600 pixel</p>
+    <p style="color:blue">*Rekomendasi ukuran gambar 160 x 160 pixel</p>
 
   <x-input
     name="name"

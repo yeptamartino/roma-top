@@ -7,7 +7,7 @@ DAFTAR STOK
 
 @section('content')
 @include('flash::message')
-<x-search-input :action="route('admin.stock')"/>
+<x-filters searchPlaceholder="Pencarian..." :disableExports="true" :disableDates="true" :action="route('admin.stock')"/>
 <div class="table-responsive">
   <table class="table">
     <thead>

@@ -7,7 +7,7 @@ DAFTAR KATEGORI
 
 @section('content')
 @include('flash::message')
-<x-search-input :action="route('admin.category')"/>
+<x-filters searchPlaceholder="Pencarian..." :disableExports="true" :disableDates="true" :action="route('admin.category')"/>
 <div class="table-responsive">
   <table class="table">
     <thead>

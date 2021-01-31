@@ -17,11 +17,10 @@
     :value="$name"
   />
   <div class="form-group">
-    <label> Type</label>
+    <label> Status</label>
     <select name="is_active" class="form-control form-control-sm">
-      <option value="1" @if($isActive === '1') selected @endif>A</option>
-      <option value="B" @if($isActive === 'B') selected @endif>B</option>
-      <option value="C" @if($isActive === 'C') selected @endif>C</option>
+      <option value="1" @if($isActive == '1') selected @endif>Aktif</option>
+      <option value="0" @if($isActive == '0') selected @endif>Nonaktif</option>
     </select>
   </div>
   @if($id)

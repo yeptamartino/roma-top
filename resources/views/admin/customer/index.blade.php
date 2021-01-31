@@ -4,7 +4,7 @@ DAFTAR CUSTOMER
 @endsection
 @section('content')
 @include('flash::message')
-<x-search-input :action="route('admin.customer')"/>
+<x-filters searchPlaceholder="Pencarian..." :disableExports="true" :disableDates="true" :action="route('admin.customer')"/>
 <div class="table-responsive">
   <table class="table">
     <thead>

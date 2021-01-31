@@ -5,9 +5,10 @@
   'searchPlaceholder' => '',
   'dateStartDefaultValue' => '',
   'dateEndDefaultValue' => '',
+  'action' => '',
 ])
 
-<form method="get" action="">
+<form action="{{ $action }}" method="GET">
 <div class="row">
   @if(!$disableDates)
   <div class="col-md-3">
@@ -28,7 +29,7 @@
   <div class="col-md-3">
       <div class="form-group">
           <label>Pencarian</label>
-      <input type="text" class="form-control" name="keyword" value="{{  request()->get('keyword') ?? '' }}" placeholder="{{ $searchPlaceholder }}">
+      <input type="text" class="form-control" name="search" value="{{  request()->get('search') ?? '' }}" placeholder="{{ $searchPlaceholder }}">
       </div>
   </div>
   @endif

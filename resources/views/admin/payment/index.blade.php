@@ -5,7 +5,7 @@ DAFTAR PEMBAYARAN
 
 @section('content')
 @include('flash::message')
-<x-search-input :action="route('admin.payment')"/>
+<x-filters searchPlaceholder="Pencarian..." :disableExports="true" :disableDates="true" :action="route('admin.payment')"/>
 <div class="table-responsive">
   <table class="table">
     <thead>

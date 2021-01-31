@@ -7,7 +7,7 @@ DAFTAR GUDANG
 
 @section('content')
 @include('flash::message')
-<x-search-input :action="route('admin.warehouse')"/>
+<x-filters searchPlaceholder="Pencarian..." :disableExports="true" :disableDates="true" :action="route('admin.warehouse')"/>
 <div class="table-responsive">
   <table class="table">
     <thead>
