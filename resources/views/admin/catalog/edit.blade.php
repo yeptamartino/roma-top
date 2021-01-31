@@ -15,5 +15,7 @@ EDIT KATALOG
     :id="$catalog->id"
     :category="$category"
     :selected-category-id="$catalog->category->id"
+    :composites="$catalog->composites"
+    :catalogs="$catalogs"
   />
 @endsection

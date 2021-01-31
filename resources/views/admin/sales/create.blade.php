@@ -173,9 +173,9 @@ Buat Transaksi Penjualan
               <td>@{{ catalog.name }}</td>
               <td>@{{ formatRupiah(catalog.capital_price) }}</td>
               <td>@{{ formatRupiah(catalog.selling_price) }}</td>
-              <td>@{{ getStock(catalog.stocks).total }}</td>
+              <td>@{{ getStock(catalog).total }}</td>
               <td>
-                <a href="#." v-on:click="addToCart(catalog)" class="btn btn-success" :disabled="!getStock(catalog.stocks).total > 0">Tambahkan</a>
+                <a href="#." v-on:click="addToCart(catalog)" class="btn btn-success" :disabled="!getStock(catalog).total > 0">Tambahkan</a>
               </td>
             </tr>
           </tbody>
@@ -197,7 +197,7 @@ Buat Transaksi Penjualan
                 <td>@{{ cartItem.warehouse.name }}</td>
                 <td style="width: 10em;">
                   <a href="#." v-on:click="removeFromCart(cartItem)" class="btn btn-danger">-</a>
-                  @{{ cartItem.quantity }}
+                    <input v-model="cartItem.quantity" style="width: 3em; text-align: center;" v-on:click="customAddToCart(cartItem)" readonly/>
                   <a href="#." v-on:click="addToCart(cartItem)" class="btn btn-success">+</a>
                 </td>
                 <td style="width: 9em;">
@@ -355,8 +355,37 @@ Buat Transaksi Penjualan
         $('#payments').DataTable();
       },
       methods: {
+        customAddToCart: function(catalog) {
+          const totalItem = parseInt(prompt('Masukan Jumlah Item :'));
+          const stock = this.getStock(catalog);
+          if(totalItem <= 0) {
+            this.carts.map((cartItem) => {
+              if(cartItem.id === catalog.id && cartItem.warehouse.id == this.selectedWarehouse) {
+                stock.total += cartItem.quantity;
+                cartItem.quantity = 0;
+              }
+              return cartItem;
+            });
+            this.carts = this.carts.filter((cartItem) => cartItem.quantity > 0);
+          } else if(stock.total >= totalItem) {
+            let isExists = false;
+            this.carts.map((cartItem) => {
+              if(cartItem.id === catalog.id && cartItem.warehouse.id == this.selectedWarehouse) {
+                cartItem.quantity = totalItem;
+                isExists = true;
+              }
+              return cartItem;
+            });
+            if(!isExists) {
+              this.carts.push({ ...catalog, quantity: 1, warehouse: {...this.getWarehouse()} });
+            }
+            stock.total -= totalItem;
+          } else if(stock.total < totalItem) {
+            alert('Stok tidak cukup!');
+          }          
+        },
         addToCart: function(catalog) {
-          const stock = this.getStock(catalog.stocks);
+          const stock = this.getStock(catalog);
           if(stock.total > 0) {
             let isExists = false;
             this.carts.map((cartItem) => {
@@ -374,7 +403,7 @@ Buat Transaksi Penjualan
           }
         },
         removeFromCart: function(catalog) {
-          const stock = this.getStock(catalog.stocks);
+          const stock = this.getStock(catalog);
           let isRemoved = false;
           this.carts.map((cartItem) => {
             if(cartItem.id === catalog.id && cartItem.warehouse.id == this.selectedWarehouse) {
@@ -444,10 +473,26 @@ Buat Transaksi Penjualan
           formSales.submit();
         },
         
-        getStock: function(stocks) {
-          for(var i = 0; i < stocks.length; i++) {
-            if(stocks[i].warehouse_id == this.selectedWarehouse) {
-              return stocks[i];
+        getStock: function(catalog) {
+          const { stocks, composite_catalogs } = catalog;
+          const ini = this;
+          if(composite_catalogs.length > 0) {
+            let lowestStock = {total: Number.MAX_VALUE};
+            composite_catalogs.forEach((composite_catalog) => {
+              for(var i = 0; i < composite_catalog.stocks.length; i++) {
+                if(composite_catalog.stocks[i].warehouse_id == ini.selectedWarehouse) {
+                  if(composite_catalog.stocks[i].total < lowestStock.total) {
+                    lowestStock = composite_catalog.stocks[i];
+                  }
+                }
+              }
+            });
+            return lowestStock.total != Number.MAX_VALUE ? lowestStock : {total: 0};
+          } else {
+            for(var i = 0; i < stocks.length; i++) {
+              if(stocks[i].warehouse_id == this.selectedWarehouse) {
+                return stocks[i];
+              }
             }
           }
           return {total: 0};

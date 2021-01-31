@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\Catalog;
 use App\Models\Category;
 use App\Models\Constants;
+use App\Models\Composite;
 use App\Helpers\ImageUploader;
 use Flash;
 class CatalogController extends Controller
@@ -48,22 +50,47 @@ class CatalogController extends Controller
   public function create()
   {
     $category = Category::all();
-    return view('admin.catalog.create', compact('category'));
+    $catalogs = Catalog::select('catalogs.*', DB::raw('categories.name as categoryname'))
+    ->join('categories', 'categories.id', '=', 'catalogs.category_id')
+      ->where('categories.name', '=' , Constants::$DEFAULT_COMPOSITE_CATEGORY)
+      ->orderBy('catalogs.name')->get();
+
+    return view('admin.catalog.create', compact('category', 'catalogs'));
   }
 
   public function store(Request $request, ImageUploader $imageUploader)
   {
     $request->validate(Catalog::$validation);
+    $data = $request->all();
+
     $catalog = new Catalog([
       'category_id' => $request->input('category_id'),
       'name'        => $request->input('name'),
       'description' => $request->input('description'),
       'selling_price' => $request->input('selling_price'),
       'capital_price' => $request->input('capital_price'),
-    ]);
+    ]);    
+
     $catalog->thumbnail = $imageUploader->saveImage($request, 'thumbnail');
     Flash::success('Data katalog berhasil di tambahkan.');
     $catalog->save();
+
+    if(isset($data['compositeEnabled'])) {
+      $composites = [];
+
+      for ($i=0; $i < count($data['composite_ids']); $i++) { 
+        $amount = (float)$data['composite_amounts'][$i];
+        if($amount > 0) {
+          array_push($composites, [
+            'composite_id' => $data['composite_ids'][$i],
+            'amount' => $amount,
+            'catalog_id' => $catalog->id,
+          ]);
+        }
+      }
+
+      Composite::insert($composites);
+    }
 
     return redirect()->route('admin.catalog');
   }
@@ -72,13 +99,18 @@ class CatalogController extends Controller
   {
     $catalog = Catalog::findOrFail($id);
     $category = Category::all();
-    return view('admin.catalog.edit', compact('catalog', 'category'));
+    $catalogs = Catalog::select('catalogs.*', DB::raw('categories.name as categoryname'))
+    ->join('categories', 'categories.id', '=', 'catalogs.category_id')
+      ->where('categories.name', '=' , Constants::$DEFAULT_COMPOSITE_CATEGORY)
+      ->orderBy('catalogs.name')->get();
+    return view('admin.catalog.edit', compact('catalog', 'category', 'catalogs'));
   }
 
   public function update($id, Request $request, ImageUploader $imageUploader)
   {
     $request->validate(Catalog::$validation);
     $catalog = Catalog::findOrFail($id);
+    $data = $request->all();
 
     $catalog->category_id = $request->input('category_id');
     $catalog->name         = $request->input('name');
@@ -91,6 +123,25 @@ class CatalogController extends Controller
     }
     Flash::success('Data katalog berhasil di ubah.');
     $catalog->save();
+
+    $catalog->composites()->delete();
+
+    if(isset($data['compositeEnabled'])) {
+      $composites = [];
+
+      for ($i=0; $i < count($data['composite_ids']); $i++) { 
+        $amount = (float)$data['composite_amounts'][$i];
+        if($amount > 0) {
+          array_push($composites, [
+            'composite_id' => $data['composite_ids'][$i],
+            'amount' => $amount,
+            'catalog_id' => $catalog->id,
+          ]);
+        }
+      }
+
+      Composite::insert($composites);
+    }
 
     return redirect()->route('admin.catalog');
   }
