@@ -26,7 +26,6 @@ class StockController extends Controller
         });
       }
     $stocks = $stocks->paginate(Constants::$DEFAULT_PAGINATION_COUNT);
-    dd($stocks);
     return view('admin.stock.index', compact('stocks'));
   }
 
