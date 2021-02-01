@@ -15,7 +15,9 @@ class StockController extends Controller
   public function index(Request $request)
   {
     $search = $request->get('search');
-    $stocks = Stock::select('warehouses.*', 'stocks.*')->join('warehouses', 'warehouses.id', '=', 'stocks.warehouse_id')
+    $stocks = Stock::select('warehouses.*', 'stocks.*', 'catalogs.*')
+      ->join('warehouses', 'warehouses.id', '=', 'stocks.warehouse_id')
+      ->join('catalogs', 'catalogs.id', '=', 'stocks.catalog_id')
       ->orderBy('stocks.created_at','desc');
       if($search) {
         $stocks =  $stocks->where(function ($query) use ($search){
