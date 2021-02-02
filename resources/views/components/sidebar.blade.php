@@ -13,14 +13,14 @@
         </span>
       </a>
       <ul class="treeview-menu">
-        <li><a href="{{route('admin.report.sales')}}"><i class="fa fa-circle-o"></i>Penjualan</a></li>        
+        <li><a href="{{route('admin.report.sales')}}"><i class="fa fa-circle-o"></i>Transaksi</a></li>        
       </ul>
     </li>
 
     <li class="treeview">
       <a href="#">
         <i class="fa fa-money"></i>
-        <span>Penjualan</span>
+        <span>Transaksi</span>
         <span class="pull-right-container">
           <i class="fa fa-angle-left pull-right"></i>
         </span>

@@ -68,9 +68,15 @@ class WarehouseController extends Controller
     return redirect()->route('admin.warehouse');
   }
 
-  public function delete($id)
+  public function delete($id) 
   {
     $warehouse = Warehouse::findOrFail($id);
+    if($warehouse->stock) {
+      if(count($warehouse->stock) > 0) {
+        Flash::warning('Gudang tidak bisa di hapus, karena stock masih ada.');      
+        return redirect()->back();
+      }
+    }
     $warehouse->delete();
     Flash::error('Data gudang berhasil di hapus.');
     return redirect()->route('admin.warehouse');

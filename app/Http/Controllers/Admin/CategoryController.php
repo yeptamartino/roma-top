@@ -62,6 +62,13 @@ class CategoryController extends Controller
   public function delete($id)
   {
     $category = Category::findOrFail($id);
+    if($category->catalogs) {
+      if(count($category->catalogs) > 0) {
+      Flash::warning('Kategori tidak bisa di hapus, karena masih digunakan.');      
+        return redirect()->back();
+    }
+  }
+
     $category->delete();
     Flash::error('Data kategori berhasil di hapus.');
     return redirect()->route('admin.category');

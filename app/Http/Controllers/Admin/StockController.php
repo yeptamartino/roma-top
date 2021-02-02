@@ -15,7 +15,7 @@ class StockController extends Controller
   public function index(Request $request)
   {
     $search = $request->get('search');
-    $stocks = Stock::with('catalog', 'warehouse')->select('warehouses.*', 'stocks.*', 'catalogs.*')
+    $stocks = Stock::with('catalog', 'warehouse')->select('warehouses.*', 'catalogs.*', 'stocks.*')
       ->join('warehouses', 'warehouses.id', '=', 'stocks.warehouse_id')
       ->join('catalogs', 'catalogs.id', '=', 'stocks.catalog_id')
       ->orderBy('stocks.created_at','desc');
