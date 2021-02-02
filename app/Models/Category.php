@@ -17,7 +17,7 @@ class Category extends Model
 
     public function catalogs()
     {
-        return $this->hasMany(catalog::class);
+        return $this->hasMany(Catalog::class);
     }
 
     public static $validation = [
