@@ -169,7 +169,7 @@ Buat Transaksi Penjualan
             </tr>
           </thead>
           <tbody>
-            <tr v-for="catalog in catalogs.filter((item) => selectedCategory === 'ALL' || selectedCategory == item.category_id)">
+            <tr v-for="catalog in catalogs.filter((item) => selectedCategory === 'ALL' || selectedCategory == item.category_id)" v-show="getStock(catalog).total > 0">
               <td>@{{ catalog.name }}</td>
               <td>@{{ formatRupiah(catalog.capital_price) }}</td>
               <td>@{{ formatRupiah(catalog.selling_price) }}</td>
