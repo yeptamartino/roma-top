@@ -169,7 +169,7 @@ Buat Transaksi Penjualan
             </tr>
           </thead>
           <tbody>
-            <tr v-for="catalog in catalogs.filter((item) => selectedCategory === 'ALL' || selectedCategory == item.category_id)">
+            <tr v-for="catalog in catalogs.filter((item) => selectedCategory === 'ALL' || selectedCategory == item.category_id)" v-show="getStock(catalog).total > 0">
               <td>@{{ catalog.name }}</td>
               <td>@{{ formatRupiah(catalog.capital_price) }}</td>
               <td>@{{ formatRupiah(catalog.selling_price) }}</td>
@@ -280,8 +280,9 @@ Buat Transaksi Penjualan
           <div class="col-md-6">
             <table class="table table-bordered">
               <tr>
-                <td>
-                  <input type="number" style="width: 8em;" class="form-control" v-model="totalPaid">
+                <td style="display: flex; flex-direction: row;">
+                  <input type="number" style="width: 8em; margin-right: 0.5em;" class="form-control" v-model="totalPaid">
+                  <button type="button" class="btn btn-primary" v-on:click="fillUangPas">Uang Pas</button>
                 </td>
               </tr>
             </table>
@@ -425,6 +426,9 @@ Buat Transaksi Penjualan
         },
         selectPaymentMethod: function(payment_method) {
           this.selectedPaymentMethod = payment_method;
+        },
+        fillUangPas: function() {
+          this.totalPaid = this.hitungTotalPenjualan();
         },
 
         hitungSubTotal: function() {
