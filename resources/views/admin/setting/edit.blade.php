@@ -4,6 +4,10 @@
 Edit Pengaturan
 @endsection
 
+@section('subtitle')
+Edit Pengaturan
+@endsection
+
 @section('content')
 @include('flash::message')
 <x-form-settings

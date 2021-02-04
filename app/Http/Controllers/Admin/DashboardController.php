@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Catalog;
+use App\Models\Category;
 use App\Models\Constants;
 use App\Models\Transaction;
 use App\Models\Customer;
@@ -12,14 +14,28 @@ use Flash;
 class DashboardController extends Controller
 {
     public function dashboard(Request $request){
-      $keyword = $request->get('keyword');
+      $search = $request->get('search');
+      $category = $request->get('category');
+      $action = $request->get('action');
+      
+      $catalogs = Catalog::orderBy('updated_at','desc');
+      if($category){
+        $catalogs->where('category_id', $category);
+      }
+      if($search) {
+        $catalogs->where(function ($query) use ($search) {
+          $query->orWhere('name','LIKE',"%$search%");
+        }); 
+      }
+      $category = Category::all();
+      $catalogs = $catalogs->paginate(Constants::$DEFAULT_PAGINATION_COUNT);
       
       $transactions = Transaction::select('transactions.*', 'customers.name')
       ->join('customers', 'customers.id', '=', 'transactions.customer_id')->orderBy('created_at', 'desc');
      
-      if($keyword) {
-        $transactions =  $transactions->where(function ($query) use ($keyword){
-          $query->orWhere('customers.name','LIKE',"%$keyword%");
+      if($search) {
+        $transactions =  $transactions->where(function ($query) use ($search){
+          $query->orWhere('customers.name','LIKE',"%$search%");
         });
       }
 
@@ -49,6 +65,8 @@ class DashboardController extends Controller
           'sold_items_count',
           'total_customer',
           'transactions',
+          'category',
+          'catalogs',
         ));
     }
    

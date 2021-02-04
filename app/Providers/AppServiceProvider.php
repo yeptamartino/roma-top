@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Schema;
+use App\Models\Setting;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,6 +26,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+      $setting = Setting::latest()->first();
+      view()->share('setting', $setting);
+
       if(config('app.env') === 'production' || config('app.env') === 'development') {
         \URL::forceScheme('https');
       }

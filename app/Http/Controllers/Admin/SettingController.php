@@ -32,7 +32,7 @@ class SettingController extends Controller
     return redirect()->route('admin.setting.edit');
            
            
-      }
+  }
   
 
 }
