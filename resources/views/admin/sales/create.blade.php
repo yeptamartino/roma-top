@@ -428,8 +428,7 @@ Buat Transaksi Penjualan
           this.selectedPaymentMethod = payment_method;
         },
         fillUangPas: function() {
-          this.totalPaid = this.hitungTotalPenjualan().toString().replace(/\D/g, "")
-              .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+          this.totalPaid = this.hitungTotalPenjualan();
         },
 
         hitungSubTotal: function() {
