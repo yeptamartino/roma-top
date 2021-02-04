@@ -14,7 +14,7 @@ class SettingSeeder extends Seeder
     public function run()
     {
         $settings = new Setting([
-            'thumbnail' => 'default.png',
+            'logo' => 'default.png',
             'point_ratio' => 100,
         ]);
 
