@@ -7,7 +7,7 @@ Dashboard
       <div class="col-lg-3 col-xs-6">
         <div class="small-box bg-aqua">
           <div class="inner">
-            <h3>@rupiah($sales_this_month)</h3>
+            <h3 style="font-size:25px;">@rupiah($sales_this_month)</h3>
             <p>Penjualan Bulan Ini</p>
           </div>
           
@@ -20,7 +20,7 @@ Dashboard
       <div class="col-lg-3 col-xs-6">
         <div class="small-box bg-green">
           <div class="inner">
-            <h3>{{$transactions_count_this_month}}</h3>
+            <h3 style="font-size:25px;">{{$transactions_count_this_month}}</h3>
             <p>Total Transaksi Bulan Ini</p>
           </div>
           <div class="icon">
@@ -32,7 +32,7 @@ Dashboard
       <div class="col-lg-3 col-xs-6">
         <div class="small-box bg-yellow">
           <div class="inner">
-            <h3>{{$sold_items_count}}</h3>
+            <h3 style="font-size:25px;">{{$sold_items_count}}</h3>
             <p>Total Item Terjual Bulan Ini</p>
           </div>
           <div class="icon">
@@ -44,7 +44,7 @@ Dashboard
       <div class="col-lg-3 col-xs-6">
         <div class="small-box bg-red">
           <div class="inner">
-            <h3>{{$total_customer}}</h3>
+            <h3 style="font-size:25px;">{{$total_customer}}</h3>
             <p>Total Pelanggan</p>
           </div>
           <div class="icon">
