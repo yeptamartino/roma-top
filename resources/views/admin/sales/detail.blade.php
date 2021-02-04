@@ -16,11 +16,19 @@ Detail Transaksi #{{ $transaction->id }}
         </tr>
         <tr>
           <td><b>Nama Plgn.</b></td>
-          <td>{{ $transaction->customer->name }}</td>
+          @if($transaction->customer)
+            <td>{{ $transaction->customer->name }}</td>
+          @else
+            <td>-</td>
+          @endif
         </tr>
         <tr>
           <td><b>No Hp. Plgn.</b></td>
+          @if($transaction->customer)
           <td>{{ $transaction->customer->phone }}</td>
+        @else
+          <td>-</td>
+        @endif
         </tr>
         <tr>
           <td><b>Tgl.</b></td>

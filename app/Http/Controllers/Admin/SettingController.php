@@ -22,8 +22,8 @@ class SettingController extends Controller
     $setting = Setting::latest()->first();
     $setting->point_ratio = $request->input('point_ratio');
 
-    if($request->file('thumbnail')) {
-      $setting->thumbnail    = $imageUploader->saveImage($request, 'thumbnail');
+    if($request->file('logo')) {
+      $setting->logo    = $imageUploader->saveImage($request, 'logo');
     }
 
     $setting->save();

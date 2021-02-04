@@ -65,9 +65,8 @@ Dashboard
         </div>
       </div>
       <div class="box-body">
-        <x-filters searchPlaceholder="Pencarian..." :disableExports="true" :disableDates="true" :action="route('admin.dashboard')"/>
         <div class="table-responsive">
-          <table class="table">
+          <table id="catalog" class="table">
             <thead>
               <tr>
                 <th>No.</th>
@@ -100,11 +99,7 @@ Dashboard
         </tbody>
         </table>
         </div>
-        <div class="row">
-          <div class="col-md-12">
-            {{ $catalogs->appends(request()->except('page'))->links('pagination.bootstrap3') }}
-          </div>
-        </div>
+       
       </div>
     </div>
       <div class="box">
@@ -181,4 +176,18 @@ Dashboard
           </div>
         </div>
       </div>
+
   @endsection
+
+@push('styles')
+  <link rel="stylesheet" href="//cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
+@endpush
+
+  @push('scripts')
+  <script src="//cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('#catalog').DataTable();
+    });
+  </script>
+  @endpush

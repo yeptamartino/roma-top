@@ -12,7 +12,7 @@ class Setting extends Model
     protected $guarded = [];
     public static $validation = [
         'point_ratio'  => 'required|string|min:1',
-        'thumbnail'   => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        'logo'   => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 	];
 
     

@@ -28,7 +28,7 @@ class DashboardController extends Controller
         }); 
       }
       $category = Category::all();
-      $catalogs = $catalogs->paginate(Constants::$DEFAULT_PAGINATION_COUNT);
+      $catalogs = $catalogs->get();
       
       $transactions = Transaction::select('transactions.*', 'customers.name')
       ->join('customers', 'customers.id', '=', 'transactions.customer_id')->orderBy('created_at', 'desc');
