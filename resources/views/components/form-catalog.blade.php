@@ -10,6 +10,7 @@
   'selectedCategoryId' => '',
   'composites' => [],
   'catalogs' => [],
+  'prices' => [],
 ])
 
 <form id="app" action="{{ $action }}" method="POST" enctype="multipart/form-data">
@@ -41,7 +42,33 @@
     inputClass="currency-input"
   />
   <div class="form-group">
-    <label>Harga Jual</label>
+    <label>Tentukan Harga Jual</label>
+  </div>
+  <div class="row" v-for="price in prices">
+    <div class="col-md-8">
+      <div class="form-group">
+        <label for="category_id">Nama Harga</label>
+        <input name="price_names[]" type="text" class="form-control" v-model="price.name">
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label>Harga</label>
+        <input name="price_prices[]" type="text" class="form-control" v-model="price.price">
+      </div>
+    </div>
+    <div class="col-md-1">
+      <button type="button" class="btn btn-danger" style="margin-top: 1.7em;" v-on:click="removePrice(price)">
+        <i class="fa fa-trash" title="Delete"></i>
+      </button>
+    </div>
+  </div>
+  <div class="row" style="margin-bottom: 3em;">
+    <div class="col-md-12">
+      <button type="button" class="btn btn-success" v-on:click="addPrice">
+        Tambah Harga
+      </button>
+    </div>
   </div>
 
   <div class="form-group">
@@ -116,6 +143,7 @@
     var composites = @json($composites);
     var catalogs = @json($catalogs);
     var categories = @json($category);
+    var prices = @json($prices);
     var selectedCategoryId = '{{{ $selectedCategoryId }}}';
 
     var ID = function () {
@@ -126,6 +154,11 @@
       amount: 0.0,
       id: 0,
     };
+    var emptyPrice = {
+      name: 'Nama Harga Jual',
+      price: 0,
+      id: 0,
+    }
     var app = new Vue({
     el: '#app',
     data: {
@@ -133,6 +166,7 @@
       composites: composites.length > 0 ? [...composites] : [...composites, {...emptyComposite, id: ID()}],
       catalogs,
       categories,
+      prices: prices.length > 0 ? [...prices] : [...prices, {...emptyPrice, id: ID()}],
       registeredListeners: [],
       selectedCategoryId: selectedCategoryId,
     },
@@ -176,6 +210,16 @@
             ini.registerSelectListeners(composite);
           });
         }, 100);
+      },
+      addPrice: function() {
+        const newPrice = {...emptyPrice, id: ID()};
+        this.prices.push(newPrice);
+        this.initAllPrice();
+      },
+      removePrice: function (price) {
+        if(this.prices.length > 1) {
+          this.prices = this.prices.filter((c) => c.id != price.id);
+        }
       },
       registerSelectListeners: function(composite) {
         const ini = this;

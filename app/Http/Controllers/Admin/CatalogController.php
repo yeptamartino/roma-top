@@ -9,6 +9,7 @@ use App\Models\Catalog;
 use App\Models\Category;
 use App\Models\Constants;
 use App\Models\Composite;
+use App\Models\CatalogPrice;
 use App\Helpers\ImageUploader;
 use Flash;
 class CatalogController extends Controller
@@ -79,6 +80,21 @@ class CatalogController extends Controller
       Composite::insert($composites);
     }
 
+    $prices = [];
+
+    for ($i=0; $i < count($data['price_names']); $i++) { 
+      $price = (float)$data['price_prices'][$i];
+      if($price > 0) {
+        array_push($prices, [
+          'name' => $data['price_names'][$i],
+          'price' => $price,
+          'catalog_id' => $catalog->id,
+        ]);
+      }
+    }
+
+    CatalogPrice::insert($prices);
+
     return redirect()->route('admin.catalog');
   }
 
@@ -113,6 +129,7 @@ class CatalogController extends Controller
     $catalog->save();
 
     $catalog->composites()->delete();
+    $catalog->prices()->delete();
 
     if(isset($data['compositeEnabled'])) {
       $composites = [];
@@ -130,6 +147,21 @@ class CatalogController extends Controller
 
       Composite::insert($composites);
     }
+
+    $prices = [];
+
+    for ($i=0; $i < count($data['price_names']); $i++) { 
+      $price = (float)$data['price_prices'][$i];
+      if($price > 0) {
+        array_push($prices, [
+          'name' => $data['price_names'][$i],
+          'price' => $price,
+          'catalog_id' => $catalog->id,
+        ]);
+      }
+    }
+
+    CatalogPrice::insert($prices);
 
     return redirect()->route('admin.catalog');
   }
