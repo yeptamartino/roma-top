@@ -11,6 +11,7 @@ use App\Models\Transaction;
 use App\Models\Customer;
 use Carbon\Carbon;
 use Flash;
+
 class DashboardController extends Controller
 {
     public function dashboard(Request $request){

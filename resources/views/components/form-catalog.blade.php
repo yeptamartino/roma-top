@@ -34,17 +34,16 @@
   />
 
   <x-input
-    type="number"
+    type="text"
     name="capital_price"
     label="Harga Modal"
     :value="$capitalPrice"
+    inputClass="currency-input"
   />
-  <x-input
-    type="number"
-    name="selling_price"
-    label="Harga Penjualan"
-    :value="$sellingPrice"
-  />
+  <div class="form-group">
+    <label>Harga Jual</label>
+  </div>
+
   <div class="form-group">
     <label for="category_id">Kategori*</label>
     <select v-model="selectedCategoryId" v-on:change="onSelectedCategoryChanged" name="category_id" class="form-control" required>

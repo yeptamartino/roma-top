@@ -16,33 +16,21 @@ class CatalogController extends Controller
 
   public function index(Request $request)
   {
-    // $search = $request->get('search');
-    // $category = $request->get('category_id');
+    $search = $request->get('search');
+    $category = $request->get('category');
+    $action = $request->get('action');
     
-    // $catalogs = Catalog::orderBy('created_at', 'desc');
-    // if($search) {
-    //   $catalogs =  $catalogs->where(function ($query) use ($search){
-    //     $query->orWhere('name','LIKE',"%$search%");
-    //   });
-    // }
-
-    // $catalogs = $catalogs->paginate(Constants::$DEFAULT_PAGINATION_COUNT);
-    // $category = Category::all();
-  $search = $request->get('search');
-  $category = $request->get('category');
-  $action = $request->get('action');
-  
-  $catalogs = Catalog::orderBy('updated_at','desc');
-  if($category){
-    $catalogs->where('category_id', $category);
-  }
-  if($search) {
-    $catalogs->where(function ($query) use ($search) {
-      $query->orWhere('name','LIKE',"%$search%");
-    }); 
-  }
-  $category = Category::all();
-  $catalogs = $catalogs->paginate(Constants::$DEFAULT_PAGINATION_COUNT);
+    $catalogs = Catalog::orderBy('updated_at','desc');
+    if($category){
+      $catalogs->where('category_id', $category);
+    }
+    if($search) {
+      $catalogs->where(function ($query) use ($search) {
+        $query->orWhere('name','LIKE',"%$search%");
+      }); 
+    }
+    $category = Category::all();
+    $catalogs = $catalogs->paginate(Constants::$DEFAULT_PAGINATION_COUNT);
 
     return view('admin.catalog.index', compact('catalogs','category'));
   }
@@ -59,7 +47,7 @@ class CatalogController extends Controller
   }
 
   public function store(Request $request, ImageUploader $imageUploader)
-  {
+  {    
     $request->validate(Catalog::$validation);
     $data = $request->all();
 
@@ -67,7 +55,6 @@ class CatalogController extends Controller
       'category_id' => $request->input('category_id'),
       'name'        => $request->input('name'),
       'description' => $request->input('description'),
-      'selling_price' => $request->input('selling_price'),
       'capital_price' => $request->input('capital_price'),
     ]);    
 
@@ -103,6 +90,7 @@ class CatalogController extends Controller
     ->join('categories', 'categories.id', '=', 'catalogs.category_id')
       ->where('categories.name', '=' , Constants::$DEFAULT_COMPOSITE_CATEGORY)
       ->orderBy('catalogs.name')->get();
+
     return view('admin.catalog.edit', compact('catalog', 'category', 'catalogs'));
   }
 

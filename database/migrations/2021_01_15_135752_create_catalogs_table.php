@@ -19,7 +19,6 @@ class CreateCatalogsTable extends Migration
             $table->longText('description')->nullable();
             $table->string('thumbnail')->nullable();
             $table->integer('capital_price')->nullable();
-            $table->integer('selling_price')->nullable();
             $table->unsignedBigInteger('category_id')->nullable();
             $table->foreign('category_id')
                 ->references('id')->on('categories')

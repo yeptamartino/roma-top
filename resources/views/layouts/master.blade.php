@@ -65,6 +65,7 @@
 <script src="{{ asset('adminlte/bower_components/fastclick/lib/fastclick.js')}}"></script>
 <script src="{{ asset('adminlte/js/adminlte.min.js')}}"></script>
 <script src="{{ asset('adminlte/bower_components/select2/dist/js/select2.full.min.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-masker/1.2.0/vanilla-masker.min.js" integrity="sha512-RbMQw6xKGymv6bRMO4z5OxHBzzem7BPEQX7nTJC9G08A70gXdUka76Rvgey83MsSXrIEJddog0vxUKN6iTce2Q==" crossorigin="anonymous"></script>
 
 @stack('scripts')
 
@@ -80,17 +81,22 @@
 
   $(document).ready(function () {
     $('.sidebar-menu').tree();
+      const currencyInputs = document.getElementsByClassName('currency-input');
+      if(currencyInputs) {
+        VMasker(currencyInputs).maskMoney({
+          precision: 0,
+          separator: ',',
+          delimiter: '.',
+          unit: 'Rp. ',
+          zeroCents: true
+        });
 
-    $(':input[type="number"]').keyup(function(event) {
-    if(event.which >= 37 && event.which <= 40) return;
-
-    $(this).val(function(index, value) {
-      return value
-      .replace(/\D/g, "")
-      .replace(/\B(?=(\d{3})+(?!\d))/g, ".")
-      ;
-    });
-    });
+        $("form").each(function() {
+          $(this).submit(function(e) { 
+            VMasker(currencyInputs).unMask();
+          });
+        });
+      }
   })
 </script>
 
