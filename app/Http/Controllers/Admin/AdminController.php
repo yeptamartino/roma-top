@@ -79,7 +79,7 @@ class AdminController extends Controller
   {
     $admin = Admin::findOrFail($id);
     $admin->delete();
-    Flash::error('Data admin berhasil di hapus.');
+    Flash::success('Data admin berhasil di hapus.');
     return redirect()->route('admin.admin');
   }
 }

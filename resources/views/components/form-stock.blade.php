@@ -55,18 +55,10 @@
             @foreach($composites as $composite)
               <tr>
                 <td>
-                  {{ $composite->catalog->name }}
+                  {{ $composite->item->name }}
                 </td>
                 <td>
-                  @if($composite->stocks)
-                    @foreach($composite->stocks as $compositeStock)
-                      @if($selectedWarehouseId === $compositeStock->id)
-                        {{ $compositeStock->total }}
-                      @endif
-                    @endforeach
-                  @else
-                    0
-                  @endif
+                  {{ $composite->get_total_stock_by_warehouse_id($selectedWarehouseId) }}
                 </td>
               </tr>
             @endforeach
@@ -74,6 +66,13 @@
         </table>
       </div>
     </div>
+    <x-input
+      type="number"
+      name="current_total"
+      label="Stock Saat Ini"
+      :value="$total"
+      :disabled="true"
+    />
     <x-input
       type="number"
       name="total"

@@ -13,8 +13,9 @@ DAFTAR STOK
     <thead>
       <tr>
         <th>No.</th>
-        <th>Katalog</th>
         <th>Gudang</th>
+        <th>Katalog</th>
+        <th>Kategori</th>
         <th>Total</th>
         <th>Aksi</th>
       </tr>
@@ -24,8 +25,9 @@ DAFTAR STOK
       @foreach($stocks as $stock)
       <tr>
         <td>{{ $loop->iteration }}</td>
-        <td>{{ $stock->catalog->name }}</td>
         <td>{{ $stock->warehouse->name }}</td>
+        <td>{{ $stock->catalog->name }}</td>
+        <td>{{ $stock->catalog->category->name }}</td>        
         <td>{{ $stock->total }}</td>
         <td>
           @if($stock->catalog->composites)

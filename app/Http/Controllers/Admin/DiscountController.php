@@ -68,7 +68,7 @@ class DiscountController extends Controller
   {
     $discount = Discount::findOrFail($id);
     $discount->delete();
-    Flash::error('Data discount berhasil di hapus.');
+    Flash::success('Data discount berhasil di hapus.');
     return redirect()->route('admin.discount');
   }
 }

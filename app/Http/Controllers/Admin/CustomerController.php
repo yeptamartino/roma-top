@@ -85,7 +85,7 @@ class CustomerController extends Controller
   {
     $customer = Customer::findOrFail($id);
     $customer->delete();
-    Flash::error('Data customer berhasil di hapus.');
+    Flash::success('Data customer berhasil di hapus.');
     return redirect()->route('admin.customer');
   }
 }

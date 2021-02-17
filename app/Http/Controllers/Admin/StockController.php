@@ -73,6 +73,41 @@ class StockController extends Controller
     return view('admin.stock.mutate', compact('stock', 'catalog','warehouse'));
   }
 
+  public function mutateAction($id, Request $request) {
+    $request->validate([
+      'total' => 'required|integer',
+    ]);
+    $total = (int) $request->input('total');
+    $stock = Stock::findOrFail($id);
+    
+    if($stock->catalog->composites) {
+      foreach($stock->catalog->composites as $composite) {
+        $totalCompositeStock = $composite->item->get_total_stock_by_warehouse_id($stock->warehouse_id);
+
+        if(($totalCompositeStock - $total) < 1) {
+          return redirect()->back()->with('error', 'Stok komposisi ' . $composite->item->name . ' tidak cukup untuk membuat ' . $total . ' item.');
+        }
+      }
+    }
+
+    if($stock->catalog->composites) {
+      foreach($stock->catalog->composites as $composite) {
+        $compositeStock = $composite->item->stocks->where('warehouse_id', $stock->warehouse_id)->first();
+
+        if($compositeStock) {
+          $compositeStock->total -= $total;
+          $compositeStock->save();
+        }
+      }
+    }
+
+    $stock->total += $total;
+
+    $stock->save();
+    Flash::success('Stock berhasil dibuat.');
+    return redirect()->route('admin.stock');
+  }
+
   public function update($id, Request $request)
   {
     $request->validate(Stock::$validation);
@@ -89,7 +124,7 @@ class StockController extends Controller
   {
     $stock = Stock::findOrFail($id);
     $stock->delete();
-    Flash::error('Data stok berhasil di hapus.');
+    Flash::success('Data stok berhasil di hapus.');
     return redirect()->route('admin.stock');
   }
 }

@@ -169,7 +169,7 @@ class CatalogController extends Controller
   {
     $catalog = Catalog::findOrFail($id);
     $catalog->delete();
-    Flash::error('Data katalog berhasil di hapus.');
+    Flash::success('Data katalog berhasil di hapus.');
     return redirect()->route('admin.catalog');
   }
 }

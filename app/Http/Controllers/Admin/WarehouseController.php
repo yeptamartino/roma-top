@@ -78,7 +78,7 @@ class WarehouseController extends Controller
       }
     }
     $warehouse->delete();
-    Flash::error('Data gudang berhasil di hapus.');
+    Flash::success('Data gudang berhasil di hapus.');
     return redirect()->route('admin.warehouse');
   }
 }

@@ -7,7 +7,7 @@ MUTASI STOK
 @section('content')
   <x-alert />
   <x-form-stock
-    :action="route('admin.stock.update', ['id' => $stock->id])"
+    :action="route('admin.stock.mutate.action', ['id' => $stock->id])"
     :total="$stock->total"
     :id="$stock->id"
     :selected-catalog-id="$stock->catalog->id" 

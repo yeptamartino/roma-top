@@ -37,6 +37,16 @@ class Catalog extends Model
     return $this->hasMany(CatalogPrice::class);
   }
 
+  public function get_total_stock_by_warehouse_id($warehouse_id) {
+      $total_stock = 0;
+      foreach($this->stocks as $stock) {
+          if($stock->warehouse_id == $warehouse_id) {
+              $total_stock = $stock->total;
+          }
+      }
+      return $total_stock;
+  }
+
 	public static $validation = [
 		'name'            => 'required|string|min:2',
 		'capital_price'   => 'required|integer|min:1',

@@ -41,7 +41,7 @@ Route::group(['middleware' => ['auth']], function (){
     Route::post('stock.create', [App\Http\Controllers\Admin\StockController::class,'store'])->name('admin.stock.store');
     Route::get('stock.edit/{id}', [App\Http\Controllers\Admin\StockController::class,'edit'])->name('admin.stock.edit');
     Route::get('stock.mutate/{id}', [App\Http\Controllers\Admin\StockController::class,'mutate'])->name('admin.stock.mutate');
-    Route::post('stock.mutate/{id}', [App\Http\Controllers\Admin\StockController::class,'mutateAction'])->name('admin.stock.mutate.action');
+    Route::put('stock.mutate/{id}', [App\Http\Controllers\Admin\StockController::class,'mutateAction'])->name('admin.stock.mutate.action');
     Route::put('stock.update/{id}', [App\Http\Controllers\Admin\StockController::class,'update'])->name('admin.stock.update');
     Route::delete('stock.delete/{id}', [App\Http\Controllers\Admin\StockController::class,'delete'])->name('admin.stock.delete');
 

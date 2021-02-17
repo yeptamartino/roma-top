@@ -84,7 +84,7 @@ class PaymentMethodController extends Controller
   {
     $payment = PaymentMethod::findOrFail($id);
     $payment->delete();
-    Flash::error('Metode pembayaran berhasil di hapus.');
+    Flash::success('Metode pembayaran berhasil di hapus.');
     return redirect()->route('admin.payment');
   }
 }

@@ -74,7 +74,7 @@ class UserController extends Controller {
     public function delete($id) {
       $user = User::findOrFail($id);
       $user->delete();
-      Flash::error('Data user berhasil di hapus.');
+      Flash::success('Data user berhasil di hapus.');
       return redirect()->route('admin.admin');
     }
 }

@@ -70,7 +70,7 @@ class CategoryController extends Controller
   }
 
     $category->delete();
-    Flash::error('Data kategori berhasil di hapus.');
+    Flash::success('Data kategori berhasil di hapus.');
     return redirect()->route('admin.category');
   }
 }
