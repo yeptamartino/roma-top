@@ -42,6 +42,8 @@ Route::group(['middleware' => ['auth']], function (){
     Route::get('stock.edit/{id}', [App\Http\Controllers\Admin\StockController::class,'edit'])->name('admin.stock.edit');
     Route::get('stock.mutate/{id}', [App\Http\Controllers\Admin\StockController::class,'mutate'])->name('admin.stock.mutate');
     Route::put('stock.mutate/{id}', [App\Http\Controllers\Admin\StockController::class,'mutateAction'])->name('admin.stock.mutate.action');
+    Route::get('stock.transfer/{id}', [App\Http\Controllers\Admin\StockController::class,'transfer'])->name('admin.stock.transfer');
+    Route::put('stock.transfer/{id}', [App\Http\Controllers\Admin\StockController::class,'transferAction'])->name('admin.stock.transfer.action');
     Route::put('stock.update/{id}', [App\Http\Controllers\Admin\StockController::class,'update'])->name('admin.stock.update');
     Route::delete('stock.delete/{id}', [App\Http\Controllers\Admin\StockController::class,'delete'])->name('admin.stock.delete');
 

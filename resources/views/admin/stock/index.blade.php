@@ -39,6 +39,12 @@ DAFTAR STOK
             </a>
           @endif
           <a
+            href="{{ route('admin.stock.transfer', ['id' => $stock->id]) }}"
+            class="btn btn-success"
+            >
+            <i class="fa fa-arrows-h"></i>
+          </a>
+          <a
             href="{{ route('admin.stock.edit', ['id' => $stock->id]) }}"
             class="btn btn-warning"
             >

@@ -108,6 +108,51 @@ class StockController extends Controller
     return redirect()->route('admin.stock');
   }
 
+  public function transfer($id)
+  {
+    $stock = Stock::findOrFail($id);
+    $catalog = Catalog::all();
+    $warehouse = Warehouse::all();
+  
+    return view('admin.stock.transfer', compact('stock', 'catalog','warehouse'));
+  }
+
+  public function transferAction($id, Request $request)
+  {
+    $request->validate([
+      'total' => 'required|integer|min:0',
+      'warehouse_destination_id' => 'required|integer|min:0',
+    ]);
+    $warehouse_destination_id = $request->input('warehouse_destination_id');
+    $total = (int)$request->input('total');
+    $stock = Stock::findOrFail($id);
+
+    if(($stock->total - $total) < 0) {
+      return redirect()->back()->with('error', 'Jumlah stok kurang dari jumlah yang dipindahkan.');
+    }
+
+    $stock_destination = Stock::where('warehouse_id', $warehouse_destination_id)
+      ->where('catalog_id', $stock->catalog_id)->first();
+    
+    if($stock_destination) {
+      $stock_destination->total += $total;      
+      $stock_destination->save();
+    } else {
+      $stock_destination = new Stock([
+        'catalog_id' => $stock->catalog_id,
+        'warehouse_id' => $warehouse_destination_id,
+        'total' => $total,
+      ]);
+      $stock_destination->save();
+    }
+    
+    $stock->total -= $total;
+
+    $stock->save();
+    Flash::success('Data stok berhasil di ubah.');
+    return redirect()->route('admin.stock');
+  }
+
   public function update($id, Request $request)
   {
     $request->validate(Stock::$validation);
