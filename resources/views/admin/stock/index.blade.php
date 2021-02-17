@@ -27,21 +27,29 @@ DAFTAR STOK
         <td>{{ $stock->catalog->name }}</td>
         <td>{{ $stock->warehouse->name }}</td>
         <td>{{ $stock->total }}</td>
-       <td>
-        <a
-        href="{{ route('admin.stock.edit', ['id' => $stock->id]) }}"
-        class="btn btn-warning"
-        >
-        <i class="fa fa-edit"></i>
-      </a>
-      <form action="{{ route('admin.stock.delete', ['id' => $stock->id]) }}" method="POST" style="display: inline-block;">
-        @method('delete')
-        @csrf
-        <button type="submit" class="btn btn-danger" value="Delete" onclick="return confirm('Delete Data?')">
-          <i class="fa fa-trash" title="Delete"></i>
-        </button>
-      </form>
-    </td>
+        <td>
+          @if($stock->catalog->composites)
+            <a
+              href="{{ route('admin.stock.mutate', ['id' => $stock->id]) }}"
+              class="btn btn-primary"
+              >
+              <i class="fa fa-database"></i>
+            </a>
+          @endif
+          <a
+            href="{{ route('admin.stock.edit', ['id' => $stock->id]) }}"
+            class="btn btn-warning"
+            >
+            <i class="fa fa-edit"></i>
+          </a>
+          <form action="{{ route('admin.stock.delete', ['id' => $stock->id]) }}" method="POST" style="display: inline-block;">
+            @method('delete')
+            @csrf
+            <button type="submit" class="btn btn-danger" value="Delete" onclick="return confirm('Delete Data?')">
+              <i class="fa fa-trash" title="Delete"></i>
+            </button>
+          </form>
+        </td>
   </tr>
   @endforeach
   @else

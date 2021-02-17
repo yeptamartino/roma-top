@@ -58,7 +58,13 @@ DAFTAR KATALOG
         <td>{{ $catalog->category->name }}</td>
         <td>{!! $catalog->description !!}</td>
         <td>@rupiah($catalog->capital_price)</td>
-        <td>@rupiah($catalog->selling_price)</td>
+        <td>
+          <ul>
+            @foreach($catalog->prices as $price)
+              <li>[{{ $price->name }}] - @rupiah($price->price) </li>
+            @endforeach
+          </ul>
+        </td>
         <td>
         @if($catalog->thumbnail)
         <img src="{{ asset('images/'.$catalog->thumbnail) }}" 

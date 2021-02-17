@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('subtitle')
-EDIT STOK
+MUTASI STOK
 @endsection
 
 @section('content')
@@ -10,8 +10,10 @@ EDIT STOK
     :action="route('admin.stock.update', ['id' => $stock->id])"
     :total="$stock->total"
     :id="$stock->id"
-    :selected-catalog-id="$stock->catalog->id"
+    :selected-catalog-id="$stock->catalog->id" 
     :selected-warehouse-id="$stock->warehouse->id"
+    :composites="$stock->catalog->composites"
+    :stockWarehouse="$stock->warehouse"
     :catalog="$catalog"
     :warehouse="$warehouse"
   />

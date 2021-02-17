@@ -119,7 +119,6 @@ class CatalogController extends Controller
     $catalog->category_id = $request->input('category_id');
     $catalog->name         = $request->input('name');
     $catalog->description  = $request->input('description');
-    $catalog->selling_price  = $request->input('selling_price');
     $catalog->capital_price        = $request->input('capital_price');
     
     if($request->file('thumbnail')) {

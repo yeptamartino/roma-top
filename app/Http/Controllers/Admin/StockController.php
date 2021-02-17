@@ -65,6 +65,14 @@ class StockController extends Controller
     return view('admin.stock.edit', compact('stock', 'catalog','warehouse'));
   }
 
+  public function mutate($id)
+  {
+    $stock = Stock::findOrFail($id);
+    $catalog = Catalog::all();
+    $warehouse = Warehouse::all();
+    return view('admin.stock.mutate', compact('stock', 'catalog','warehouse'));
+  }
+
   public function update($id, Request $request)
   {
     $request->validate(Stock::$validation);
