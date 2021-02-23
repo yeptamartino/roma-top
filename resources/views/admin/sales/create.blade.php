@@ -172,7 +172,11 @@ Buat Transaksi Penjualan
             <tr v-for="catalog in catalogs.filter((item) => selectedCategory === 'ALL' || selectedCategory == item.category_id)" v-show="getStock(catalog).total > 0">
               <td>@{{ catalog.name }}</td>
               <td>@{{ formatRupiah(catalog.capital_price) }}</td>
-              <td>@{{ formatRupiah(catalog.selling_price) }}</td>
+              <td>
+                <ul v-for="price in catalog.prices">
+                  <li>[@{{ price.name }}] - @{{ formatRupiah(price.price) }}</li>
+                </ul>
+              </td>
               <td>@{{ getStock(catalog).total }}</td>
               <td>
                 <a href="#." v-on:click="addToCart(catalog)" class="btn btn-success" :disabled="!getStock(catalog).total > 0">Tambahkan</a>
@@ -201,10 +205,14 @@ Buat Transaksi Penjualan
                   <a href="#." v-on:click="addToCart(cartItem)" class="btn btn-success">+</a>
                 </td>
                 <td style="width: 9em;">
-                  <input type="number" class="form-control" v-model="cartItem.selling_price">
+                  <div class="form-group">
+                      <select v-model="cartItem.selectedPriceId" class="form-control">
+                        <option v-for="price in cartItem.prices" :value="price.id" :selected="price.id == cartItem.selectedPriceId ? 'selected' : ''">@{{ formatRupiah(price.price) }}</option>
+                      </select>
+                  </div>
                 </td>
                 <td>
-                  @{{ formatRupiah(cartItem.quantity * cartItem.selling_price) }}
+                  @{{ formatRupiah(cartItem.quantity * getSelectedPrice(cartItem.prices, cartItem.selectedPriceId)) }}
                 </td>
               </tr>
               <tr v-if="!carts.length">
@@ -353,7 +361,7 @@ Buat Transaksi Penjualan
         $('#products').DataTable();
         $('#customers').DataTable();
         $('#discounts').DataTable();
-        $('#payments').DataTable();
+        $('#payments').DataTable();        
       },
       methods: {
         customAddToCart: function(catalog) {
@@ -378,7 +386,7 @@ Buat Transaksi Penjualan
               return cartItem;
             });
             if(!isExists) {
-              this.carts.push({ ...catalog, quantity: 1, warehouse: {...this.getWarehouse()} });
+              this.carts.push({ ...catalog, selectedPriceId: catalog.prices[0].id, quantity: 1, warehouse: {...this.getWarehouse()} });
             }
             stock.total -= totalItem;
           } else if(stock.total < totalItem) {
@@ -398,10 +406,11 @@ Buat Transaksi Penjualan
             });
             if(!isExists) {
               console.log({...this.selectedWarehouse});
-              this.carts.push({ ...catalog, quantity: 1, warehouse: {...this.getWarehouse()} });
+              this.carts.push({ ...catalog, selectedPriceId: catalog.prices[0].id, quantity: 1, warehouse: {...this.getWarehouse()} });
             }
             stock.total -= 1;
           }
+          console.log(this.carts);
         },
         removeFromCart: function(catalog) {
           const stock = this.getStock(catalog);
@@ -432,7 +441,16 @@ Buat Transaksi Penjualan
         },
 
         hitungSubTotal: function() {
-          return this.carts.reduce((result, cartItem) => result + (cartItem.selling_price * cartItem.quantity), 0);
+          return this.carts.reduce((result, cartItem) => result + (this.getSelectedPrice(cartItem.prices, cartItem.selectedPriceId) * cartItem.quantity), 0);
+        },
+        getSelectedPrice: function(prices, selectedPriceId) {
+          let result = null;
+          prices.forEach((price) => {
+            if(selectedPriceId == price.id) {
+              result = price.price;
+            }
+          });
+          return result;
         },
         hitungHargaDiskon: function() {
           let result = 0;
@@ -511,19 +529,22 @@ Buat Transaksi Penjualan
         },
 
         formatRupiah: function formatRupiah(angka){
-          var number_string = angka.toString().replace(/[^,\d]/g, '').toString(),
-          split   		= number_string.split(','),
-          sisa     		= split[0].length % 3,
-          rupiah     		= split[0].substr(0, sisa),
-          ribuan     		= split[0].substr(sisa).match(/\d{3}/gi);
+          if(angka) {
+            var number_string = angka.toString().replace(/[^,\d]/g, '').toString(),
+            split   		= number_string.split(','),
+            sisa     		= split[0].length % 3,
+            rupiah     		= split[0].substr(0, sisa),
+            ribuan     		= split[0].substr(sisa).match(/\d{3}/gi);
 
-          if(ribuan){
-            separator = sisa ? '.' : '';
-            rupiah += separator + ribuan.join('.');
+            if(ribuan){
+              separator = sisa ? '.' : '';
+              rupiah += separator + ribuan.join('.');
+            }
+
+            rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+            return (rupiah ? '' + rupiah : '');
           }
-
-          rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-          return (rupiah ? 'Rp. ' + rupiah : '');
+          return '';
         }
       }
     })

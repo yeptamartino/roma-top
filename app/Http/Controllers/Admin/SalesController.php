@@ -68,7 +68,7 @@ class SalesController extends Controller
 
   public function create() {
     $warehouses = Warehouse::orderBy('name')->get();
-    $catalogs = Catalog::with(['stocks', 'composite_catalogs'])->orderBy('name')->get();
+    $catalogs = Catalog::with(['stocks', 'composite_catalogs', 'prices'])->orderBy('name')->get();
     $categories = Category::where('name', '!=', Constants::$DEFAULT_COMPOSITE_CATEGORY)->get();
     $discounts = Discount::orderBy('name')->get();
     $customers = Customer::orderBy('name')->get();
