@@ -42,6 +42,7 @@ class DashboardController extends Controller
 
       $transactions = $transactions->paginate(Constants::$DEFAULT_PAGINATION_COUNT);
 
+
       $start_of_this_month = Carbon::now()->startOfMonth();
       $end_of_this_month = Carbon::now()->endOfMonth();
 

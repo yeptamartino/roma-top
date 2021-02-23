@@ -121,17 +121,24 @@ class SalesController extends Controller
       $stock->total -= $cart->quantity;
       $stock->save();
 
+      $selling_price = $cart->prices[0]->price;
+
+      foreach($cart->prices as $price) {
+        if($cart->selectedPriceId == $price->id) {
+          $selling_price = $price->price;
+        }
+      }
+
       array_push($transaction_items, new TransactionItem([
         'name' => $cart->name,
         'quantity' => $cart->quantity,
         'capital_price' => $cart->capital_price,
-        'selling_price' => $cart->selling_price,
+        'selling_price' => $selling_price,
         'warehouse' => $cart->warehouse->name,
       ]));
     }
 
-    $transaction->transaction_items()->saveMany($transaction_items);
-    
+    $transaction->transaction_items()->saveMany($transaction_items);    
 
     if($data['customer_id']) {
       $user = Customer::find($data['customer_id']);
