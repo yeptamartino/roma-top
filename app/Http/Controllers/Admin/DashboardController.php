@@ -40,7 +40,7 @@ class DashboardController extends Controller
         });
       }
 
-      $transactions = $transactions->paginate(Constants::$DEFAULT_PAGINATION_COUNT);
+      $transactions = $transactions->limit(2000)->get(); 
 
 
       $start_of_this_month = Carbon::now()->startOfMonth();

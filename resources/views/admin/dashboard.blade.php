@@ -125,10 +125,10 @@ Dashboard
                 <thead>
                   <tr>
                     <th>No Nota.</th>
-                    <th>Tgl.</th>
+                    {{-- <th>Tgl.</th> --}}
                     <th>Nama Plgn.</th>
-                    <th>Total Transaksi</th>
-                    <th>Total Bayar</th>
+                    {{-- <th>Total Transaksi</th> --}}
+                    {{-- <th>Total Bayar</th> --}}
                     <th>Item Transaksi</th>
                     <th>Aksi</th>
                   </tr>
@@ -138,14 +138,14 @@ Dashboard
                   @foreach($transactions as $transaction)
                   <tr>
                     <td>#{{ $transaction->id }}</td>
-                    <td>{{ $transaction->created_at->format('d, M Y') }}</td>
+                    {{-- <td>{{ $transaction->created_at->format('d, M Y') }}</td> --}}
                     @if($transaction->customer)
                       <td>{{ $transaction->customer->name }}</td>
                     @else
                       <td>-</td>
                     @endif
-                    <td>@rupiah($transaction->total_price())</td>
-                    <td>@rupiah($transaction->total_paid)</td>
+                    {{-- <td>@rupiah($transaction->total_price())</td> --}}
+                    {{-- <td>@rupiah($transaction->total_paid)</td> --}}
                     <td>
                       <ul>
                         @foreach($transaction->transaction_items as $transaction_item)
@@ -172,11 +172,6 @@ Dashboard
               @endif
             </tbody>
             </table>    
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12">
-              {{ $transactions->appends(request()->except('page'))->links('pagination.bootstrap3') }}
             </div>
           </div>
         </div>
