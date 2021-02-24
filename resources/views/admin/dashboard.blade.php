@@ -138,7 +138,7 @@ Dashboard
                   @foreach($transactions as $transaction)
                   <tr>
                     <td>#{{ $transaction->id }}</td>
-                    <td>{{ $transaction->created_at }}</td>
+                    <td>{{ $transaction->created_at->format('d, M Y') }}</td>
                     @if($transaction->customer)
                       <td>{{ $transaction->customer->name }}</td>
                     @else
