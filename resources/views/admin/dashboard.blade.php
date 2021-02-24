@@ -119,10 +119,9 @@ Dashboard
           </div>
         </div>
         <div class="box-body">
-          <x-filters searchPlaceholder="Masukkan Nama Pelanggan" :disableExports="true" :disableDates="true" />
           <div class="row">
             <div class="col-md-12 table-responsive">
-              <table class="table">
+              <table id="history" class="table">
                 <thead>
                   <tr>
                     <th>No Nota.</th>
@@ -194,6 +193,11 @@ Dashboard
   <script>
     $(document).ready(function() {
       $('#catalog').DataTable();
+    });
+  </script>
+   <script>
+    $(document).ready(function() {
+      $('#history').DataTable();
     });
   </script>
   @endpush
