@@ -27,7 +27,11 @@ DAFTAR STOK
         <td>{{ $loop->iteration }}</td>
         <td>{{ $stock->warehouse->name }}</td>
         <td>{{ $stock->catalog->name }}</td>
-        <td>{{ $stock->catalog->category->name }}</td>        
+        @if($stock->catalog)
+        <td>{{ $stock->catalog->category->name }}</td>     
+        @else
+          <td>-</td>
+        @endif
         <td>{{ $stock->total }}</td>
         <td>
           @if($stock->catalog->composites)
