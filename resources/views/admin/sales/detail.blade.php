@@ -66,6 +66,14 @@ Detail Transaksi #{{ $transaction->id }}
           <td><b>Metode Pembayaran</b></td>
           <td>{{ $transaction->payment_method }}</td>
         </tr>
+        <tr>
+          <td><b>Catatan</b></td>
+          @if($transaction->note)
+          <td>{{$transaction->note }}</td>
+          @else
+          <td>-</td>
+          @endif
+        </tr>
       </tbody>
     </table>    
   </div>
