@@ -25,8 +25,17 @@ DAFTAR STOK
       @foreach($stocks as $stock)
       <tr>
         <td>{{ $loop->iteration }}</td>
-        <td>{{ $stock->warehouse->name }}</td>
-        <td>{{ $stock->catalog->name }}</td>
+        @if($stock->warehouse)
+        <td>{{ $stock->warehouse->name }}</td>     
+        @else
+          <td>-</td>
+        @endif
+        @if($stock->catalog)
+        <td>{{ $stock->catalog->name }}</td>     
+        @else
+          <td>-</td>
+        @endif
+        
         @if($stock->catalog)
         <td>{{ $stock->catalog->category->name }}</td>     
         @else
