@@ -105,7 +105,6 @@ Dashboard
         </tbody>
         </table>
         </div>
-       
       </div>
     </div>
       <div class="box">
@@ -120,9 +119,7 @@ Dashboard
         </div>
         <div class="box-body">
           <div class="row">
-
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#historyTransaksi">Tampilkan History Transaksi</button>
-
             <div class="modal fade" id="historyTransaksi">
               <div class="modal-dialog">
                 <div class="modal-content">
