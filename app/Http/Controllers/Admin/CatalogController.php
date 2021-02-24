@@ -168,6 +168,7 @@ class CatalogController extends Controller
   public function delete($id)
   {
     $catalog = Catalog::findOrFail($id);
+    $catalog->stocks()->delete();
     $catalog->delete();
     Flash::success('Data katalog berhasil di hapus.');
     return redirect()->route('admin.catalog');
