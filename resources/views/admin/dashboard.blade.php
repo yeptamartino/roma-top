@@ -86,7 +86,13 @@ Dashboard
                 <td>{{ $catalog->category->name }}</td>
                 <td>{!! $catalog->description !!}</td>
                 <td>@rupiah($catalog->capital_price)</td>
-                <td>@rupiah($catalog->selling_price)</td>
+                <td>
+                  <ul>
+                    @foreach($catalog->prices as $price)
+                      <li>[{{ $price->name }}] - @rupiah($price->price) </li>
+                    @endforeach
+                  </ul>
+                </td>
               </tr>
             @endforeach
            @else
