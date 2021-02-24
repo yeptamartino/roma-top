@@ -24,7 +24,7 @@ Dashboard
             <p>Total Transaksi Bulan Ini</p>
           </div>
           <div class="icon">
-            <i class="fa  fa-pie-chart"></i>
+            <i class="fa fa-money"></i>
           </div>
           <a href="{{route('admin.report.sales')}}" class="small-box-footer">Detail <i class="fa fa-arrow-circle-right"></i></a>
         </div>
