@@ -15,7 +15,7 @@ class Customer extends Model
     protected $guarded = [];
 
     public static $validation = [
-	    	'name'        => 'required|string|min:5',
+	    'name'        => 'required|string|min:5',
         'address'     => 'required|string|min:5',
         'email'       => 'required|string|min:1',
         'phone'       => 'required|string|min:10',
@@ -23,7 +23,7 @@ class Customer extends Model
     ];
     
     public static $validationUpdate = [
-		    'name'        => 'string|min:5',
+		'name'        => 'string|min:5',
         'address'     => 'string|min:5',
         'email'       => 'string|min:1',
         'phone'       => 'string|min:10',

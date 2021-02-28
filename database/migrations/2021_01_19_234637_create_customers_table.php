@@ -17,8 +17,8 @@ class CreateCustomersTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('address');
-            $table->string('phone')->nullable()->unique();
-            $table->string('email')->nullable()->unique();;
+            $table->string('phone')->nullable();
+            $table->string('email')->nullable();
             $table->date('first_visit')->nullable();
             $table->date('last_visit')->nullable();
             $table->integer('total_visit')->nullable();

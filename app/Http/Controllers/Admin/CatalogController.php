@@ -17,21 +17,14 @@ class CatalogController extends Controller
 
   public function index(Request $request)
   {
-    $search = $request->get('search');
     $category = $request->get('category');
-    $action = $request->get('action');
-    
     $catalogs = Catalog::orderBy('updated_at','desc');
     if($category){
       $catalogs->where('category_id', $category);
     }
-    if($search) {
-      $catalogs->where(function ($query) use ($search) {
-        $query->orWhere('name','LIKE',"%$search%");
-      }); 
-    }
+    
     $category = Category::all();
-    $catalogs = $catalogs->paginate(Constants::$DEFAULT_PAGINATION_COUNT);
+    $catalogs = $catalogs->get();
 
     return view('admin.catalog.index', compact('catalogs','category'));
   }
