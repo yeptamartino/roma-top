@@ -12,7 +12,7 @@ class CategoryController extends Controller
 
   public function index(Request $request)
   {
-    $categories = Category::orderBy('updated', 'desc')->limit(2000)->get();
+    $categories = Category::orderBy('updated_ad', 'desc')->limit(2000)->get();
     return view('admin.category.index', compact('categories'));
   }
 
