@@ -13,15 +13,7 @@ class WarehouseController extends Controller
 
   public function index(Request $request)
   {
-    $search = $request->get('search');
-    $warehouses = Warehouse::orderBy('created_at', 'desc');
-    if($search) {
-      $warehouses =  $warehouses->where(function ($query) use ($search){
-        $query->orWhere('name','LIKE',"%$search%");
-        $query->orWhere('address','LIKE',"%$search%");
-      });
-    }
-    $warehouses = $warehouses->paginate(Constants::$DEFAULT_PAGINATION_COUNT);
+    $warehouses = Warehouse::orderBy('updated_at', 'desc')->limit(1000)->get();
     return view('admin.warehouse.index', compact('warehouses'));
   }
 

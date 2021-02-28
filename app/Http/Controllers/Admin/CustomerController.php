@@ -13,17 +13,7 @@ class CustomerController extends Controller
 
   public function index(Request $request)
   {
-    $search = $request->get('search');
-    $customers = Customer::orderBy('created_at', 'desc');
-    if($search) {
-      $customers =  $customers->where(function ($query) use ($search){
-        $query->orWhere('name','LIKE',"%$search%");
-        $query->orWhere('phone','LIKE',"%$search%");
-        $query->orWhere('email','LIKE',"%$search%");
-      });
-    }
-
-    $customers = $customers->paginate(Constants::$DEFAULT_PAGINATION_COUNT);
+    $customers = Customer::orderBy('updated_at', 'desc')->limit(1000)->get();
     return view('admin.customer.index', compact('customers'));
   }
 

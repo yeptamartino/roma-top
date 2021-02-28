@@ -13,16 +13,7 @@ class PaymentMethodController extends Controller
 
   public function index(Request $request)
   {
-    $valsearch = preg_replace('/[^A-Za-z0-9 ]/', '', $request->input('search'));
-
-    if ($valsearch == "" || $valsearch == "0") {
-      $q_search = "";
-    } else {
-      $q_search = " AND name like '%" . $valsearch . "%'";
-    }
-    $payments = PaymentMethod::whereRaw('1 ' . $q_search)
-      ->orderBy('name', 'asc')
-      ->paginate(10);
+    $payments = PaymentMethod::orderBy('updated_at', 'desc')->limit(1000)->get();
     return view('admin.payment.index', compact('payments'));
   }
 
@@ -36,7 +27,7 @@ class PaymentMethodController extends Controller
     $request->validate(PaymentMethod::$validation);
     $payment = new PaymentMethod([
       'name' => $request->input('name'),
-      'is_active' => 0,
+      'is_active' => $request->input('is_active'),
     ]);
 
     $payment->save();

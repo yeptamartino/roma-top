@@ -14,18 +14,10 @@ class StockController extends Controller
 
   public function index(Request $request)
   {
-    $search = $request->get('search');
     $stocks = Stock::with('catalog', 'warehouse')->select('warehouses.*', 'catalogs.*', 'stocks.*')
       ->join('warehouses', 'warehouses.id', '=', 'stocks.warehouse_id')
       ->join('catalogs', 'catalogs.id', '=', 'stocks.catalog_id')
-      ->orderBy('stocks.created_at','desc');
-      if($search) {
-        $stocks =  $stocks->where(function ($query) use ($search){
-          $query->orWhere('name','LIKE',"%$search%");
-          $query->orWhere('warehouses.name','LIKE',"%$search%");
-        });
-      }
-    $stocks = $stocks->paginate(Constants::$DEFAULT_PAGINATION_COUNT);
+      ->orderBy('stocks.created_at','desc')->limit(1000)->get();
     return view('admin.stock.index', compact('stocks'));
   }
 

@@ -7,9 +7,8 @@ DAFTAR STOK
 
 @section('content')
 @include('flash::message')
-<x-filters searchPlaceholder="Pencarian..." :disableExports="true" :disableDates="true" :action="route('admin.stock')"/>
 <div class="table-responsive">
-  <table class="table">
+  <table class="table" id="stock">
     <thead>
       <tr>
         <th>No.</th>
@@ -69,6 +68,17 @@ DAFTAR STOK
   @endif
 </tbody>
 </table>
-{{ $stocks->links() }}
 </div>
 @endsection
+@push('styles')
+  <link rel="stylesheet" href="//cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
+@endpush
+
+@push('scripts')
+  <script src="//cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('#stock').DataTable();
+    });
+  </script>
+@endpush

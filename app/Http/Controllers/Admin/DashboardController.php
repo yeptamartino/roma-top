@@ -15,34 +15,18 @@ use Flash;
 class DashboardController extends Controller
 {
     public function dashboard(Request $request){
-      $search = $request->get('search');
       $category = $request->get('category');
-      $action = $request->get('action');
       
       $catalogs = Catalog::orderBy('updated_at','desc');
       if($category){
         $catalogs->where('category_id', $category);
       }
-      if($search) {
-        $catalogs->where(function ($query) use ($search) {
-          $query->orWhere('name','LIKE',"%$search%");
-        }); 
-      }
       $category = Category::all();
       $catalogs = $catalogs->get();
       
       $transactions = Transaction::select('transactions.*', 'customers.name')
-      ->join('customers', 'customers.id', '=', 'transactions.customer_id')->orderBy('created_at', 'desc');
-     
-      if($search) {
-        $transactions =  $transactions->where(function ($query) use ($search){
-          $query->orWhere('customers.name','LIKE',"%$search%");
-        });
-      }
-
-      $transactions = $transactions->limit(2000)->get(); 
-
-
+      ->join('customers', 'customers.id', '=', 'transactions.customer_id')->orderBy('created_at', 'desc')->limit(2000)->get();
+ 
       $start_of_this_month = Carbon::now()->startOfMonth();
       $end_of_this_month = Carbon::now()->endOfMonth();
 
