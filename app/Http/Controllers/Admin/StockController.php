@@ -77,12 +77,14 @@ class StockController extends Controller
     $request->validate([
       'total' => 'required|integer',
     ]);
+    $selectedWarehouseIds = $request->input('selected_stock_composite_ids');
+
     $total = (int) $request->input('total');
     $stock = Stock::findOrFail($id);
     
     if($stock->catalog->composites) {
       foreach($stock->catalog->composites as $composite) {
-        $totalCompositeStock = $composite->item->get_total_stock_by_warehouse_id($stock->warehouse_id);
+        $totalCompositeStock = $composite->item->get_total_stock_by_warehouse_id($selectedWarehouseIds[$composite->item->id]);
 
         if(($totalCompositeStock - $total) < 1) {
           return redirect()->back()->with('error', 'Stok komposisi ' . $composite->item->name . ' tidak cukup untuk membuat ' . $total . ' item.');
@@ -92,7 +94,7 @@ class StockController extends Controller
 
     if($stock->catalog->composites) {
       foreach($stock->catalog->composites as $composite) {
-        $compositeStock = $composite->item->stocks->where('warehouse_id', $stock->warehouse_id)->first();
+        $compositeStock = $composite->item->stocks->where('warehouse_id', $selectedWarehouseIds[$composite->item->id])->first();
 
         if($compositeStock) {
           $compositeStock->total -= $total;

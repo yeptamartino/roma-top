@@ -30,7 +30,7 @@ DAFTAR STOK
         <td>{{ $stock->catalog->category->name }}</td>        
         <td>{{ $stock->total }}</td>
         <td>
-          @if($stock->catalog->composites)
+          @if(count($stock->catalog->composites) > 0)
             <a
               href="{{ route('admin.stock.mutate', ['id' => $stock->id]) }}"
               class="btn btn-primary"

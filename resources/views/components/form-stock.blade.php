@@ -44,26 +44,38 @@
   @if($composites)
     <div class="row">
       <div class="col-md-12 table-responsive">
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Nama Komposisi</th>
-              <th>Jumlah Stok</th>
-            </tr>
-          </thead>
-          <tbody>      
-            @foreach($composites as $composite)
+        <fieldset id="selected_stock_composite_ids">
+          <table class="table">
+            <thead>
               <tr>
-                <td>
-                  {{ $composite->item->name }}
-                </td>
-                <td>
-                  {{ $composite->get_total_stock_by_warehouse_id($selectedWarehouseId) }}
-                </td>
+                <th>Pilih</th>
+                <th>Nama Komposisi</th>
+                <th>Gudang</th>
+                <th>Jumlah Stok</th>
               </tr>
-            @endforeach
-          </tbody>
-        </table>
+            </thead>
+            <tbody>      
+              @foreach($composites as $composite)
+                @foreach($composite->item->stocks as $stock)
+                  <tr>
+                    <td>
+                      <input type="radio" value="{{ $stock->warehouse->id }}" name="selected_stock_composite_ids[{{ $composite->item->id }}]" @if($loop->iteration === 1) checked @endif>
+                    </td>
+                    <td>
+                      {{ $composite->item->name }}
+                    </td>
+                    <td>
+                      {{ $stock->warehouse->name }}
+                    </td>
+                    <td>
+                      {{ $stock->total }}
+                    </td>
+                  </tr>
+                @endforeach
+              @endforeach
+            </tbody>
+          </table>
+        </fieldset>
       </div>
     </div>
     <x-input
