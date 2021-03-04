@@ -7,9 +7,8 @@ DAFTAR GUDANG
 
 @section('content')
 @include('flash::message')
-<x-filters searchPlaceholder="Pencarian..." :disableExports="true" :disableDates="true" :action="route('admin.warehouse')"/>
 <div class="table-responsive">
-  <table class="table">
+  <table class="table" id="warehouse">
     <thead>
       <tr>
         <th>No.</th>
@@ -64,6 +63,18 @@ DAFTAR GUDANG
   @endif
 </tbody>
 </table>
-{{ $warehouses->links() }}
 </div>
 @endsection
+@push('styles')
+  <link rel="stylesheet" href="//cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
+@endpush
+
+@push('scripts')
+  <script src="//cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('#warehouse').DataTable();
+    });
+  </script>
+@endpush
+

@@ -7,9 +7,8 @@ DAFTAR KATEGORI
 
 @section('content')
 @include('flash::message')
-<x-filters searchPlaceholder="Pencarian..." :disableExports="true" :disableDates="true" :action="route('admin.category')"/>
 <div class="table-responsive">
-  <table class="table">
+  <table class="table" id="category">
     <thead>
       <tr>
         <th>No.</th>
@@ -52,9 +51,18 @@ DAFTAR KATEGORI
 </tbody>
 </table>
 </div>
-<div class="row">
-  <div class="col-md-12">
-    {{ $categories->appends(request()->except('page'))->links('pagination.bootstrap3') }}
-  </div>
-</div>
+
 @endsection
+
+@push('styles')
+  <link rel="stylesheet" href="//cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
+@endpush
+
+@push('scripts')
+  <script src="//cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('#category').DataTable();
+    });
+  </script>
+@endpush

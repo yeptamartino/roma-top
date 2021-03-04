@@ -12,14 +12,7 @@ class DiscountController extends Controller
 
   public function index(Request $request)
   {
-    $search = $request->get('search');
-    $discounts = Discount::orderBy('created_at', 'desc');
-    if($search) {
-      $discounts =  $discounts->where(function ($query) use ($search){
-        $query->orWhere('name','LIKE',"%$search%");
-      });
-    }
-    $discounts = $discounts->paginate(Constants::$DEFAULT_PAGINATION_COUNT);
+    $discounts = Discount::orderBy('updated_at', 'desc')->limit(1000)->get();
     return view('admin.discount.index', compact('discounts'));
   }
 

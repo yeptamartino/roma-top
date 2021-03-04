@@ -14,18 +14,8 @@ class AdminController extends Controller
 
   public function index(Request $request)
   {
-    $search = $request->get('search');
-    $admins = Admin::orderBy('created_at', 'desc');
-    if($search) {
-      $admins =  $admins->where(function ($query) use ($search){
-        $query->orWhere('name','LIKE',"%$search%");
-        $query->orWhere('email','LIKE',"%$search%");
-        $query->orWhere('phone','LIKE',"%$search%");
-      });
-    }
-    $admins = $admins->paginate(Constants::$DEFAULT_PAGINATION_COUNT);
-      
-      return view('admin.admin.index', compact('admins'));
+    $admins = Admin::orderBy('updated_at', 'desc')->limit(1000)->get();
+    return view('admin.admin.index', compact('admins'));
   }
 
   public function create()

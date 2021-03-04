@@ -12,14 +12,7 @@ class CategoryController extends Controller
 
   public function index(Request $request)
   {
-    $search = $request->get('search');
-    $categories = Category::orderBy('created_at', 'desc');
-    if($search) {
-      $categories =  $categories->where(function ($query) use ($search){
-        $query->orWhere('name','LIKE',"%$search%");
-      });
-    }
-    $categories = $categories->paginate(Constants::$DEFAULT_PAGINATION_COUNT);
+    $categories = Category::orderBy('updated_at', 'desc')->limit(2000)->get();
     return view('admin.category.index', compact('categories'));
   }
 
