@@ -46,6 +46,8 @@ Daftar Transaksi Penjualan
           <td>
             @if($transaction->status == 'SUCCESS')
               <small class="label bg-green">BERHASIL</small>
+            @elseif($transaction->status == 'DELIVERED')
+            <small class="label bg-green">BERHASIL</small>
             @else
               <small class="label bg-red">BATAL</small>
             @endif
