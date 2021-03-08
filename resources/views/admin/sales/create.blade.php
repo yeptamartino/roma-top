@@ -169,7 +169,7 @@ Buat Transaksi Penjualan
             </tr>
           </thead>
           <tbody>
-            <tr v-for="catalog in catalogs.filter((item) => selectedCategory === 'ALL' || selectedCategory == item.category_id)" v-show="getStock(catalog).total > 0">
+            <tr v-for="catalog in catalogs.filter((item) => (selectedCategory === 'ALL' || selectedCategory == item.category_id))" v-show="getStock(catalog).total > 0">
               <td>@{{ catalog.name }}</td>
               <td>@{{ formatRupiah(catalog.capital_price) }}</td>
               <td>
@@ -370,6 +370,7 @@ Buat Transaksi Penjualan
         $('#customers').DataTable();
         $('#discounts').DataTable();
         $('#payments').DataTable();        
+        console.log(JSON.stringify(this.catalogs));
       },
       methods: {
         customAddToCart: function(catalog) {
@@ -508,24 +509,9 @@ Buat Transaksi Penjualan
         
         getStock: function(catalog) {
           const { stocks, composite_catalogs } = catalog;
-          const ini = this;
-          if(composite_catalogs.length > 0) {
-            let lowestStock = {total: Number.MAX_VALUE};
-            composite_catalogs.forEach((composite_catalog) => {
-              for(var i = 0; i < composite_catalog.stocks.length; i++) {
-                if(composite_catalog.stocks[i].warehouse_id == ini.selectedWarehouse) {
-                  if(composite_catalog.stocks[i].total < lowestStock.total) {
-                    lowestStock = composite_catalog.stocks[i];
-                  }
-                }
-              }
-            });
-            return lowestStock.total != Number.MAX_VALUE ? lowestStock : {total: 0};
-          } else {
-            for(var i = 0; i < stocks.length; i++) {
-              if(stocks[i].warehouse_id == this.selectedWarehouse) {
-                return stocks[i];
-              }
+          for(var i = 0; i < stocks.length; i++) {
+            if(stocks[i].warehouse_id == this.selectedWarehouse) {
+              return stocks[i];
             }
           }
           return {total: 0};
