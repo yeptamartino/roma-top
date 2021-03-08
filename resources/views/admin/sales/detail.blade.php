@@ -69,12 +69,10 @@ Detail Transaksi #{{ $transaction->id }}
         <tr>
           <td><b>Status</b></td>
           <td>
-            @if($transaction->status == 'SUCCESS')
-              <small class="label bg-green">BERHASIL</small>
-            @elseif($transaction->status == 'DELIVERED')
-              <small class="label bg-green">BERHASIL</small>
+            @if($transaction->status == 'DELIVERED')
+               <small class="label bg-green">BERHASIL</small>
             @else
-              <small class="label bg-red">BATAL</small>
+               <small class="label bg-red">BATAL</small>
             @endif
           </td>
         </tr>

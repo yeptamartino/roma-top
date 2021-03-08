@@ -44,11 +44,9 @@ Daftar Transaksi Penjualan
           <td>@rupiah($transaction->total_paid)</td>
           <td>@rupiah($transaction->change())</td>
           <td>
-            @if($transaction->status == 'SUCCESS')
+            @if($transaction->status == 'DELIVERED')
               <small class="label bg-green">BERHASIL</small>
-            @elseif($transaction->status == 'DELIVERED')
-            <small class="label bg-green">BERHASIL</small>
-            @else
+            @if
               <small class="label bg-red">BATAL</small>
             @endif
           </td>
