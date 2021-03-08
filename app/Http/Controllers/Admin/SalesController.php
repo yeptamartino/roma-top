@@ -124,7 +124,9 @@ class SalesController extends Controller
       $selling_price = $cart->prices[0]->price;
 
       foreach($cart->prices as $price) {
-        if($cart->selectedPriceId == $price->id) {
+        if($cart->is_nego) {
+          $selling_price = $cart->nego_price;
+        } else if($cart->selectedPriceId == $price->id) {
           $selling_price = $price->price;
         }
       }

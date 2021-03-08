@@ -205,14 +205,22 @@ Buat Transaksi Penjualan
                   <a href="#." v-on:click="addToCart(cartItem)" class="btn btn-success">+</a>
                 </td>
                 <td style="width: 9em;">
-                  <div class="form-group">
+                  <div class="form-group" v-show="!cartItem.is_nego">
                       <select v-model="cartItem.selectedPriceId" class="form-control">
                         <option v-for="price in cartItem.prices" :value="price.id" :selected="price.id == cartItem.selectedPriceId ? 'selected' : ''">@{{ formatRupiah(price.price) }}</option>
                       </select>
                   </div>
+                  <div class="form-group" v-show="cartItem.is_nego">
+                    <input type="number" name="nego_price" v-model="cartItem.nego_price" class="form-control">
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="is_nego" v-model="cartItem.is_nego"> Harga Nego?
+                    </label>
+                  </div>
                 </td>
                 <td>
-                  @{{ formatRupiah(cartItem.quantity * getSelectedPrice(cartItem.prices, cartItem.selectedPriceId)) }}
+                  @{{ formatRupiah(cartItem.quantity * getSelectedPrice(cartItem.is_nego, cartItem.nego_price, cartItem.prices, cartItem.selectedPriceId)) }}
                 </td>
               </tr>
               <tr v-if="!carts.length">
@@ -271,7 +279,7 @@ Buat Transaksi Penjualan
           <div class="col-md-12">
             <table class="table table-bordered">
               <tr>
-                <td>@{{ formatRupiah(hitungTotalPenjualan()) }}</td>
+                <td>@{{ formatRupiah(hitungTotalPenjualan()) || 0 }}</td>
               </tr>
             </table>
           </div>
@@ -386,7 +394,7 @@ Buat Transaksi Penjualan
               return cartItem;
             });
             if(!isExists) {
-              this.carts.push({ ...catalog, selectedPriceId: catalog.prices[0].id, quantity: 1, warehouse: {...this.getWarehouse()} });
+              this.carts.push({ ...catalog, selectedPriceId: catalog.prices[0].id, quantity: 1, warehouse: {...this.getWarehouse()}, is_nego: false, nego_price: 0 });
             }
             stock.total -= totalItem;
           } else if(stock.total < totalItem) {
@@ -406,7 +414,7 @@ Buat Transaksi Penjualan
             });
             if(!isExists) {
               console.log({...this.selectedWarehouse});
-              this.carts.push({ ...catalog, selectedPriceId: catalog.prices[0].id, quantity: 1, warehouse: {...this.getWarehouse()} });
+              this.carts.push({ ...catalog, selectedPriceId: catalog.prices[0].id, quantity: 1, warehouse: {...this.getWarehouse()}, is_nego: false, nego_price: 0 });
             }
             stock.total -= 1;
           }
@@ -441,9 +449,12 @@ Buat Transaksi Penjualan
         },
 
         hitungSubTotal: function() {
-          return this.carts.reduce((result, cartItem) => result + (this.getSelectedPrice(cartItem.prices, cartItem.selectedPriceId) * cartItem.quantity), 0);
+          return this.carts.reduce((result, cartItem) => result + (this.getSelectedPrice(cartItem.is_nego, cartItem.nego_price, cartItem.prices, cartItem.selectedPriceId) * cartItem.quantity), 0);
         },
-        getSelectedPrice: function(prices, selectedPriceId) {
+        getSelectedPrice: function(is_nego, nego_price, prices, selectedPriceId) {
+          if(is_nego) {
+            return nego_price || 0;
+          }
           let result = null;
           prices.forEach((price) => {
             if(selectedPriceId == price.id) {
