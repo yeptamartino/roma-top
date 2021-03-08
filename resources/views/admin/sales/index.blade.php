@@ -51,7 +51,7 @@ Daftar Transaksi Penjualan
             @endif
           </td>
           <td>
-            <a href="{{ route('admin.sales.canceled', ['id' => $transaction->id]) }}" class="btn btn-danger" title="Batalkan Transaksi">
+            <a href="{{ route('admin.sales.canceled', ['id' => $transaction->id]) }}" class="btn btn-danger" title="Batalkan Transaksi" onclick="return confirm('Apakah Anda Yakin Ingin Membatalkan Transaksi Ini ?')">
               <i class="fa fa-close"></i>
             </a>
 
