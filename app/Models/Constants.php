@@ -13,6 +13,9 @@ class Constants {
     public static $AMOUNT = 'AMOUNT';
 
     public static $TRANSACTION_STATUS_DELIVERED = 'DELIVERED';
+    public static $TRANSACTION_CANCELED = 'CANCELED';
+    public static $TRANSACTION_SUCCESS = 'SUCCESS';
+
     
     public static $PAYMENT_METHOD_AKTIF = 'AKTIF';
     public static $PAYMENT_METHOD_NON_AKTIF = 'NON AKTIF';

@@ -67,6 +67,16 @@ Detail Transaksi #{{ $transaction->id }}
           <td>{{ $transaction->payment_method }}</td>
         </tr>
         <tr>
+          <td><b>Status</b></td>
+          <td>
+            @if($transaction->status == 'SUCCESS')
+               <small class="label bg-green">BERHASIL</small>
+            @else
+               <small class="label bg-red">BATAL</small>
+            @endif
+          </td>
+        </tr>
+        <tr>
           <td><b>Catatan</b></td>
           @if($transaction->note)
           <td>{{$transaction->note }}</td>

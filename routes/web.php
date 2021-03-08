@@ -92,6 +92,7 @@ Route::group(['middleware' => ['auth']], function (){
     Route::get('sales/create', [App\Http\Controllers\Admin\SalesController::class, 'create'])->name('admin.sales.create');
     Route::post('sales/create', [App\Http\Controllers\Admin\SalesController::class, 'createTransaction'])->name('admin.sales.create.action');
     Route::get('sales/{id}', [App\Http\Controllers\Admin\SalesController::class, 'detail'])->name('admin.sales.detail');
+    Route::get('sales/canceled/{id}', [App\Http\Controllers\Admin\SalesController::class, 'cancelTransaksi'])->name('admin.sales.canceled');
 
     Route::get('report/sales', [App\Http\Controllers\Admin\ReportController::class, 'sales'])->name('admin.report.sales');
 });

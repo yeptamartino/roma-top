@@ -167,4 +167,11 @@ class SalesController extends Controller
 
     return redirect()->back()->with('success', 'Transaksi berhasil dibuat, lihat di daftar transaksi.');
   }
+
+  public function cancelTransaksi($id) {
+    $transaction = Transaction::findOrFail($id);
+    $transaction->status = Constants::$TRANSACTION_CANCELED;
+    $transaction->save();
+    return redirect()->back()->with('error', 'Transaksi Telah Dibatalkan.');
+  }
 }
