@@ -51,13 +51,18 @@ Daftar Transaksi Penjualan
             @endif
           </td>
           <td>
-            <a href="{{ route('admin.sales.canceled', ['id' => $transaction->id]) }}" class="btn btn-danger" title="Batalkan Transaksi" onclick="return confirm('Apakah Anda Yakin Ingin Membatalkan Transaksi Ini ?')">
-              <i class="fa fa-close"></i>
-            </a>
-
-            <a href="{{ route('admin.sales.detail', ['id' => $transaction->id]) }}" class="btn btn-primary" title="Detail Transaksi">
-              <i class="fa fa-eye"></i>
-            </a>
+            @if($transaction->status == 'DELIVERED')
+              <a href="{{ route('admin.sales.detail', ['id' => $transaction->id]) }}" class="btn btn-primary" title="Detail Transaksi">
+                <i class="fa fa-eye"></i>
+              </a>
+              <a href="{{ route('admin.sales.canceled', ['id' => $transaction->id]) }}" class="btn btn-danger" title="Batalkan Transaksi" onclick="return confirm('Apakah Anda Yakin Ingin Membatalkan Transaksi Ini ?')">
+                <i class="fa fa-close"></i>
+              </a>
+            @else
+              <a href="{{ route('admin.sales.detail', ['id' => $transaction->id]) }}" class="btn btn-primary" title="Detail Transaksi">
+                <i class="fa fa-eye"></i>
+              </a>
+            @endif
           </td>
     </tr>
     @endforeach
