@@ -13,7 +13,7 @@ Edit Pengaturan
 <x-form-settings
 :action="route('admin.setting.update')"
 :id="$setting->id"
-:thumbnail="$setting->thumbnail"
+:thumbnail="$setting->logo"
 :pointRatio="$setting->point_ratio"
 />
 @endsection

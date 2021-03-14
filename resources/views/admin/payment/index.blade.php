@@ -23,9 +23,9 @@ DAFTAR PEMBAYARAN
         <td>{{ $payment->name }}</td>
         <td>
           @if($payment->is_active == 1)
-            <a class="btn btn-xs btn-success">Aktif</a>
+            <small class="label bg-green center">AKTIF</small>
           @else
-            <a class="btn btn-xs btn-danger"> Non Aktif</a>
+            <small class="label bg-red">NON AKTIF</small>
           @endif
         </td>
        <td>

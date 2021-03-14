@@ -48,13 +48,13 @@
     <div class="col-md-8">
       <div class="form-group">
         <label for="category_id">Nama Harga</label>
-        <input name="price_names[]" type="text" class="form-control" v-model="price.name">
+        <input name="price_names[]" type="text" class="form-control" v-model="price.name" required>
       </div>
     </div>
     <div class="col-md-3">
       <div class="form-group">
         <label>Harga</label>
-        <input name="price_prices[]" type="text" class="form-control" v-model="price.price">
+        <input name="price_prices[]" type="number" class="form-control"  v-model="price.price" required>
       </div>
     </div>
     <div class="col-md-1">
@@ -151,12 +151,12 @@
     };
     var emptyComposite = {
       composite_id: 0,
-      amount: 0.0,
+      amount: '',
       id: 0,
     };
     var emptyPrice = {
-      name: 'Nama Harga Jual',
-      price: 0,
+      name: '',
+      price: '',
       id: 0,
     }
     var app = new Vue({
