@@ -19,7 +19,7 @@ Route::get('/', function () {
     return redirect('login');
 });
 
-Route::group(['middleware' => ['auth']], function (){
+Route::group([' ' => ['auth']], function (){
     Route::get('home', [App\Http\Controllers\Admin\DashboardController::class,'dashboard'])->name('admin.dashboard');
 
     Route::get('stock', [App\Http\Controllers\Admin\StockController::class,'index'])->name('admin.stock');
