@@ -87,6 +87,12 @@ Route::group([' ' => ['auth']], function (){
         Route::put('payment/aktif/{id}', [App\Http\Controllers\Admin\PaymentMethodController::class,'aktif'])->name('admin.payment.aktif');
         Route::put('payment/non-aktif/{id}', [App\Http\Controllers\Admin\PaymentMethodController::class,'nonAktif'])->name('admin.payment.non.aktif');
 
+        Route::get('sales', [App\Http\Controllers\Admin\SalesController::class, 'index'])->name('admin.sales');
+        Route::get('sales/create', [App\Http\Controllers\Admin\SalesController::class, 'create'])->name('admin.sales.create');
+        Route::post('sales/create', [App\Http\Controllers\Admin\SalesController::class, 'createTransaction'])->name('admin.sales.create.action');
+        Route::get('sales/{id}', [App\Http\Controllers\Admin\SalesController::class, 'detail'])->name('admin.sales.detail');
+        Route::delete('sales.delete/{id}', [App\Http\Controllers\Admin\SalesController::class, 'delete'])->name('admin.sales.delete');
+
         Route::get('discount', [App\Http\Controllers\Admin\DiscountController::class,'index'])->name('admin.discount');
         Route::get('discount/create', [App\Http\Controllers\Admin\DiscountController::class,'create'])->name('admin.discount.create');
         Route::post('discount.create', [App\Http\Controllers\Admin\DiscountController::class,'store'])->name('admin.discount.store');

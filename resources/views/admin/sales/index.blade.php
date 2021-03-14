@@ -44,25 +44,19 @@ Daftar Transaksi Penjualan
           <td>@rupiah($transaction->total_paid)</td>
           <td>@rupiah($transaction->change())</td>
           <td>
-            @if($transaction->status == 'DELIVERED')
-              <small class="label bg-green">BERHASIL</small>
-            @else
-              <small class="label bg-red">BATAL</small>
-            @endif
-          </td>
-          <td>
-            @if($transaction->status == 'DELIVERED')
-              <a href="{{ route('admin.sales.detail', ['id' => $transaction->id]) }}" class="btn btn-primary" title="Detail Transaksi">
-                <i class="fa fa-eye"></i>
-              </a>
-              <a href="{{ route('admin.sales.canceled', ['id' => $transaction->id]) }}" class="btn btn-danger" title="Batalkan Transaksi" onclick="return confirm('Apakah Anda Yakin Ingin Membatalkan Transaksi Ini ?')">
-                <i class="fa fa-close"></i>
-              </a>
-            @else
-              <a href="{{ route('admin.sales.detail', ['id' => $transaction->id]) }}" class="btn btn-primary" title="Detail Transaksi">
-                <i class="fa fa-eye"></i>
-              </a>
-            @endif
+              <a
+              href="{{ route('admin.sales.detail', ['id' => $transaction->id]) }}"
+              class="btn btn-primary"
+              >
+              <i class="fa fa-eye"></i>
+            </a>
+            <form action="{{ route('admin.sales.delete', ['id' => $transaction->id]) }}" method="POST" style="display: inline-block;">
+              @method('delete')
+              @csrf
+              <button type="submit" class="btn btn-danger" value="Delete" onclick="return confirm('Delete Data?')">
+                <i class="fa fa-trash" title="Delete"></i>
+              </button>
+            </form>
           </td>
     </tr>
     @endforeach
