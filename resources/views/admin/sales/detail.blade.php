@@ -123,4 +123,142 @@ Detail Transaksi #{{ $transaction->id }}
     </table>    
   </div>
 </div>
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <button type="button" class="btn btn-primary" onclick="printTransaction()">CETAK TRANSAKSI</button>
+    </div>
+  </div>
+</div>
 @endsection
+
+@push('scripts')
+<script>
+  function printTransaction()
+  {
+      const transaction_id = '{{ $transaction->id }}';
+      const transaction_date = '{{ $transaction->created_at }}';
+      const transaction_payment_method = '{{ $transaction->payment_method }}';
+      const transaction_customer_name = '{{ $transaction->customer ? $transaction->customer->name : "-" }}';
+      const transaction_items = @json($transaction->transaction_items);
+      const total_selling_price = parseInt('{{ $transaction->total_selling_price() }}');
+      const total_discount = parseInt('{{ $transaction->total_discount() }}');
+      const total_price = parseInt('{{ $transaction->total_price() }}');
+      const total_paid = parseInt('{{ $transaction->total_paid }}');
+      const total_change = parseInt('{{ $transaction->change() }}');
+      const total_ongkir = parseInt('{{ $transaction->total_ongkir }}');
+
+      var mywindow = window.open('', 'PRINT', 'height=1280,width=720');
+
+      const printBody = `
+        <html>
+          <head>
+            <title>TRANSAKSI_NO_1</title>
+            <style>
+              body {
+                color: black;
+                font-size: 9pt;
+                background-color: white;
+              }              
+              #print-wrapper {
+                width: 58mm;
+                display: flex;
+                flex-direction: column;                
+              }
+              .w-100 {
+                width: 100%;
+              }
+            </style>
+          </head>
+          <body>
+            <div id="print-wrapper">
+              <div align="center" class="w-100">
+                <h2>ROMA TOP<h2>
+              </div>  
+              <table>
+                <tbody>
+                  <tr>
+                    <td>Customer: </td>
+                    <td>${transaction_customer_name}</td>
+                  </tr>                  
+                  <tr>
+                    <td>No. Transaksi: </td>
+                    <td>${transaction_id}</td>
+                  </tr>                  
+                  <tr>
+                    <td>Tgl. Transaksi: </td>
+                    <td>${transaction_date}</td>
+                  </tr>                  
+                </tbody>
+              </table>
+              <p>======================================</p>
+              <table>
+                <thead>
+                  <tr>
+                    <th align="left">Item</th>
+                    <th align="left">Qty.</th>
+                    <th align="left">Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${transaction_items.map((item) => {
+                    return `
+                      <tr>
+                        <td>${item.name}</td>
+                        <td>${item.quantity}x</td>
+                        <td>${window.formatRupiah(item.quantity * item.selling_price)}</td>
+                      </tr>
+                    `;
+                  })}
+                </tbody>
+              </table>
+              <p>======================================</p>
+              <table>
+                <tbody>
+                  <tr>
+                    <td>Subtotal</td>
+                    <td>${window.formatRupiah(total_selling_price)}</td>
+                  </tr>                  
+                  <tr>
+                    <td>Total Transaksi</td>
+                    <td>${window.formatRupiah(total_price)}</td>
+                  </tr>
+                  <tr>
+                    <td>Total Ongkir</td>
+                    <td>${window.formatRupiah(total_ongkir)}</td>
+                  </tr>
+                  <tr>
+                    <td>Total Diskon</td>
+                    <td>-${window.formatRupiah(total_discount)}</td>
+                  </tr>
+                  <tr>
+                    <td>Total Bayar</td>
+                    <td>${window.formatRupiah(total_paid)}</td>
+                  </tr>
+                  <tr>
+                    <td>Total Kembalian</td>
+                    <td>${window.formatRupiah(total_change)}</td>
+                  </tr>
+                  <tr>
+                    <td>Metode Pembayaran</td>
+                    <td>${transaction_payment_method}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </body>
+        </html>
+      `;
+
+      mywindow.document.write(printBody);
+
+      mywindow.document.close(); // necessary for IE >= 10
+      mywindow.focus(); // necessary for IE >= 10*/
+
+      mywindow.print();
+      mywindow.close();
+
+      return true;
+  }
+</script>
+@endpush
