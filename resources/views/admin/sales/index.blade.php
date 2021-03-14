@@ -49,6 +49,13 @@ Daftar Transaksi Penjualan
               >
               <i class="fa fa-eye"></i>
             </a>
+            <form action="{{ route('admin.sales.delete', ['id' => $transaction->id]) }}" method="POST" style="display: inline-block;">
+              @method('delete')
+              @csrf
+              <button type="submit" class="btn btn-danger" value="Delete" onclick="return confirm('Delete Data?')">
+                <i class="fa fa-trash" title="Delete"></i>
+              </button>
+            </form>
           </td>
     </tr>
     @endforeach

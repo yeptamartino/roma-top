@@ -14,4 +14,8 @@ class TransactionItem extends Model
     protected $table   = "transaction_items";
     protected $guarded = [];
 
+    public function stock() {
+        return $this->belongsTo(Stock::class);
+    }
+
 }

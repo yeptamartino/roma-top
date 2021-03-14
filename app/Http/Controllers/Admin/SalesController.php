@@ -137,6 +137,7 @@ class SalesController extends Controller
         'capital_price' => $cart->capital_price,
         'selling_price' => $selling_price,
         'warehouse' => $cart->warehouse->name,
+        'stock_id' => $stock->id,
       ]));
     }
 
@@ -166,5 +167,21 @@ class SalesController extends Controller
     }
 
     return redirect()->back()->with('success', 'Transaksi berhasil dibuat, lihat di daftar transaksi.');
+  }
+
+  public function delete($id) {
+    $transaction = Transaction::findOrFail($id);
+    
+    foreach($transaction->transaction_items as $transaction_item) {
+      $stock = $transaction_item->stock;
+      $stock->total += $transaction_item->quantity;
+      $stock->save();
+    }
+
+    $transaction->transaction_items()->delete();
+
+    $transaction->delete();
+
+    return redirect()->back()->with('success', 'Transaksi berhasil dihapus.');
   }
 }
