@@ -93,6 +93,13 @@ Route::group(['middleware' => ['auth']], function (){
         Route::get('sales/{id}', [App\Http\Controllers\Admin\SalesController::class, 'detail'])->name('admin.sales.detail');
         Route::delete('sales.delete/{id}', [App\Http\Controllers\Admin\SalesController::class, 'delete'])->name('admin.sales.delete');
 
+        Route::get('discount', [App\Http\Controllers\Admin\DiscountController::class,'index'])->name('admin.discount');
+        Route::get('discount/create', [App\Http\Controllers\Admin\DiscountController::class,'create'])->name('admin.discount.create');
+        Route::post('discount.create', [App\Http\Controllers\Admin\DiscountController::class,'store'])->name('admin.discount.store');
+        Route::get('discount.edit/{id}', [App\Http\Controllers\Admin\DiscountController::class,'edit'])->name('admin.discount.edit');
+        Route::put('discount.update/{id}', [App\Http\Controllers\Admin\DiscountController::class,'update'])->name('admin.discount.update');
+        Route::delete('discount.delete/{id}', [App\Http\Controllers\Admin\DiscountController::class,'delete'])->name('admin.discount.delete');
+
         Route::get('setting', [App\Http\Controllers\Admin\SettingController::class,'edit'])->name('admin.setting.edit');
         Route::put('setting.update', [App\Http\Controllers\Admin\SettingController::class,'update'])->name('admin.setting.update');
 
