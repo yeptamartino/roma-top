@@ -55,6 +55,7 @@ class AdminController extends Controller
       $admin->email = $request->input('email');
       $admin->phone = $request->input('phone');
       $admin->address = $request->input('address');
+      $admin->password =  bcrypt($request->input('password'));
     
     if($request->file('thumbnail')) {
       $admin->thumbnail    = $imageUploader->saveImage($request, 'thumbnail');
