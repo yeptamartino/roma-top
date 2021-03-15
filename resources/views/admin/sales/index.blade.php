@@ -52,7 +52,7 @@ Daftar Transaksi Penjualan
             <form action="{{ route('admin.sales.delete', ['id' => $transaction->id]) }}" method="POST" style="display: inline-block;">
               @method('delete')
               @csrf
-              <button type="submit" class="btn btn-danger" value="Delete" onclick="return confirm('Delete Data?')">
+              <button type="submit" class="btn btn-danger" value="Delete" onclick="return confirm('Anda Yakin Ingin Menghapus Data Transaksi Ini?')">
                 <i class="fa fa-trash" title="Delete"></i>
               </button>
             </form>
