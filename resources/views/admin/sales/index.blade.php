@@ -22,7 +22,6 @@ Daftar Transaksi Penjualan
           <th>Total Transaksi</th>
           <th>Total Bayar</th>
           <th>Kembalian</th>
-          <th>Status</th>
           <th>Aksi</th>
         </tr>
       </thead>
