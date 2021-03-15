@@ -40,7 +40,7 @@ Route::group([' ' => ['auth']], function (){
     Route::get('sales/canceled/{id}', [App\Http\Controllers\Admin\SalesController::class, 'cancelTransaksi'])->name('admin.sales.canceled');
     Route::get('report/sales', [App\Http\Controllers\Admin\ReportController::class, 'sales'])->name('admin.report.sales');
     
-    // Route::group(['middleware' => ['superadmin.auth']], function() {
+    Route::group(['middleware' => ['superadmin.auth']], function() {
             
         Route::get('category', [App\Http\Controllers\Admin\CategoryController::class,'index'])->name('admin.category');
         Route::get('category/create', [App\Http\Controllers\Admin\CategoryController::class,'create'])->name('admin.category.create');
@@ -103,6 +103,6 @@ Route::group([' ' => ['auth']], function (){
         Route::get('setting', [App\Http\Controllers\Admin\SettingController::class,'edit'])->name('admin.setting.edit');
         Route::put('setting.update', [App\Http\Controllers\Admin\SettingController::class,'update'])->name('admin.setting.update');
 
-    // });     
+    });     
     
 });
