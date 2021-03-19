@@ -49,7 +49,7 @@ class Catalog extends Model
 
 	public static $validation = [
 		'name'            => 'required|string|min:2',
-		'capital_price'   => 'required|integer|min:1',
+		'capital_price'   => 'required|integer',
 		'thumbnail'       => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
   ];
 }
