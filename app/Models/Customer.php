@@ -17,7 +17,7 @@ class Customer extends Model
     public static $validation = [
 	    'name'        => 'required|string|min:5',
         'address'     => 'required|string|min:5',
-        'email'       => 'required|string|min:1',
+        'email'       => 'required|string|min:5',
         'phone'       => 'required|string|min:10',
         'thumbnail'   => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
     ];

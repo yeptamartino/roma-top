@@ -6,6 +6,7 @@ Laporan Penjualan
 <x-filters
   :disableExports="true"
   :disableSearch="true"
+  :disablePencarian="false"
   :dateStartDefaultValue="$default_tgl_awal->format('Y-m-d')"
   :dateEndDefaultValue="$default_tgl_akhir->format('Y-m-d')"
 />

@@ -6,7 +6,7 @@ Daftar Transaksi Penjualan
 @endsection
 
 @section('content')
-<x-filters searchPlaceholder="No. Transaksi" />
+<x-filters :disablePencarian="true" searchPlaceholder="No. Transaksi" />
 <x-alert />
 <div class="row">
   <div class="col-md-12 table-responsive">
