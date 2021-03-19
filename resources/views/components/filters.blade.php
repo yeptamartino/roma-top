@@ -30,7 +30,7 @@
   <div class="col-md-3">
       <div class="form-group">
           <label>Pencarian</label>
-      <input type="text" class="form-control" name="search" value="{{  request()->get('search') ?? '' }}" placeholder="{{ $searchPlaceholder }}">
+      <input type="text" class="form-control" name="keyword" value="{{  request()->get('keyword') ?? '' }}" placeholder="{{ $searchPlaceholder }}">
       </div>
   </div>
   @endif
