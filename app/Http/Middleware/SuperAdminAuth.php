@@ -23,7 +23,7 @@ class SuperAdminAuth
         }
         $user = Auth::user();
         if($user->role !== Constants::$USER_ROLE_SUPER_ADMIN) {
-            return redirect()->route('dashboard');
+            return redirect()->route('admin.dashboard');
         }
         return $next($request);
     }

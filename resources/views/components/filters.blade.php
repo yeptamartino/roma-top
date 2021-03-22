@@ -2,6 +2,7 @@
   'disableExports' => false,
   'disableSearch' => false,
   'disableDates' => false,
+  'disablePencarian' => false,
   'searchPlaceholder' => '',
   'dateStartDefaultValue' => '',
   'dateEndDefaultValue' => '',
@@ -29,7 +30,7 @@
   <div class="col-md-3">
       <div class="form-group">
           <label>Pencarian</label>
-      <input type="text" class="form-control" name="search" value="{{  request()->get('search') ?? '' }}" placeholder="{{ $searchPlaceholder }}">
+      <input type="text" class="form-control" name="keyword" value="{{  request()->get('keyword') ?? '' }}" placeholder="{{ $searchPlaceholder }}">
       </div>
   </div>
   @endif
@@ -39,7 +40,14 @@
             <input type="submit" name="action" value="Cari" class="btn btn-info" title="Pencarian">
             <input type="submit" name="action" value="Excel" class="btn btn-success" title="Excel">
             <input type="submit" name="action" value="Pdf" class="btn btn-warning" title="Pdf">
-            <a href="." class="btn btn-danger "> <i class="fa fa-refresh" title="Refresh"></i></a>
+            <a href="{{ URL::current() }}" class="btn btn-danger "> <i class="fa fa-refresh" title="Refresh"></i></a>
+        </div>
+    </div>
+  @endif
+  @if(!$disablePencarian)
+    <div class="col-md-3" style="margin-top: 25px;">
+        <div class="form-group">
+            <input type="submit" name="action" value="Cari" class="btn btn-info" title="Pencarian">
         </div>
     </div>
   @endif

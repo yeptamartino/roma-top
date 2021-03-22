@@ -14,6 +14,11 @@ use Flash;
 
 class DashboardController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->user =  \Auth::user();
+    }
     public function dashboard(Request $request){
       $category = $request->get('category');
       

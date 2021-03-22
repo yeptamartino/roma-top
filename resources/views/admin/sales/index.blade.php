@@ -6,7 +6,7 @@ Daftar Transaksi Penjualan
 @endsection
 
 @section('content')
-<x-filters searchPlaceholder="No. Transaksi" />
+<x-filters :disablePencarian="true" searchPlaceholder="No. Transaksi" />
 <x-alert />
 <div class="row">
   <div class="col-md-12 table-responsive">
@@ -22,7 +22,6 @@ Daftar Transaksi Penjualan
           <th>Total Transaksi</th>
           <th>Total Bayar</th>
           <th>Kembalian</th>
-          <th>Status</th>
           <th>Aksi</th>
         </tr>
       </thead>
@@ -53,7 +52,7 @@ Daftar Transaksi Penjualan
             <form action="{{ route('admin.sales.delete', ['id' => $transaction->id]) }}" method="POST" style="display: inline-block;">
               @method('delete')
               @csrf
-              <button type="submit" class="btn btn-danger" value="Delete" onclick="return confirm('Delete Data?')">
+              <button type="submit" class="btn btn-danger" value="Delete" onclick="return confirm('Anda Yakin Ingin Menghapus Data Transaksi Ini?')">
                 <i class="fa fa-trash" title="Delete"></i>
               </button>
             </form>

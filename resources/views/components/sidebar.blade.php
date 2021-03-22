@@ -26,7 +26,9 @@
         </span>
       </a>
       <ul class="treeview-menu">
-        <li><a href="{{route('admin.sales.create')}}"><i class="fa fa-circle-o"></i>Buat Transaksi</a></li>
+        @if(Auth::user()->role === 'SUPER ADMIN')
+         <li><a href="{{route('admin.sales.create')}}"><i class="fa fa-circle-o"></i>Buat Transaksi</a></li>
+        @endif
         <li><a href="{{route('admin.sales')}}"><i class="fa fa-circle-o"></i>Daftar Transaksi</a></li>
       </ul>
     </li>
@@ -85,7 +87,9 @@
         </a>
         <ul class="treeview-menu">
           <li><a href="{{route('admin.stock')}}"><i class="fa fa-circle-o"></i>Daftar Stok</a></li>
-          <li><a href="{{route('admin.stock.create')}}"><i class="fa fa-circle-o"></i>Tambah Stok</a></li>
+          @if(Auth::user()->role === 'SUPER ADMIN')
+            <li><a href="{{route('admin.stock.create')}}"><i class="fa fa-circle-o"></i>Tambah Stok</a></li>
+          @endif
         </ul>
       </li>
       @if(Auth::user()->role === 'SUPER ADMIN')
