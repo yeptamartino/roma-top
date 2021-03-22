@@ -143,12 +143,15 @@ Detail Transaksi #{{ $transaction->id }}
       const printBody = `
         <html>
           <head>
-            <title>TRANSAKSI_NO_1</title>
+            <title>TRANSAKSI_NO_${'{{ $transaction->id }}'}</title>
+            <link rel="preconnect" href="https://fonts.gstatic.com">
+            <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
             <style>
               body {
                 color: black;
-                font-size: 9pt;
+                font-size: 8pt;
                 background-color: white;
+                font-family: 'Poppins', sans-serif;
               }              
               #print-wrapper {
                 width: 58mm;
@@ -168,15 +171,18 @@ Detail Transaksi #{{ $transaction->id }}
               <table>
                 <tbody>
                   <tr>
-                    <td>Customer: </td>
+                    <td>Customer</td>
+                    <td>:</td>
                     <td>${transaction_customer_name}</td>
                   </tr>                  
                   <tr>
-                    <td>No. Transaksi: </td>
+                    <td>No.</td>
+                    <td>:</td>
                     <td>${transaction_id}</td>
                   </tr>                  
                   <tr>
-                    <td>Tgl. Transaksi: </td>
+                    <td>Tgl.</td>
+                    <td>:</td>
                     <td>${transaction_date}</td>
                   </tr>                  
                 </tbody>
