@@ -118,27 +118,30 @@ class CatalogController extends Controller
       $catalog->thumbnail    = $imageUploader->saveImage($request, 'thumbnail');
     }
     Flash::success('Data katalog berhasil di ubah.');
-    $catalog->save();
+    $catalog->save();    
 
     $catalog->composites()->delete();
-    $catalog->prices()->delete();
 
     if(isset($data['compositeEnabled'])) {
-      $composites = [];
+      if(isset($data['composite_ids'])) {
+        $composites = [];
 
-      for ($i=0; $i < count($data['composite_ids']); $i++) { 
-        $amount = (float)$data['composite_amounts'][$i];
-        if($amount > 0) {
-          array_push($composites, [
-            'composite_id' => $data['composite_ids'][$i],
-            'amount' => $amount,
-            'catalog_id' => $catalog->id,
-          ]);
+        for ($i=0; $i < count($data['composite_ids']); $i++) { 
+          $amount = (float)$data['composite_amounts'][$i];
+          if($amount > 0) {
+            array_push($composites, [
+              'composite_id' => $data['composite_ids'][$i],
+              'amount' => $amount,
+              'catalog_id' => $catalog->id,
+            ]);
+          }
         }
-      }
 
-      Composite::insert($composites);
+        Composite::insert($composites);
+      }
     }
+
+    $catalog->prices()->delete();    
 
     $prices = [];
 
