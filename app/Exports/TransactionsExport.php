@@ -10,6 +10,7 @@ use Maatwebsite\Excel\Concerns\WithProperties;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Dompdf\Dompdf as Dompdf;
 
 class TransactionsExport implements FromCollection, WithMapping, WithHeadings, WithProperties, WithStyles, ShouldAutoSize
 {
