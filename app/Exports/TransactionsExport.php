@@ -38,7 +38,8 @@ class TransactionsExport implements FromCollection, WithMapping, WithHeadings, W
         return [
             $transaction->id,
             $transaction->created_at,
-            $transaction->customer->name,
+            $transaction->customer->name?
+            $transaction->customer->name :'-',
             $transaction->total_capital_price(),
             $transaction->total_selling_price(),
             $transaction->total_discount(),
