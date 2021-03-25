@@ -11,6 +11,7 @@ use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Dompdf\Dompdf as Dompdf;
+use PDF;
 
 class TransactionsExport implements FromCollection, WithMapping, WithHeadings, WithProperties, WithStyles, ShouldAutoSize
 {
