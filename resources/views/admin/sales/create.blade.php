@@ -141,7 +141,7 @@ Buat Transaksi Penjualan
           <div class="col-md-12">
             <div class="form-group">
               <label>Kategori</label>
-              <select class="form-control" v-model="selectedCategory">
+              <select id="select-category" class="form-control">
                 <option value="ALL">Semua</option>
                 <option v-for="category in categories" :value="[[ category.id ]]">@{{ category.name }}</option>
               </select>
@@ -153,6 +153,7 @@ Buat Transaksi Penjualan
             <div class="form-group">
               <label>Gudang</label>
               <select class="form-control" v-model="selectedWarehouse">
+                <option value="ALL">Semua</option>
                 <option v-for="warehouse in warehouses" :value="warehouse.id">@{{ warehouse.name }}</option>
               </select>
             </div>
@@ -166,10 +167,11 @@ Buat Transaksi Penjualan
               <th>Hrg. Jual</th>
               <th>Stok</th>
               <th>Aksi</th>
+              <th style="display: none;"></th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="catalog in catalogs.filter((item) => (selectedCategory === 'ALL' || selectedCategory == item.category_id))" v-show="getStock(catalog).total > 0">
+            <tr v-for="catalog in catalogs" v-show="getStock(catalog).total > 0">
               <td>@{{ catalog.name }}</td>
               <td>@{{ formatRupiah(catalog.capital_price) }}</td>
               <td>
@@ -180,6 +182,9 @@ Buat Transaksi Penjualan
               <td>@{{ getStock(catalog).total }}</td>
               <td>
                 <a href="#." v-on:click="addToCart(catalog)" class="btn btn-success" :disabled="!getStock(catalog).total > 0">Tambahkan</a>
+              </td>
+              <td style="display:none;">
+                @{{ catalog.category_id }}
               </td>
             </tr>
           </tbody>
@@ -366,11 +371,35 @@ Buat Transaksi Penjualan
         payment_methods: @json($payment_methods),        
       },
       mounted: function () {
-        $('#products').DataTable();
         $('#customers').DataTable();
         $('#discounts').DataTable();
-        $('#payments').DataTable();        
-        console.log(JSON.stringify(this.catalogs));
+        $('#payments').DataTable();
+
+        const productsTable = $('#products').DataTable();
+
+        $.fn.dataTable.ext.search.push(
+            function( settings, data, dataIndex ) {              
+              var selectCategoryOption = $("#select-category");
+              var optionSelected = $("option:selected", selectCategoryOption);
+              var valueSelected = optionSelected.val();              
+
+              console.log(valueSelected)
+
+              if(valueSelected === 'ALL') return true;
+
+              if(isNaN(valueSelected)) return false;
+
+              var categoryID = parseInt(data[5]);
+
+              if(categoryID == valueSelected) return true;
+
+              return false;
+            }
+        );
+
+        $('#select-category').on('change', function (e) {
+            productsTable.draw();
+        });
       },
       methods: {
         customAddToCart: function(catalog) {
