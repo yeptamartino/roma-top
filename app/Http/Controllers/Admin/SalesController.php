@@ -17,6 +17,7 @@ use App\Models\Constants;
 use App\Exports\TransactionsExport;
 use App\Helpers\ExcelHelper;
 use Maatwebsite\Excel\Facades\Excel;
+use Dompdf\Dompdf as Dompdf;
 use Carbon\Carbon;
 use Flash;
 

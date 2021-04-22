@@ -10,7 +10,7 @@ use Maatwebsite\Excel\Concerns\WithProperties;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
-
+use Dompdf\Dompdf as Dompdf;
 class TransactionsExport implements FromCollection, WithMapping, WithHeadings, WithProperties, WithStyles, ShouldAutoSize
 {
     public function __construct($transactions) {
@@ -38,7 +38,8 @@ class TransactionsExport implements FromCollection, WithMapping, WithHeadings, W
         return [
             $transaction->id,
             $transaction->created_at,
-            $transaction->customer->name,
+            $transaction->customer?
+            $transaction->customer->name :'-',
             $transaction->total_capital_price(),
             $transaction->total_selling_price(),
             $transaction->total_discount(),
