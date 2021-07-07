@@ -153,7 +153,6 @@ Buat Transaksi Penjualan
             <div class="form-group">
               <label>Gudang</label>
               <select class="form-control" v-model="selectedWarehouse">
-                <option value="ALL">Semua</option>
                 <option v-for="warehouse in warehouses" :value="warehouse.id">@{{ warehouse.name }}</option>
               </select>
             </div>
@@ -406,8 +405,8 @@ Buat Transaksi Penjualan
           const totalItem = parseInt(prompt('Masukan Jumlah Item :'));
           const stock = this.getStock(catalog);
           if(totalItem <= 0) {
-            this.carts.map((cartItem) => {
-              if(cartItem.id === catalog.id && cartItem.warehouse.id == this.selectedWarehouse) {
+            this.carts.map((cartItem) => {              
+              if(cartItem.id === catalog.id && (!!catalog.warehouse && catalog.warehouse.id === cartItem.warehouse.id) || (!catalog.warehouse && cartItem.warehouse.id == this.selectedWarehouse)) {                
                 stock.total += cartItem.quantity;
                 cartItem.quantity = 0;
               }
@@ -417,7 +416,7 @@ Buat Transaksi Penjualan
           } else if(stock.total >= totalItem) {
             let isExists = false;
             this.carts.map((cartItem) => {
-              if(cartItem.id === catalog.id && cartItem.warehouse.id == this.selectedWarehouse) {
+              if(cartItem.id === catalog.id && (!!catalog.warehouse && catalog.warehouse.id === cartItem.warehouse.id) || (!catalog.warehouse && cartItem.warehouse.id == this.selectedWarehouse)) {
                 cartItem.quantity = totalItem;
                 isExists = true;
               }
@@ -436,7 +435,7 @@ Buat Transaksi Penjualan
           if(stock.total > 0) {
             let isExists = false;
             this.carts.map((cartItem) => {
-              if(cartItem.id === catalog.id && cartItem.warehouse.id == this.selectedWarehouse) {
+              if(cartItem.id === catalog.id && (!!catalog.warehouse && catalog.warehouse.id === cartItem.warehouse.id) || (!catalog.warehouse && cartItem.warehouse.id == this.selectedWarehouse)) {
                 cartItem.quantity += 1;
                 isExists = true;
               }
@@ -454,7 +453,7 @@ Buat Transaksi Penjualan
           const stock = this.getStock(catalog);
           let isRemoved = false;
           this.carts.map((cartItem) => {
-            if(cartItem.id === catalog.id && cartItem.warehouse.id == this.selectedWarehouse) {
+            if(cartItem.id === catalog.id && (!!catalog.warehouse && catalog.warehouse.id === cartItem.warehouse.id) || (!catalog.warehouse && cartItem.warehouse.id == this.selectedWarehouse)) {
               cartItem.quantity -= 1;
               isRemoved = cartItem.quantity <= 0;
             }
@@ -538,8 +537,12 @@ Buat Transaksi Penjualan
         
         getStock: function(catalog) {
           const { stocks, composite_catalogs } = catalog;
+          let selectedWarehouseId = this.selectedWarehouse;
+          if(catalog.warehouse) {
+            selectedWarehouseId = catalog.warehouse.id;
+          }
           for(var i = 0; i < stocks.length; i++) {
-            if(stocks[i].warehouse_id == this.selectedWarehouse) {
+            if(stocks[i].warehouse_id == selectedWarehouseId) {
               return stocks[i];
             }
           }
