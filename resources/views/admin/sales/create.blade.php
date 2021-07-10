@@ -406,7 +406,7 @@ Buat Transaksi Penjualan
           const stock = this.getStock(catalog);
           if(totalItem <= 0) {
             this.carts.map((cartItem) => {              
-              if(cartItem.id === catalog.id && (!!catalog.warehouse && catalog.warehouse.id === cartItem.warehouse.id) || (!catalog.warehouse && cartItem.warehouse.id == this.selectedWarehouse)) {                
+              if(this.compareCartItem(catalog, cartItem)) {                
                 stock.total += cartItem.quantity;
                 cartItem.quantity = 0;
               }
@@ -416,7 +416,7 @@ Buat Transaksi Penjualan
           } else if(stock.total >= totalItem) {
             let isExists = false;
             this.carts.map((cartItem) => {
-              if(cartItem.id === catalog.id && (!!catalog.warehouse && catalog.warehouse.id === cartItem.warehouse.id) || (!catalog.warehouse && cartItem.warehouse.id == this.selectedWarehouse)) {
+              if(this.compareCartItem(catalog, cartItem)) {
                 cartItem.quantity = totalItem;
                 isExists = true;
               }
@@ -435,7 +435,7 @@ Buat Transaksi Penjualan
           if(stock.total > 0) {
             let isExists = false;
             this.carts.map((cartItem) => {
-              if(cartItem.id === catalog.id && (!!catalog.warehouse && catalog.warehouse.id === cartItem.warehouse.id) || (!catalog.warehouse && cartItem.warehouse.id == this.selectedWarehouse)) {
+              if(this.compareCartItem(catalog, cartItem)) {
                 cartItem.quantity += 1;
                 isExists = true;
               }
@@ -453,7 +453,7 @@ Buat Transaksi Penjualan
           const stock = this.getStock(catalog);
           let isRemoved = false;
           this.carts.map((cartItem) => {
-            if(cartItem.id === catalog.id && (!!catalog.warehouse && catalog.warehouse.id === cartItem.warehouse.id) || (!catalog.warehouse && cartItem.warehouse.id == this.selectedWarehouse)) {
+            if(this.compareCartItem(catalog, cartItem)) {
               cartItem.quantity -= 1;
               isRemoved = cartItem.quantity <= 0;
             }
@@ -463,6 +463,10 @@ Buat Transaksi Penjualan
             this.carts = this.carts.filter((cartItem) => cartItem.quantity > 0);
           }
           stock.total += 1;
+        },
+        compareCartItem: function(catalog, cartItem) {
+          const result = cartItem.id === catalog.id  && ((!!catalog.warehouse && catalog.warehouse.id === cartItem.warehouse.id) || (!catalog.warehouse && cartItem.warehouse.id == this.selectedWarehouse));
+          return result;
         },
         selectCustomer: function(customer) {
           this.selectedCustomer = customer;
