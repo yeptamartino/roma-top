@@ -404,31 +404,30 @@ Buat Transaksi Penjualan
         customAddToCart: function(catalog) {
           const totalItem = parseInt(prompt('Masukan Jumlah Item :'));
           const stock = this.getStock(catalog);
-          if(totalItem <= 0) {
-            this.carts.map((cartItem) => {              
-              if(this.compareCartItem(catalog, cartItem)) {                
-                stock.total += cartItem.quantity;
-                cartItem.quantity = 0;
-              }
-              return cartItem;
-            });
-            this.carts = this.carts.filter((cartItem) => cartItem.quantity > 0);
-          } else if(stock.total >= totalItem) {
-            let isExists = false;
-            this.carts.map((cartItem) => {
-              if(this.compareCartItem(catalog, cartItem)) {
-                cartItem.quantity = totalItem;
-                isExists = true;
-              }
-              return cartItem;
-            });
-            if(!isExists) {
-              this.carts.push({ ...catalog, selectedPriceId: catalog.prices[0].id, quantity: 1, warehouse: {...this.getWarehouse()}, is_nego: false, nego_price: 0 });
+          
+          let totalItemInCart = 0;
+          this.carts.map((cartItem) => {
+            if(this.compareCartItem(catalog, cartItem)) {
+              totalItemInCart += cartItem.quantity;
             }
-            stock.total -= totalItem;
-          } else if(stock.total < totalItem) {
+          })
+
+          if(totalItem > (stock.total + totalItemInCart)) {
             alert('Stok tidak cukup!');
-          }          
+            return;
+          }
+
+          let difference = (stock.total + totalItemInCart) - totalItem;
+
+          stock.total = difference;
+
+          this.carts.map((cartItem) => {
+            if(this.compareCartItem(catalog, cartItem)) {
+              cartItem.quantity = totalItem;
+            }
+          });
+
+          this.carts = this.carts.filter((cartItem) => cartItem.quantity > 0);                
         },
         addToCart: function(catalog) {
           const stock = this.getStock(catalog);
