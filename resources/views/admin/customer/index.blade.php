@@ -10,6 +10,7 @@ DAFTAR CUSTOMER
       <tr>
         <th>No.</th>
         <th>Nama</th>
+        <th>Keterangan</th>
         <th>Alamat</th>
         <th>Telepon</th>
         <th>Email</th>
@@ -28,6 +29,7 @@ DAFTAR CUSTOMER
       <tr>
         <td>{{ $loop->iteration }}</td>
         <td>{{ $customer->name }}</td>
+        <td>{{ $customer->description }}</td>
         <td>{{ $customer->address }}</td>
         <td>{{ $customer->phone }}</td>
         <td>{{ $customer->email }}</td>

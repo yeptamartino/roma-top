@@ -27,6 +27,7 @@ class CustomerController extends Controller
     $request->validate(Customer::$validation);
     $customer = new Customer([
       'name' => $request->input('name'),
+      'description' => $request->input('description'),
       'phone' => $request->input('phone'),
       'email' => $request->input('email'),
       'first_visit' => null,
@@ -57,6 +58,7 @@ class CustomerController extends Controller
     $customer = Customer::findOrFail($id);
 
     $customer->name = $request->input('name');
+    $customer->description = $request->input('description');
     $customer->address = $request->input('address');
     $customer->phone = $request->input('phone');
     $customer->email = $request->input('email');

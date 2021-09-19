@@ -9,6 +9,7 @@ EDIT GUDANG
     :action="route('admin.customer.update', ['id' => $customer->id])"
     :id="$customer->id"
     :name="$customer->name"
+    :description="$customer->description"
     :address="$customer->address"
     :phone="$customer->phone"
     :email="$customer->email"

@@ -1,6 +1,7 @@
 @props([ 
   'action' => '',
   'name' => '',
+  'description' => '',
   'address' => '',
   'phone' => '',
   'email' => '',
@@ -29,6 +30,11 @@
     name="name"
     label="Nama"
     :value="$name"
+  />
+  <x-textarea
+    name="description"
+    label="Keterangan"
+    :value="$description"
   />
   <x-textarea
     name="address"
